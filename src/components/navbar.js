@@ -9,7 +9,7 @@ class Navbar extends React.Component {
       >
         {/* begin:: Brand */}
         <div className="kt-header__brand   kt-grid__item" id="kt_header_brand">
-          <a href="demo5/index.html">
+          <a href="/">
             <img
               alt="Logo"
               style={{ width: 150 }}

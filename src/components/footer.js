@@ -1,0 +1,47 @@
+import React from "react";
+
+class Footer extends React.Component {
+  render() {
+    return (
+      <div className="kt-footer kt-grid__item" id="kt_footer">
+        <div className="kt-container ">
+          <div className="kt-footer__copyright">
+            2019&nbsp;©&nbsp;
+            <a
+              href="#"
+              target="_blank"
+              className="kt-link"
+            >
+              SmartKids Inc
+            </a>
+          </div>
+          <div className="kt-footer__menu">
+            <a
+               href="#"
+              target="_blank"
+              className="kt-link"
+            >
+              About
+            </a>
+            <a
+               href="#"
+              target="_blank"
+              className="kt-link"
+            >
+              Team
+            </a>
+            <a
+               href="#"
+              target="_blank"
+              className="kt-link"
+            >
+              Contact
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Footer;

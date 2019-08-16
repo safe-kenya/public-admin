@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -70,7 +69,31 @@
     class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--left kt-aside--fixed kt-aside--offcanvas-default kt-page--loading"
   >
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root" class="kt-grid kt-grid--hor kt-grid--root"></div>
+
+    <!-- begin::Global Config(global config for global JS sciprts) -->
+    <script>
+      var KTAppOptions = {
+        colors: {
+          state: {
+            brand: "#1cac81",
+            metal: "#c4c5d6",
+            light: "#ffffff",
+            accent: "#00c5dc",
+            primary: "#5867dd",
+            success: "#34bfa3",
+            info: "#36a3f7",
+            warning: "#ffb822",
+            danger: "#fd3995",
+            focus: "#9816f4"
+          },
+          base: {
+            label: ["#b9bdc1", "#aeb2b7", "#414b4c", "#343d3e"],
+            shape: ["#eef4f3", "#e0e9e6", "#80c3af", "#41675c"]
+          }
+        }
+      };
+    </script>
 
     <script
       src="./assets/vendors/global/vendors.bundle.js"
