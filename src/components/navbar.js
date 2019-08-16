@@ -63,8 +63,8 @@ class Navbar extends React.Component {
                         href="javascript:;"
                         className="kt-menu__link kt-menu__toggle"
                       >
-                        <i className="kt-menu__link-icon flaticon-rocket" />
-                        <span className="kt-menu__link-text">Widgets</span>
+                        <i className="kt-menu__link-icon flaticon-settings-1" />
+                        <span className="kt-menu__link-text">Manage</span>
                         <i className="kt-menu__hor-arrow la la-angle-right" />
                         <i className="kt-menu__ver-arrow la la-angle-right" />
                       </a>
@@ -78,7 +78,7 @@ class Navbar extends React.Component {
                               <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                 <span />
                               </i>
-                              <span className="kt-menu__link-text">Charts</span>
+                              <span className="kt-menu__link-text">List</span>
                             </a>
                           </li>
                           <li className="kt-menu__item " aria-haspopup="true">
@@ -89,9 +89,7 @@ class Navbar extends React.Component {
                               <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                 <span />
                               </i>
-                              <span className="kt-menu__link-text">
-                                General
-                              </span>
+                              <span className="kt-menu__link-text">Add</span>
                             </a>
                           </li>
                         </ul>
@@ -124,8 +122,8 @@ class Navbar extends React.Component {
                         href="javascript:;"
                         className="kt-menu__link kt-menu__toggle"
                       >
-                        <i className="kt-menu__link-icon flaticon-rocket" />
-                        <span className="kt-menu__link-text">Widgets</span>
+                        <i className="kt-menu__link-icon flaticon-settings-1" />
+                        <span className="kt-menu__link-text">Manage</span>
                         <i className="kt-menu__hor-arrow la la-angle-right" />
                         <i className="kt-menu__ver-arrow la la-angle-right" />
                       </a>
@@ -139,7 +137,7 @@ class Navbar extends React.Component {
                               <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                 <span />
                               </i>
-                              <span className="kt-menu__link-text">Charts</span>
+                              <span className="kt-menu__link-text">List</span>
                             </a>
                           </li>
                           <li className="kt-menu__item " aria-haspopup="true">
@@ -150,9 +148,7 @@ class Navbar extends React.Component {
                               <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                 <span />
                               </i>
-                              <span className="kt-menu__link-text">
-                                General
-                              </span>
+                              <span className="kt-menu__link-text">Add</span>
                             </a>
                           </li>
                         </ul>
@@ -185,8 +181,8 @@ class Navbar extends React.Component {
                         href="javascript:;"
                         className="kt-menu__link kt-menu__toggle"
                       >
-                        <i className="kt-menu__link-icon flaticon-rocket" />
-                        <span className="kt-menu__link-text">Widgets</span>
+                        <i className="kt-menu__link-icon flaticon-settings-1" />
+                        <span className="kt-menu__link-text">Manage</span>
                         <i className="kt-menu__hor-arrow la la-angle-right" />
                         <i className="kt-menu__ver-arrow la la-angle-right" />
                       </a>
@@ -200,7 +196,7 @@ class Navbar extends React.Component {
                               <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                 <span />
                               </i>
-                              <span className="kt-menu__link-text">Charts</span>
+                              <span className="kt-menu__link-text">List</span>
                             </a>
                           </li>
                           <li className="kt-menu__item " aria-haspopup="true">
@@ -211,9 +207,7 @@ class Navbar extends React.Component {
                               <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                 <span />
                               </i>
-                              <span className="kt-menu__link-text">
-                                General
-                              </span>
+                              <span className="kt-menu__link-text">Add</span>
                             </a>
                           </li>
                         </ul>
@@ -246,8 +240,21 @@ class Navbar extends React.Component {
                         href="javascript:;"
                         className="kt-menu__link kt-menu__toggle"
                       >
-                        <i className="kt-menu__link-icon flaticon-rocket" />
-                        <span className="kt-menu__link-text">Widgets</span>
+                        <i className="kt-menu__link-icon flaticon-map-location" />
+                        <span className="kt-menu__link-text">Monitor</span>
+                      </a>
+                    </li>
+                    <li
+                      className="kt-menu__item  kt-menu__item--submenu"
+                      data-ktmenu-submenu-toggle="hover"
+                      aria-haspopup="true"
+                    >
+                      <a
+                        href="javascript:;"
+                        className="kt-menu__link kt-menu__toggle"
+                      >
+                        <i className="kt-menu__link-icon flaticon-settings-1" />
+                        <span className="kt-menu__link-text">Manage</span>
                         <i className="kt-menu__hor-arrow la la-angle-right" />
                         <i className="kt-menu__ver-arrow la la-angle-right" />
                       </a>
@@ -261,7 +268,7 @@ class Navbar extends React.Component {
                               <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                 <span />
                               </i>
-                              <span className="kt-menu__link-text">Charts</span>
+                              <span className="kt-menu__link-text">List</span>
                             </a>
                           </li>
                           <li className="kt-menu__item " aria-haspopup="true">
@@ -272,9 +279,7 @@ class Navbar extends React.Component {
                               <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                 <span />
                               </i>
-                              <span className="kt-menu__link-text">
-                                General
-                              </span>
+                              <span className="kt-menu__link-text">Add</span>
                             </a>
                           </li>
                         </ul>
@@ -308,8 +313,8 @@ class Navbar extends React.Component {
                         href="javascript:;"
                         className="kt-menu__link kt-menu__toggle"
                       >
-                        <i className="kt-menu__link-icon flaticon-rocket" />
-                        <span className="kt-menu__link-text">Widgets</span>
+                        <i className="kt-menu__link-icon flaticon-settings-1" />
+                        <span className="kt-menu__link-text">Manage</span>
                         <i className="kt-menu__hor-arrow la la-angle-right" />
                         <i className="kt-menu__ver-arrow la la-angle-right" />
                       </a>
@@ -323,7 +328,7 @@ class Navbar extends React.Component {
                               <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                 <span />
                               </i>
-                              <span className="kt-menu__link-text">Charts</span>
+                              <span className="kt-menu__link-text">List</span>
                             </a>
                           </li>
                           <li className="kt-menu__item " aria-haspopup="true">
@@ -334,9 +339,7 @@ class Navbar extends React.Component {
                               <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                 <span />
                               </i>
-                              <span className="kt-menu__link-text">
-                                General
-                              </span>
+                              <span className="kt-menu__link-text">Add</span>
                             </a>
                           </li>
                         </ul>
@@ -370,8 +373,8 @@ class Navbar extends React.Component {
                         href="javascript:;"
                         className="kt-menu__link kt-menu__toggle"
                       >
-                        <i className="kt-menu__link-icon flaticon-rocket" />
-                        <span className="kt-menu__link-text">Widgets</span>
+                        <i className="kt-menu__link-icon flaticon-folder-1" />
+                        <span className="kt-menu__link-text">Reports</span>
                         <i className="kt-menu__hor-arrow la la-angle-right" />
                         <i className="kt-menu__ver-arrow la la-angle-right" />
                       </a>
@@ -385,20 +388,18 @@ class Navbar extends React.Component {
                               <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                 <span />
                               </i>
-                              <span className="kt-menu__link-text">Charts</span>
+                              <span className="kt-menu__link-text">Bus 1</span>
                             </a>
                           </li>
                           <li className="kt-menu__item " aria-haspopup="true">
                             <a
-                              href="demo5/components/widgets/general.html"
+                              href="demo5/components/widgets/charts.html"
                               className="kt-menu__link "
                             >
                               <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                 <span />
                               </i>
-                              <span className="kt-menu__link-text">
-                                General
-                              </span>
+                              <span className="kt-menu__link-text">Bus 2</span>
                             </a>
                           </li>
                         </ul>
@@ -417,57 +418,8 @@ class Navbar extends React.Component {
                   href="javascript:;"
                   className="kt-menu__link kt-menu__toggle"
                 >
-                  <span className="kt-menu__link-text">Reports</span>
-                  <i className="kt-menu__hor-arrow la la-angle-down" />
-                  <i className="kt-menu__ver-arrow la la-angle-right" />
+                  <span className="kt-menu__link-text">Recieved Messages</span>
                 </a>
-                <div className="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
-                  <ul className="kt-menu__subnav">
-                    <li
-                      className="kt-menu__item  kt-menu__item--submenu"
-                      data-ktmenu-submenu-toggle="hover"
-                      aria-haspopup="true"
-                    >
-                      <a
-                        href="javascript:;"
-                        className="kt-menu__link kt-menu__toggle"
-                      >
-                        <i className="kt-menu__link-icon flaticon-rocket" />
-                        <span className="kt-menu__link-text">Widgets</span>
-                        <i className="kt-menu__hor-arrow la la-angle-right" />
-                        <i className="kt-menu__ver-arrow la la-angle-right" />
-                      </a>
-                      <div className="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
-                        <ul className="kt-menu__subnav">
-                          <li className="kt-menu__item " aria-haspopup="true">
-                            <a
-                              href="demo5/components/widgets/charts.html"
-                              className="kt-menu__link "
-                            >
-                              <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                <span />
-                              </i>
-                              <span className="kt-menu__link-text">Charts</span>
-                            </a>
-                          </li>
-                          <li className="kt-menu__item " aria-haspopup="true">
-                            <a
-                              href="demo5/components/widgets/general.html"
-                              className="kt-menu__link "
-                            >
-                              <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                <span />
-                              </i>
-                              <span className="kt-menu__link-text">
-                                General
-                              </span>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
               </li>
 
               <li
@@ -479,7 +431,9 @@ class Navbar extends React.Component {
                   href="javascript:;"
                   className="kt-menu__link kt-menu__toggle"
                 >
-                  <span className="kt-menu__link-text">SMS & Email Communication</span>
+                  <span className="kt-menu__link-text">
+                    SMS & Email Communication
+                  </span>
                   <i className="kt-menu__hor-arrow la la-angle-down" />
                   <i className="kt-menu__ver-arrow la la-angle-right" />
                 </a>
@@ -494,39 +448,26 @@ class Navbar extends React.Component {
                         href="javascript:;"
                         className="kt-menu__link kt-menu__toggle"
                       >
-                        <i className="kt-menu__link-icon flaticon-rocket" />
-                        <span className="kt-menu__link-text">Widgets</span>
-                        <i className="kt-menu__hor-arrow la la-angle-right" />
-                        <i className="kt-menu__ver-arrow la la-angle-right" />
+                        <i
+                          className="kt-menu__link-icon flaticon2-phone"
+                        />
+                        <span className="kt-menu__link-text">Send SMS</span>
                       </a>
-                      <div className="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
-                        <ul className="kt-menu__subnav">
-                          <li className="kt-menu__item " aria-haspopup="true">
-                            <a
-                              href="demo5/components/widgets/charts.html"
-                              className="kt-menu__link "
-                            >
-                              <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                <span />
-                              </i>
-                              <span className="kt-menu__link-text">Charts</span>
-                            </a>
-                          </li>
-                          <li className="kt-menu__item " aria-haspopup="true">
-                            <a
-                              href="demo5/components/widgets/general.html"
-                              className="kt-menu__link "
-                            >
-                              <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                <span />
-                              </i>
-                              <span className="kt-menu__link-text">
-                                General
-                              </span>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
+                    </li>
+                    <li
+                      className="kt-menu__item  kt-menu__item--submenu"
+                      data-ktmenu-submenu-toggle="hover"
+                      aria-haspopup="true"
+                    >
+                      <a
+                        href="javascript:;"
+                        className="kt-menu__link kt-menu__toggle"
+                      >
+                        <i className="kt-menu__link-icon flaticon-email" />
+                        <span className="kt-menu__link-text">
+                          Send Email
+                        </span>
+                      </a>
                     </li>
                   </ul>
                 </div>
