@@ -25,6 +25,7 @@ function emitize(obj, eventName) {
 
 const studentsData = [
   {
+    id: Math.random().toString(),
     names: "John H mwangi",
     route: {
       name: "Malawa route"
@@ -35,6 +36,7 @@ const studentsData = [
     }
   },
   {
+    id: Math.random().toString(),
     names: "Alice A mwali",
     route: {
       name: "mwali route"
@@ -45,6 +47,7 @@ const studentsData = [
     }
   },
   {
+    id: Math.random().toString(),
     names: "Alice A mwali",
     route: {
       name: "mwali route"
@@ -92,12 +95,16 @@ var Data = (function() {
       }
     },
     students: {
-      create(data) {
-        // send data to backend
-        students = [...students,data];
-        subs.students({ students });
-        return students;
-      },
+      create: data =>
+        new Promise((resolve, reject) => {
+          data.id = Math.random().toString();
+          setTimeout(() => {
+            // send data to backend
+            students = [...students, data];
+            subs.students({ students });
+            resolve();
+          }, 2000);
+        }),
       update(id, data) {
         return;
       },

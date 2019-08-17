@@ -17,7 +17,7 @@ class BasicTable extends React.Component {
     const students = Data.students.list();
     this.setState({ students });
 
-    Data.students.subscribe((students) => {
+    Data.students.subscribe(students => {
       this.setState(students);
     });
   }
@@ -26,12 +26,7 @@ class BasicTable extends React.Component {
       <div className="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--left kt-aside--fixed kt-aside--offcanvas-default kt-page--loading">
         <div className="kt-grid kt-grid--hor kt-grid--root">
           <div className="kt-portlet kt-portlet--mobile">
-            <AddModal
-              save={student => {
-                // save student
-                Data.students.create(student);
-              }}
-            />
+            <AddModal save={student => Data.students.create(student)} />
             <DeleteModal
               delete
               save={student => {
@@ -99,9 +94,9 @@ class BasicTable extends React.Component {
                 </thead>
                 <tbody>
                   {this.state.students.map(student => {
-                    const { gender, names, parent, route } = student;
+                    const { id, gender, names, parent, route } = student;
                     return (
-                      <tr key={names}>
+                      <tr key={id}>
                         <td>{names}</td>
                         <td>{route.name}</td>
                         <td>{gender}</td>
