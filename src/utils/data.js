@@ -99,18 +99,31 @@ var Data = (function() {
         new Promise((resolve, reject) => {
           data.id = Math.random().toString();
           setTimeout(() => {
-            // send data to backend
             students = [...students, data];
             subs.students({ students });
             resolve();
           }, 2000);
         }),
-      update(id, data) {
-        return;
-      },
-      delete(id) {
-        return;
-      },
+      update: data =>
+        new Promise((resolve, reject) => {
+          data.id = Math.random().toString();
+          setTimeout(() => {
+            const subtract = students.filter(({ id }) => id !== data.id);
+            students = [data,...subtract];
+            subs.students({ students });
+            resolve();
+          }, 2000);
+        }),
+      delete: data =>
+        new Promise((resolve, reject) => {
+          data.id = Math.random().toString();
+          setTimeout(() => {
+            const subtract = students.filter(({ id }) => id === data.id);
+            students = [...subtract];
+            subs.students({ students });
+            resolve();
+          }, 2000);
+        }),
       list() {
         return students;
       },

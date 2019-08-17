@@ -22,24 +22,19 @@ class BasicTable extends React.Component {
     });
   }
   render() {
+    const { edit, remove } = this.state;
     return (
       <div className="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--left kt-aside--fixed kt-aside--offcanvas-default kt-page--loading">
         <div className="kt-grid kt-grid--hor kt-grid--root">
           <div className="kt-portlet kt-portlet--mobile">
             <AddModal save={student => Data.students.create(student)} />
             <DeleteModal
-              delete
-              save={student => {
-                // student
-                Data.students.delete(student);
-              }}
+              remove={remove}
+              save={student => Data.students.delete(student)}
             />
             <EditModal
-              edit
-              save={student => {
-                // edit student
-                Data.students.update(student);
-              }}
+              edit={edit}
+              save={student => Data.students.update(student)}
             />
             <div className="kt-portlet__body">
               {/*begin: Search Form */}
@@ -127,7 +122,7 @@ class BasicTable extends React.Component {
                               title="Delete"
                               className="btn btn-sm btn-clean btn-icon btn-icon-md"
                               onClick={() => {
-                                this.setState({ delete: student });
+                                this.setState({ remove: student });
                                 deleteModalInstance.show();
                               }}
                             >
