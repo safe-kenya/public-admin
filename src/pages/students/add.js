@@ -6,6 +6,17 @@ const modalNumber = Math.random()
   .split(".")[1];
 
 class Modal extends React.Component {
+  state = {
+    names: "Alice A mwali",
+    route: {
+      name: "mwali route"
+    },
+    gender: "Male",
+    parent: {
+      name: "Madam Essue"
+    }
+  };
+
   show() {
     $("#" + modalNumber).modal({
       show: true,
@@ -14,11 +25,7 @@ class Modal extends React.Component {
     });
   }
   hide() {
-    $("#" + modalNumber).modal({
-      show: false,
-      backdrop: "static",
-      keyboard: false
-    });
+    $("#" + modalNumber).modal("hide");
   }
   render() {
     return (
@@ -50,49 +57,30 @@ class Modal extends React.Component {
                     <div className="form-group row">
                       <div className="col-lg-6">
                         <label>Full Name:</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          placeholder="Enter full name"
-                        />
+                        <input type="text" className="form-control" />
                         <span className="form-text text-muted">
-                          Please enter your full name
+                          Please enter text
+                        </span>
+                      </div>
+                      <div className="col-lg-3">
+                        <label>Route:</label>
+                        <input type="text" className="form-control" />
+                        <span className="form-text text-muted">
+                          Please enter the ful names
+                        </span>
+                      </div>
+                      <div className="col-lg-3">
+                        <label>Gender:</label>
+                        <input type="text" className="form-control" />
+                        <span className="form-text text-muted">
+                          Please enter the students emails
                         </span>
                       </div>
                       <div className="col-lg-6">
-                        <label>Contact Number:</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          placeholder="Enter contact number"
-                        />
+                        <label>Parent:</label>
+                        <input type="text" className="form-control" />
                         <span className="form-text text-muted">
-                          Please enter your contact number
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="form-group row">
-                      <div className="col-lg-6">
-                        <label>Full Name:</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          placeholder="Enter full name"
-                        />
-                        <span className="form-text text-muted">
-                          Please enter your full name
-                        </span>
-                      </div>
-                      <div className="col-lg-6">
-                        <label>Contact Number:</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          placeholder="Enter contact number"
-                        />
-                        <span className="form-text text-muted">
-                          Please enter your contact number
+                          Please select the parent
                         </span>
                       </div>
                     </div>
@@ -103,12 +91,24 @@ class Modal extends React.Component {
                 <button
                   type="button"
                   className="btn btn-outline-brand"
-                  data-dismiss="modal"
+                  //
+                  onClick={() => {
+                    try {
+                      this.props.save(this.state);
+                      this.hide();
+                    } catch (err) {
+                      this.setState({ error: err.message });
+                    }
+                  }}
                 >
-                  Close
+                  Save
                 </button>
-                <button type="button" className="btn btn-outline-brand">
-                  Save changes
+                <button
+                  data-dismiss="modal"
+                  type="button"
+                  className="btn btn-outline-brand"
+                >
+                  Cancel
                 </button>
               </div>
             </div>

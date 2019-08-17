@@ -50,49 +50,30 @@ class Modal extends React.Component {
                     <div className="form-group row">
                       <div className="col-lg-6">
                         <label>Full Name:</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          placeholder="Enter full name"
-                        />
+                        <input type="text" className="form-control" />
                         <span className="form-text text-muted">
-                          Please enter your full name
+                          Please enter text
+                        </span>
+                      </div>
+                      <div className="col-lg-3">
+                        <label>Route:</label>
+                        <input type="text" className="form-control" />
+                        <span className="form-text text-muted">
+                          Please enter the ful names
+                        </span>
+                      </div>
+                      <div className="col-lg-3">
+                        <label>Gender:</label>
+                        <input type="text" className="form-control" />
+                        <span className="form-text text-muted">
+                          Please enter the students emails
                         </span>
                       </div>
                       <div className="col-lg-6">
-                        <label>Contact Number:</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          placeholder="Enter contact number"
-                        />
+                        <label>Parent:</label>
+                        <input type="text" className="form-control" />
                         <span className="form-text text-muted">
-                          Please enter your contact number
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="form-group row">
-                      <div className="col-lg-6">
-                        <label>Full Name:</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          placeholder="Enter full name"
-                        />
-                        <span className="form-text text-muted">
-                          Please enter your full name
-                        </span>
-                      </div>
-                      <div className="col-lg-6">
-                        <label>Contact Number:</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          placeholder="Enter contact number"
-                        />
-                        <span className="form-text text-muted">
-                          Please enter your contact number
+                          Please select the parent
                         </span>
                       </div>
                     </div>
