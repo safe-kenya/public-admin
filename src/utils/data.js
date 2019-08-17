@@ -118,7 +118,7 @@ var Data = (function() {
         new Promise((resolve, reject) => {
           data.id = Math.random().toString();
           setTimeout(() => {
-            const subtract = students.filter(({ id }) => id === data.id);
+            const subtract = students.filter(({ id }) => id !== data.id);
             students = [...subtract];
             subs.students({ students });
             resolve();
