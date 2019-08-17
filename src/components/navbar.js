@@ -45,7 +45,6 @@ class Navbar extends React.Component {
                 aria-haspopup="true"
               >
                 <a
-                  href="javascript:;"
                   className="kt-menu__link kt-menu__toggle"
                 >
                   <span className="kt-menu__link-text">Students</span>
