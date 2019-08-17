@@ -1,6 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 class Navbar extends React.Component {
+  state = {
+    busses: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  };
   render() {
     return (
       <div
@@ -9,13 +13,13 @@ class Navbar extends React.Component {
       >
         {/* begin:: Brand */}
         <div className="kt-header__brand   kt-grid__item" id="kt_header_brand">
-          <a href="/">
+          <Link to="/">
             <img
               alt="Logo"
               style={{ width: 150 }}
               src="./assets/media/logos/logo-v2.png"
             />
-          </a>
+          </Link>
         </div>
         {/* end:: Brand */}
         {/* begin: Header Menu */}
@@ -44,57 +48,22 @@ class Navbar extends React.Component {
                 data-ktmenu-submenu-toggle="click"
                 aria-haspopup="true"
               >
-                <a className="kt-menu__link kt-menu__toggle">
-                  <span className="kt-menu__link-text">Students</span>
-                </a>
+                <Link to="/" className="kt-menu__link kt-menu__toggle">
+                  <span className="kt-menu__link-text">Home</span>
+                </Link>
               </li>
-              <li
-                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                data-ktmenu-submenu-toggle="click"
-                aria-haspopup="true"
-              >
-                <a className="kt-menu__link kt-menu__toggle">
-                  <span className="kt-menu__link-text">Parents</span>
-                </a>
-              </li>
-              <li
-                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                data-ktmenu-submenu-toggle="click"
-                aria-haspopup="true"
-              >
-                <a className="kt-menu__link kt-menu__toggle">
-                  <span className="kt-menu__link-text">Drivers</span>
-                </a>
-              </li>
-              <li
-                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                data-ktmenu-submenu-toggle="click"
-                aria-haspopup="true"
-              >
-                <a className="kt-menu__link kt-menu__toggle">
-                  <span className="kt-menu__link-text">Busses</span>
-                </a>
-              </li>
-              <li
-                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                data-ktmenu-submenu-toggle="click"
-                aria-haspopup="true"
-              >
-                <a className="kt-menu__link kt-menu__toggle">
-                  <span className="kt-menu__link-text">Routes</span>
-                </a>
-              </li>
-
               <li
                 className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
                 data-ktmenu-submenu-toggle="click"
                 aria-haspopup="true"
               >
                 <a
-                  href="javascript:;"
+                  href='#' onClick={e => e.preventDefault()}
                   className="kt-menu__link kt-menu__toggle"
                 >
-                  <span className="kt-menu__link-text">PickUp and DropOff</span>
+                  <span className="kt-menu__link-text">
+                    PickUps and DropOffs
+                  </span>
                   <i className="kt-menu__hor-arrow la la-angle-down" />
                   <i className="kt-menu__ver-arrow la la-angle-right" />
                 </a>
@@ -106,56 +75,116 @@ class Navbar extends React.Component {
                       aria-haspopup="true"
                     >
                       <a
-                        href="javascript:;"
+                        href='#' onClick={e => e.preventDefault()}
+                        className="kt-menu__link kt-menu__toggle"
+                      >
+                        <i className="kt-menu__link-icon flaticon-file-2" />
+                        <span className="kt-menu__link-text">In Summary</span>
+                      </a>
+                    </li>
+                    <li
+                      className="kt-menu__item  kt-menu__item--submenu"
+                      data-ktmenu-submenu-toggle="hover"
+                      aria-haspopup="true"
+                    >
+                      <a
+                        href='#' onClick={e => e.preventDefault()}
                         className="kt-menu__link kt-menu__toggle"
                       >
                         <i className="kt-menu__link-icon flaticon-folder-1" />
-                        <span className="kt-menu__link-text">Reports</span>
+                        <span className="kt-menu__link-text">
+                          Specific Reports
+                        </span>
                         <i className="kt-menu__hor-arrow la la-angle-right" />
                         <i className="kt-menu__ver-arrow la la-angle-right" />
                       </a>
                       <div className="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--right">
                         <ul className="kt-menu__subnav">
-                          <li className="kt-menu__item " aria-haspopup="true">
-                            <a
-                              href="demo5/components/widgets/charts.html"
-                              className="kt-menu__link "
-                            >
-                              <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                <span />
-                              </i>
-                              <span className="kt-menu__link-text">Bus 1</span>
-                            </a>
-                          </li>
-                          <li className="kt-menu__item " aria-haspopup="true">
-                            <a
-                              href="demo5/components/widgets/charts.html"
-                              className="kt-menu__link "
-                            >
-                              <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
-                                <span />
-                              </i>
-                              <span className="kt-menu__link-text">Bus 2</span>
-                            </a>
-                          </li>
+                          {this.state.busses.map(bus => {
+                            return (
+                              <li
+                                key={bus}
+                                className="kt-menu__item "
+                                aria-haspopup="true"
+                              >
+                                <Link
+                                  to={"/reports/bus/" + bus}
+                                  className="kt-menu__link "
+                                >
+                                  <i className="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                    <span />
+                                  </i>
+                                  <span className="kt-menu__link-text">
+                                    {"Bus " + this.state.busses.indexOf(bus)}
+                                  </span>
+                                </Link>
+                              </li>
+                            );
+                          })}
                         </ul>
                       </div>
                     </li>
                   </ul>
                 </div>
               </li>
+              <li
+                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
+                data-ktmenu-submenu-toggle="click"
+                aria-haspopup="true"
+              >
+                <Link to="/students" className="kt-menu__link kt-menu__toggle">
+                  <span className="kt-menu__link-text">Students</span>
+                </Link>
+              </li>
+              <li
+                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
+                data-ktmenu-submenu-toggle="click"
+                aria-haspopup="true"
+              >
+                <Link to="/parents" className="kt-menu__link kt-menu__toggle">
+                  <span className="kt-menu__link-text">Parents</span>
+                </Link>
+              </li>
+              <li
+                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
+                data-ktmenu-submenu-toggle="click"
+                aria-haspopup="true"
+              >
+                <Link to="/drivers" className="kt-menu__link kt-menu__toggle">
+                  <span className="kt-menu__link-text">Drivers</span>
+                </Link>
+              </li>
+              <li
+                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
+                data-ktmenu-submenu-toggle="click"
+                aria-haspopup="true"
+              >
+                <Link to="/busses" className="kt-menu__link kt-menu__toggle">
+                  <span className="kt-menu__link-text">Busses</span>
+                </Link>
+              </li>
+              <li
+                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
+                data-ktmenu-submenu-toggle="click"
+                aria-haspopup="true"
+              >
+                <Link to="/routes" className="kt-menu__link kt-menu__toggle">
+                  <span className="kt-menu__link-text">Routes</span>
+                </Link>
+              </li>
 
               <li
                 className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
                 data-ktmenu-submenu-toggle="click"
                 aria-haspopup="true"
               >
-                <a
-                  href="javascript:;"
+                <Link
+                  to="/messages"
+                  href='#' onClick={e => e.preventDefault()}
                   className="kt-menu__link kt-menu__toggle"
                 >
                   <span className="kt-menu__link-text">Recieved Messages</span>
-                </a>
+                </Link>
               </li>
 
               <li
@@ -164,7 +193,7 @@ class Navbar extends React.Component {
                 aria-haspopup="true"
               >
                 <a
-                  href="javascript:;"
+                  href='#' onClick={e => e.preventDefault()}
                   className="kt-menu__link kt-menu__toggle"
                 >
                   <span className="kt-menu__link-text">
@@ -180,26 +209,27 @@ class Navbar extends React.Component {
                       data-ktmenu-submenu-toggle="hover"
                       aria-haspopup="true"
                     >
-                      <a
-                        href="javascript:;"
+                      <Link
+                        to="/comms/sms"
+                        href='#' onClick={e => e.preventDefault()}
                         className="kt-menu__link kt-menu__toggle"
                       >
                         <i className="kt-menu__link-icon flaticon2-phone" />
                         <span className="kt-menu__link-text">Send SMS</span>
-                      </a>
+                      </Link>
                     </li>
                     <li
                       className="kt-menu__item  kt-menu__item--submenu"
                       data-ktmenu-submenu-toggle="hover"
                       aria-haspopup="true"
                     >
-                      <a
-                        href="javascript:;"
+                      <Link
+                        to="/comms/email"
                         className="kt-menu__link kt-menu__toggle"
                       >
                         <i className="kt-menu__link-icon flaticon-email" />
                         <span className="kt-menu__link-text">Send Email</span>
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </div>
