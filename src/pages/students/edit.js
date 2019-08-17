@@ -34,7 +34,7 @@ class Modal extends React.Component {
           <div className="modal-dialog modal-xl">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title">Create Student</h5>
+                <h5 className="modal-title">Edit Student</h5>
                 <button
                   type="button"
                   className="close"

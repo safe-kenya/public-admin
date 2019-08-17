@@ -1,12 +1,20 @@
 import React from "react";
-const $ = window.$;
+import AddModal from "./add";
+import EditModal from "./edit";
+import DeleteModal from "./delete";
 
-// window.jQuery = window.$ = $;
+const $ = window.$;
+const addModalInstance = new AddModal();
+const editModalInstance = new EditModal();
+const deleteModalInstance = new DeleteModal();
 
 class BasicTable extends React.Component {
   render() {
     return (
       <div className="kt-portlet kt-portlet--mobile">
+        <AddModal />
+        <DeleteModal />
+        <EditModal />
         <div className="kt-portlet__body">
           {/*begin: Search Form */}
           <div className="kt-form kt-fork--label-right kt-margin-t-20 kt-margin-b-10">
@@ -30,19 +38,26 @@ class BasicTable extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-4 order-1 order-xl-2 kt-align-right">
-                <a href="#" className="btn btn-default kt-hidden">
-                  <i className="la la-cart-plus" /> New Order
-                </a>
-                <div className="kt-separator kt-separator--border-dashed kt-separator--space-lg d-xl-none" />
+              <div className="col-xl-4 order-2 order-xl-1">
+                <button
+                  href="#"
+                  className="btn btn-default btn-sm btn-bold btn-upper float-right"
+                  onClick={() => addModalInstance.show()}
+                >
+                  Create
+                </button>
               </div>
             </div>
-          </div>{" "}
+          </div>
           {/*end: Search Form */}
         </div>
         <div className="kt-portlet__body">
           {/*begin: Datatable */}
-          <table className="table table-head-noborder" width="100%">
+          <table
+            className="table table-head-noborder"
+            // width="100%"
+            style={{ minHeight: "500px" }}
+          >
             <thead>
               <tr>
                 <th title="Field #2">Student names</th>
@@ -73,9 +88,7 @@ class BasicTable extends React.Component {
                     <button
                       title="Edit details"
                       className="btn btn-sm btn-clean btn-icon btn-icon-md"
-                      onClick={() => {
-                        alert("test");
-                      }}
+                      onClick={() => editModalInstance.show()}
                     >
                       <i className="la la-edit" />
                     </button>
@@ -83,7 +96,7 @@ class BasicTable extends React.Component {
                       title="Delete"
                       className="btn btn-sm btn-clean btn-icon btn-icon-md"
                       onClick={() => {
-                        alert("test");
+                        deleteModalInstance.show();
                       }}
                     >
                       <i className="la la-trash" />

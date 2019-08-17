@@ -3,7 +3,7 @@ import Navbar from "../../components/navbar";
 import Subheader from "../../components/subheader";
 import Table from "./table";
 import Footer from "../../components/footer";
-import AddModal from "./add";
+
 
 class App extends React.Component {
   render() {
@@ -21,7 +21,6 @@ class App extends React.Component {
             id="kt_content"
           >
             <div className="kt-container  kt-grid__item kt-grid__item--fluid">
-              <AddModal />
               <Table />
             </div>
           </div>

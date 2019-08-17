@@ -21,7 +21,7 @@ class Subheader extends React.Component {
             </div>
           </div>
           {/* end:: Subheader Title */} {/* begin:: Sub-header toolbar */}
-          <div className="kt-subheader__toolbar">
+          {/* <div className="kt-subheader__toolbar">
             <div className="kt-subheader__toolbar-wrapper">
               <a href="#" className="btn btn-default btn-sm btn-bold btn-upper">
                 Create
@@ -30,7 +30,7 @@ class Subheader extends React.Component {
                 Import From Excel
               </a>
             </div>
-          </div>
+          </div> */}
           {/* <div className="kt-subheader__toolbar">
             <div className="kt-subheader__toolbar-wrapper">
               

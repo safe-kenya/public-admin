@@ -1,4 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to SmartKids Admin
+
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/aac90b8d-4a0c-4354-bae8-6ea4efa9b8bc/deploy-status)](https://app.netlify.com/sites/vigilant-nobel-eb1610/deploys)
 
