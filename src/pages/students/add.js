@@ -104,8 +104,8 @@ class Modal extends React.Component {
                       </div>
                       <div className="col-lg-3">
                         <label for="exampleSelect1">Route:</label>
-                        <select class="form-control">
-                          <option>Select route</option>
+                        <select name="route" class="form-control" required>
+                          <option value="">Select route</option>
                           {[2, 3, 4].map(route => (
                             <option value={route}>{route}</option>
                           ))}
@@ -113,16 +113,16 @@ class Modal extends React.Component {
                       </div>
                       <div className="col-lg-3">
                         <label for="exampleSelect1">Gender:</label>
-                        <select class="form-control" id="exampleSelect1">
-                          <option>Select gender</option>
+                        <select name="gender" class="form-control" id="exampleSelect1" required>
+                          <option value="">Select gender</option>
                           <option value="male">male</option>
                           <option value="female">female</option>
                         </select>
                       </div>
                       <div className="col-lg-6">
                         <label for="exampleSelect1">Parent:</label>
-                        <select class="form-control">
-                          <option>Select parent</option>
+                        <select name="parent" class="form-control" required>
+                          <option value="">Select parent</option>
                           {[2, 3, 4].map(parent => (
                             <option value={parent}>parent {parent}</option>
                           ))}
