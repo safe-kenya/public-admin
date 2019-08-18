@@ -34,6 +34,16 @@ class Modal extends React.Component {
   componentDidMount() {
     const _this = this;
     this.validator = $("#" + modalNumber + "form").validate({
+      errorClass: "invalid-feedback",
+      errorElement: "div",
+
+      highlight: function(element) {
+        $(element).addClass("is-invalid");
+      },
+      unhighlight: function(element) {
+        $(element).removeClass("is-invalid");
+      },
+
       async submitHandler(form, event) {
         event.preventDefault();
         try {
@@ -110,9 +120,6 @@ class Modal extends React.Component {
                             });
                           }}
                         />
-                        <span className="form-text text-muted">
-                          Please enter text
-                        </span>
                       </div>
                       <div className="col-lg-3">
                         <label>Route:</label>
@@ -133,9 +140,6 @@ class Modal extends React.Component {
                             });
                           }}
                         />
-                        <span className="form-text text-muted">
-                          Please select the full route
-                        </span>
                       </div>
                       <div className="col-lg-3">
                         <label>Gender:</label>
@@ -156,9 +160,6 @@ class Modal extends React.Component {
                             });
                           }}
                         />
-                        <span className="form-text text-muted">
-                          Please enter the gender
-                        </span>
                       </div>
                       <div className="col-lg-6">
                         <label>Parent:</label>
@@ -179,9 +180,6 @@ class Modal extends React.Component {
                             });
                           }}
                         />
-                        <span className="form-text text-muted">
-                          Please select the parent
-                        </span>
                       </div>
                     </div>
                   </div>
