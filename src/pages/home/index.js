@@ -3,6 +3,9 @@ import Navbar from "../../components/navbar";
 import Subheader from "../../components/subheader";
 import Footer from "../../components/footer";
 import Stat from "./components/stat";
+import Tutorials from "./components/tutorials";
+import Questions from "./components/common-questions";
+import Map from "./components/map";
 
 class Home extends React.Component {
   render() {
@@ -21,7 +24,49 @@ class Home extends React.Component {
             id="kt_content"
           >
             <div className="kt-container  kt-grid__item kt-grid__item--fluid">
-              Helpo
+              <div className="row">
+                <div className="col-lg-6 col-xl-4 order-lg-1 order-xl-1">
+                  <div className="row">
+                    <div className="col-lg-12 col-xl-12 order-lg-1 order-xl-1">
+                      <Stat
+                        label="Bus Trips this week"
+                        number={6}
+                        bars={["20", "20", "20", "30", "20", "5"]}
+                      />
+                    </div>
+                    <div className="col-lg-12 col-xl-12 order-lg-1 order-xl-1">
+                      <Stat
+                        label="Students Complains this week"
+                        number={20}
+                        bars={["0", "2", "3", "7", "4", "7"]}
+                      />
+                    </div>
+                    <div className="col-lg-12 col-xl-12 order-lg-1 order-xl-1">
+                      <Stat
+                        label="Students Lateness time this week"
+                        number={6}
+                        bars={["5", "4", "6", "3", "0", "0"]}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-6 col-xl-8 order-lg-1 order-xl-1">
+                  <div className="row">
+                    <div
+                      className="col-lg-12 col-xl-12 order-lg-1 order-xl-1"
+                      style={{ height: "460px" }}
+                    >
+                      <Map />
+                    </div>
+                    <div className="col-lg-6 col-xl-6 order-lg-1 order-xl-1">
+                      <Tutorials />
+                    </div>
+                    <div className="col-lg-6 col-xl-6 order-lg-1 order-xl-1">
+                      <Questions />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <Footer />
