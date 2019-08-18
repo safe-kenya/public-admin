@@ -1,9 +1,9 @@
 import React from "react";
-import "jquery-validation";
-import $ from "jquery";
+// import "jquery-validation";
+// import $ from "jquery";
 
-window.jQuery = window.$ = $;
-// const $ = window.$;
+// window.jQuery = window.$ = $;
+const $ = window.$;
 
 const modalNumber = Math.random()
   .toString()
@@ -35,6 +35,23 @@ class Modal extends React.Component {
   componentDidMount() {
     const _this = this;
     this.validator = $("#" + modalNumber + "form").validate({
+      errorClass: "is-invalid",
+
+      errorElement: "label",
+      errorPlacement: function(error, element) {
+        error.insertBefore(element.parent().children("br"));
+      },
+      highlight: function(element) {
+        $(element)
+          .parent()
+          .addClass("error");
+      },
+      unhighlight: function(element) {
+        $(element)
+          .parent()
+          .removeClass("error");
+      },
+
       async submitHandler(form, event) {
         event.preventDefault();
         try {

@@ -9835,6 +9835,8 @@ if (typeof module !== 'undefined') {
     module.exports = KTLayout;
 }
 
+window.KTLayout = KTLayout
+
 // Init on page load completed
 KTUtil.ready(function() {
     KTLayout.init();

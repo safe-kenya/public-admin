@@ -1,5 +1,5 @@
 import React from "react";
-import "jquery-validation";
+// import "jquery-validation";
 const $ = window.$;
 
 const modalNumber = Math.random()

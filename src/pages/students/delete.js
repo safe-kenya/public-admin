@@ -74,7 +74,7 @@ class Modal extends React.Component {
                     />
                   </button>
                 )}
-                <button type="button" className="btn btn-outline-brand">
+                <button type="button" className="btn btn-outline-brand"  onClick={() => this.hide()}>
                   Cancel
                 </button>
               </div>

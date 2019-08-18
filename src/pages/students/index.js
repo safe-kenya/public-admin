@@ -14,11 +14,11 @@ class App extends React.Component {
           id="kt_wrapper"
         >
           <Navbar />
-          <Subheader title={["Students", "List"]} />
+          <Subheader links={["Students", "List"]} />
 
           <div
             className="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor"
-            style={{height:"93vh"}}
+            style={{height:"100vh"}}
             id="kt_content"
           >
             <div className="kt-container  kt-grid__item kt-grid__item--fluid">

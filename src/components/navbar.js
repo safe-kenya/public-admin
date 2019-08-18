@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 class Navbar extends React.Component {
+  componentDidMount() {
+    window.KTLayout.init();
+  }
   state = {
     busses: [1, 2, 3, 4, 5, 6, 7, 8, 9]
   };
@@ -17,7 +20,7 @@ class Navbar extends React.Component {
             <img
               alt="Logo"
               style={{ width: 150 }}
-              src="./assets/media/logos/logo-v2.png"
+              src="/assets/media/logos/logo-v2.png"
             />
           </Link>
         </div>
@@ -42,13 +45,8 @@ class Navbar extends React.Component {
                 className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
                 data-ktmenu-submenu-toggle="click"
                 aria-haspopup="true"
-              />
-              <li
-                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                data-ktmenu-submenu-toggle="click"
-                aria-haspopup="true"
               >
-                <Link to="/" className="kt-menu__link kt-menu__toggle">
+                <Link to="/" className="kt-menu__link">
                   <span className="kt-menu__link-text">Home</span>
                 </Link>
               </li>
@@ -58,7 +56,8 @@ class Navbar extends React.Component {
                 aria-haspopup="true"
               >
                 <a
-                  href='#' onClick={e => e.preventDefault()}
+                  href="#"
+                  onClick={e => e.preventDefault()}
                   className="kt-menu__link kt-menu__toggle"
                 >
                   <span className="kt-menu__link-text">
@@ -75,7 +74,8 @@ class Navbar extends React.Component {
                       aria-haspopup="true"
                     >
                       <a
-                        href='#' onClick={e => e.preventDefault()}
+                        href="#"
+                        onClick={e => e.preventDefault()}
                         className="kt-menu__link kt-menu__toggle"
                       >
                         <i className="kt-menu__link-icon flaticon-file-2" />
@@ -88,7 +88,8 @@ class Navbar extends React.Component {
                       aria-haspopup="true"
                     >
                       <a
-                        href='#' onClick={e => e.preventDefault()}
+                        href="#"
+                        onClick={e => e.preventDefault()}
                         className="kt-menu__link kt-menu__toggle"
                       >
                         <i className="kt-menu__link-icon flaticon-folder-1" />
@@ -132,7 +133,7 @@ class Navbar extends React.Component {
                 data-ktmenu-submenu-toggle="click"
                 aria-haspopup="true"
               >
-                <Link to="/students" className="kt-menu__link kt-menu__toggle">
+                <Link to="/students" className="kt-menu__link">
                   <span className="kt-menu__link-text">Students</span>
                 </Link>
               </li>
@@ -141,7 +142,7 @@ class Navbar extends React.Component {
                 data-ktmenu-submenu-toggle="click"
                 aria-haspopup="true"
               >
-                <Link to="/parents" className="kt-menu__link kt-menu__toggle">
+                <Link to="/parents" className="kt-menu__link">
                   <span className="kt-menu__link-text">Parents</span>
                 </Link>
               </li>
@@ -150,7 +151,7 @@ class Navbar extends React.Component {
                 data-ktmenu-submenu-toggle="click"
                 aria-haspopup="true"
               >
-                <Link to="/drivers" className="kt-menu__link kt-menu__toggle">
+                <Link to="/drivers" className="kt-menu__link">
                   <span className="kt-menu__link-text">Drivers</span>
                 </Link>
               </li>
@@ -159,7 +160,7 @@ class Navbar extends React.Component {
                 data-ktmenu-submenu-toggle="click"
                 aria-haspopup="true"
               >
-                <Link to="/busses" className="kt-menu__link kt-menu__toggle">
+                <Link to="/busses" className="kt-menu__link">
                   <span className="kt-menu__link-text">Busses</span>
                 </Link>
               </li>
@@ -168,7 +169,7 @@ class Navbar extends React.Component {
                 data-ktmenu-submenu-toggle="click"
                 aria-haspopup="true"
               >
-                <Link to="/routes" className="kt-menu__link kt-menu__toggle">
+                <Link to="/routes" className="kt-menu__link">
                   <span className="kt-menu__link-text">Routes</span>
                 </Link>
               </li>
@@ -180,8 +181,9 @@ class Navbar extends React.Component {
               >
                 <Link
                   to="/messages"
-                  href='#' onClick={e => e.preventDefault()}
-                  className="kt-menu__link kt-menu__toggle"
+                  href="#"
+                  onClick={e => e.preventDefault()}
+                  className="kt-menu__link"
                 >
                   <span className="kt-menu__link-text">Recieved Messages</span>
                 </Link>
@@ -193,7 +195,8 @@ class Navbar extends React.Component {
                 aria-haspopup="true"
               >
                 <a
-                  href='#' onClick={e => e.preventDefault()}
+                  href="#"
+                  onClick={e => e.preventDefault()}
                   className="kt-menu__link kt-menu__toggle"
                 >
                   <span className="kt-menu__link-text">
@@ -211,8 +214,9 @@ class Navbar extends React.Component {
                     >
                       <Link
                         to="/comms/sms"
-                        href='#' onClick={e => e.preventDefault()}
-                        className="kt-menu__link kt-menu__toggle"
+                        href="#"
+                        onClick={e => e.preventDefault()}
+                        className="kt-menu__link"
                       >
                         <i className="kt-menu__link-icon flaticon2-phone" />
                         <span className="kt-menu__link-text">Send SMS</span>
@@ -223,10 +227,7 @@ class Navbar extends React.Component {
                       data-ktmenu-submenu-toggle="hover"
                       aria-haspopup="true"
                     >
-                      <Link
-                        to="/comms/email"
-                        className="kt-menu__link kt-menu__toggle"
-                      >
+                      <Link to="/comms/email" className="kt-menu__link">
                         <i className="kt-menu__link-icon flaticon-email" />
                         <span className="kt-menu__link-text">Send Email</span>
                       </Link>
