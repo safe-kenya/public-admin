@@ -103,38 +103,30 @@ class Modal extends React.Component {
                         />
                       </div>
                       <div className="col-lg-3">
-                        <label>Route:</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="route"
-                          name="route"
-                          required
-                        />
+                        <label for="exampleSelect1">Route:</label>
+                        <select class="form-control">
+                          <option>Select route</option>
+                          {[2, 3, 4].map(route => (
+                            <option value={route}>{route}</option>
+                          ))}
+                        </select>
                       </div>
                       <div className="col-lg-3">
-                        <label>Gender:</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="fullname"
-                          name="gender"
-                          minLength="2"
-                          type="text"
-                          required
-                        />
+                        <label for="exampleSelect1">Gender:</label>
+                        <select class="form-control" id="exampleSelect1">
+                          <option>Select gender</option>
+                          <option value="male">male</option>
+                          <option value="female">female</option>
+                        </select>
                       </div>
                       <div className="col-lg-6">
-                        <label>Parent:</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="parent"
-                          name="parent"
-                          minLength="2"
-                          type="text"
-                          required
-                        />
+                        <label for="exampleSelect1">Parent:</label>
+                        <select class="form-control">
+                          <option>Select parent</option>
+                          {[2, 3, 4].map(parent => (
+                            <option value={parent}>parent {parent}</option>
+                          ))}
+                        </select>
                       </div>
                     </div>
                   </div>
