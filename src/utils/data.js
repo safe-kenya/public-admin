@@ -35,6 +35,7 @@ const studentsData = [
 
 const parentsData = [
   {
+    id: Math.random().toString(),
     names: "Existing parent",
     gender: "Father",
     phone: "109876543",
@@ -44,6 +45,7 @@ const parentsData = [
 
 const bussesData = [
   {
+    id: Math.random().toString(),
     names: "Existing Bus",
     size: "small",
     plate: "plate"
@@ -52,9 +54,17 @@ const bussesData = [
 
 const driversData = [
   {
+    id: Math.random().toString(),
     names: "Existing driver",
     gender: "male",
     phone: "109876543"
+  }
+];
+
+const routesData = [
+  {
+    id: Math.random().toString(),
+    names: "Existing route"
   }
 ];
 
@@ -64,6 +74,7 @@ var Data = (function() {
   var parents = parentsData;
   var drivers = driversData;
   var busses = bussesData;
+  var routes = routesData;
 
   var subs = {};
   emitize(subs, "students");
@@ -260,17 +271,42 @@ var Data = (function() {
       getOne(id) {}
     },
     routes: {
-      create(id) {
-        return {};
-      },
-      update(id, data) {
-        return;
-      },
-      delete(id) {
-        return;
-      },
+      create: data =>
+        new Promise((resolve, reject) => {
+          data.id = Math.random().toString();
+          setTimeout(() => {
+            routes = [...routes, data];
+            subs.busses({ routes });
+            resolve();
+          }, 2000);
+        }),
+      update: data =>
+        new Promise((resolve, reject) => {
+          data.id = Math.random().toString();
+          setTimeout(() => {
+            const subtract = routes.filter(({ id }) => id !== data.id);
+            routes = [data, ...subtract];
+            subs.busses({ routes });
+            resolve();
+          }, 2000);
+        }),
+      delete: data =>
+        new Promise((resolve, reject) => {
+          data.id = Math.random().toString();
+          setTimeout(() => {
+            const subtract = routes.filter(({ id }) => id !== data.id);
+            routes = [...routes];
+            subs.busses({ routes });
+            resolve();
+          }, 2000);
+        }),
       list() {
-        return [];
+        return routes;
+      },
+      subscribe(cb) {
+        // listen for even change on the students observables
+        subs.routes = cb;
+        return routes;
       },
       getOne(id) {}
     },

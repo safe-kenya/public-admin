@@ -6,6 +6,7 @@ import students from "./pages/students";
 import parents from "./pages/parents";
 import drivers from "./pages/drivers";
 import busses from "./pages/busses"
+import routes from "./pages/routes"
 
 // import login from "./pages/auth/login";
 // import recover from "./pages/auth/recover";
@@ -19,7 +20,7 @@ function App() {
       <Route path="/parents" component={parents} />
       <Route path="/drivers" component={drivers} />
       <Route path="/busses" component={busses} />
-      <Route path="/routes" component={students} />
+      <Route path="/routes" component={routes} />
       <Route path="/messages" component={students} />
       <Route path="/comms/sms" component={students} />
       <Route path="/comms/email" component={students} />
