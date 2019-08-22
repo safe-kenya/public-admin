@@ -1,5 +1,5 @@
 import React from "react";
-import DeleteModal from "./delete";
+import DeleteModal from "./deleteStudentRow";
 
 // import "jquery-validation";
 // import $ from "jquery";
