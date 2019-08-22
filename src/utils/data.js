@@ -101,7 +101,7 @@ var Data = (function() {
           setTimeout(() => {
             students = [...students, data];
             subs.students({ students });
-            resolve();
+            reject();
           }, 2000);
         }),
       update: data =>
@@ -111,7 +111,7 @@ var Data = (function() {
             const subtract = students.filter(({ id }) => id !== data.id);
             students = [data,...subtract];
             subs.students({ students });
-            resolve();
+            reject();
           }, 2000);
         }),
       delete: data =>
@@ -121,7 +121,7 @@ var Data = (function() {
             const subtract = students.filter(({ id }) => id !== data.id);
             students = [...subtract];
             subs.students({ students });
-            resolve();
+            reject();
           }, 2000);
         }),
       list() {

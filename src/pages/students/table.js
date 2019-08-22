@@ -1,11 +1,15 @@
 import React from "react";
+
+import Table from "./components/table";
 import AddModal from "./add";
+import UploadModal from "./upload";
 import EditModal from "./edit";
 import DeleteModal from "./delete";
 import Data from "../../utils/data";
 
 const $ = window.$;
 const addModalInstance = new AddModal();
+const uploadModalInstance = new UploadModal();
 const editModalInstance = new EditModal();
 const deleteModalInstance = new DeleteModal();
 
@@ -28,6 +32,7 @@ class BasicTable extends React.Component {
         <div className="kt-grid kt-grid--hor kt-grid--root">
           <div className="kt-portlet kt-portlet--mobile">
             <AddModal save={student => Data.students.create(student)} />
+            <UploadModal save={student => Data.students.create(student)} />
             <DeleteModal
               remove={remove}
               save={student => Data.students.delete(student)}
@@ -63,6 +68,13 @@ class BasicTable extends React.Component {
                     <button
                       href="#"
                       className="btn btn-default btn-sm btn-bold btn-upper float-right"
+                      onClick={() => uploadModalInstance.show()}
+                    >
+                      Upload
+                    </button>
+                    <button
+                      href="#"
+                      className="btn btn-default btn-sm btn-bold btn-upper float-right"
                       onClick={() => addModalInstance.show()}
                     >
                       Create
@@ -73,69 +85,27 @@ class BasicTable extends React.Component {
               {/*end: Search Form */}
             </div>
             <div className="kt-portlet__body" style={{ minHeight: "500px" }}>
-              {/*begin: Datatable */}
-              <table
-                className="table"
-                // width="100%"
-              >
-                <thead>
-                  <tr>
-                    <th title="Field #2">Student Names</th>
-                    <th title="Field #3">Route</th>
-                    <th title="Field #4">Gender</th>
-                    <th title="Field #5">Parent</th>
-                    <th title="Field #7">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.students.map(student => {
-                    const { id, gender, names, parent, route } = student;
-                    return (
-                      <tr key={id}>
-                        <td>{names}</td>
-                        <td>{route.name}</td>
-                        <td>{gender}</td>
-                        <td>{parent.name}</td>
-                        <td
-                          data-field="Actions"
-                          data-autohide-disabled="false"
-                          className="kt-datatable__cell"
-                        >
-                          <span
-                            style={{
-                              overflow: "visible",
-                              position: "relative",
-                              width: "110px"
-                            }}
-                          >
-                            <button
-                              title="Edit details"
-                              className="btn btn-sm btn-clean btn-icon btn-icon-md"
-                              onClick={() => {
-                                this.setState({ edit: student });
-                                editModalInstance.show(student);
-                              }}
-                            >
-                              <i className="la la-edit" />
-                            </button>
-                            <button
-                              title="Delete"
-                              className="btn btn-sm btn-clean btn-icon btn-icon-md"
-                              onClick={() => {
-                                this.setState({ remove: student });
-                                deleteModalInstance.show();
-                              }}
-                            >
-                              <i className="la la-trash" />
-                            </button>
-                          </span>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-              {/*end: Datatable */}
+              <Table
+                headers={[
+                  {
+                    label: "Student Names",
+                    key: "names"
+                  },
+                  {
+                    label: "Route",
+                    key: "route.name"
+                  },
+                  {
+                    label: "Gender",
+                    key: "gender"
+                  },
+                  {
+                    label: "Parent",
+                    key: "parent.name"
+                  }
+                ]}
+                data={this.state.students}
+              />
             </div>
           </div>
         </div>

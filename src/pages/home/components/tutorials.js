@@ -1,7 +1,7 @@
 import React from "react";
 
 export default props => (
-    <div className="kt-portlet kt-portlet--height-fluid">
+  <div className="kt-portlet kt-portlet--height-fluid">
     <div className="kt-portlet__head kt-portlet__head--noborder">
       <div className="kt-portlet__head-label">
         <h3 className="kt-portlet__head-title">Quick Info</h3>
@@ -15,7 +15,7 @@ export default props => (
             <i className="flaticon2-chronometer k-font-success" />
           </span>
           <span className="kt-list__text">
-            Create new questions for your project
+            Configuring students, busses and drivers
           </span>
         </a>
         <a href="#" className="kt-list__item">
@@ -23,14 +23,18 @@ export default props => (
           <span className="kt-list__icon">
             <i className="flaticon2-chronometer k-font-success" />
           </span>
-          <span className="kt-list__text">Adding data from other systems</span>
+          <span className="kt-list__text">
+            Adding data from other systems like excel
+          </span>
         </a>
         <a href="#" className="kt-list__item">
           <span className="kt-list__badge kt-list__badge--success" />
           <span className="kt-list__icon">
             <i className="flaticon2-chronometer k-font-success" />
           </span>
-          <span className="kt-list__text">Sending surveys to users</span>
+          <span className="kt-list__text">
+            Sending specialized communication to your parents
+          </span>
         </a>
       </div>
     </div>
