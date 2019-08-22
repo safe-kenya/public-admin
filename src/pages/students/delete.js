@@ -1,4 +1,7 @@
 import React from "react";
+import ErrorMessage from "./components/error-toast";
+const IErrorMessage = new ErrorMessage();
+
 const $ = window.$;
 
 const modalNumber = Math.random()
@@ -27,6 +30,13 @@ class Modal extends React.Component {
       this.hide();
     } catch (error) {
       this.setState({ loading: false });
+
+      if (error) {
+        const { message } = error;
+        return IErrorMessage.show({ message });
+      }
+
+      IErrorMessage.show();
     }
   }
   render() {
@@ -74,7 +84,11 @@ class Modal extends React.Component {
                     />
                   </button>
                 )}
-                <button type="button" className="btn btn-outline-brand"  onClick={() => this.hide()}>
+                <button
+                  type="button"
+                  className="btn btn-outline-brand"
+                  onClick={() => this.hide()}
+                >
                   Cancel
                 </button>
               </div>

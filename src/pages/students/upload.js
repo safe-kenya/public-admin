@@ -1,8 +1,12 @@
 import React from "react";
+import DeleteModal from "./delete";
+
 // import "jquery-validation";
 // import $ from "jquery";
 
 import Table from "./components/table";
+
+const IDeleteModal = new DeleteModal();
 
 // window.jQuery = window.$ = $;
 const $ = window.$;
@@ -74,6 +78,12 @@ class Modal extends React.Component {
         >
           <div className="modal-dialog modal-xl">
             <div className="modal-content">
+              <DeleteModal
+                remove={this.state.remove}
+                save={() => {
+                  // remove from state
+                }}
+              />
               <form
                 id={modalNumber + "form"}
                 className="kt-form kt-form--label-right"
@@ -111,7 +121,7 @@ class Modal extends React.Component {
                         <input
                           className="form-control"
                           id="fullname"
-                          name="fullname"
+                          name="excell-file"
                           type="file"
                           required
                         />
@@ -137,14 +147,27 @@ class Modal extends React.Component {
                           key: "parent"
                         }
                       ]}
+                      options={{
+                        deleteable: true,
+                        editable: false
+                      }}
                       data={[
                         {
+                          id: "testId",
                           names: "uploaded name",
                           route: "uploaded route",
                           gender: "male",
                           parent: "uploaded parent"
                         }
                       ]}
+                      delete={student => {
+                        this.setState({ remove: student }, () => {
+                          IDeleteModal.show();
+                        });
+
+                        // rm from state to not send to server
+                        // this.setState(students:[...students])
+                      }}
                     />
                   </div>
                 </div>

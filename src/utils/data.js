@@ -101,7 +101,9 @@ var Data = (function() {
           setTimeout(() => {
             students = [...students, data];
             subs.students({ students });
-            reject();
+            reject({
+              message:"the student is already registered"
+            });
           }, 2000);
         }),
       update: data =>

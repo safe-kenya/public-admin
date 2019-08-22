@@ -93,7 +93,7 @@ class BasicTable extends React.Component {
                   },
                   {
                     label: "Route",
-                    key: "route.name"
+                    key: "route"
                   },
                   {
                     label: "Gender",
@@ -101,10 +101,26 @@ class BasicTable extends React.Component {
                   },
                   {
                     label: "Parent",
-                    key: "parent.name"
+                    key: "parent"
                   }
                 ]}
-                data={this.state.students}
+                data={this.state.students.map(student => {
+                  const { route = {}, parent = {} } = student;
+                  return Object.assign(student, {
+                    route: route.name,
+                    parent: parent.name
+                  });
+                })}
+                edit={student => {
+                  this.setState({ edit: student }, () => {
+                    editModalInstance.show();
+                  });
+                }}
+                delete={student => {
+                  this.setState({ remove: student }, () => {
+                    deleteModalInstance.show();
+                  });
+                }}
               />
             </div>
           </div>

@@ -2,7 +2,7 @@ import React from "react";
 
 export default props => {
   if (!props.headers || !props.data) return null;
-
+  const { options = { deleteable: true, editable: true } } = props;
   return (
     <table
       className="table"
@@ -35,24 +35,30 @@ export default props => {
                     width: "110px"
                   }}
                 >
-                  <button
-                    title="Edit details"
-                    className="btn btn-sm btn-clean btn-icon btn-icon-md"
-                    onClick={() => {
-                      props.edit(row);
-                    }}
-                  >
-                    <i className="la la-edit" />
-                  </button>
-                  <button
-                    title="Delete"
-                    className="btn btn-sm btn-clean btn-icon btn-icon-md"
-                    onClick={() => {
-                      props.delete(row);
-                    }}
-                  >
-                    <i className="la la-trash" />
-                  </button>
+                  {options.editable === true ? (
+                    <button
+                      title="Edit details"
+                      type="button"
+                      className="btn btn-sm btn-clean btn-icon btn-icon-md"
+                      onClick={() => {
+                        props.edit(row);
+                      }}
+                    >
+                      <i className="la la-edit" />
+                    </button>
+                  ) : null}
+                  {options.deleteable === true ? (
+                    <button
+                      title="Delete"
+                      type="button"
+                      className="btn btn-sm btn-clean btn-icon btn-icon-md"
+                      onClick={() => {
+                        props.delete(row);
+                      }}
+                    >
+                      <i className="la la-trash" />
+                    </button>
+                  ) : null}
                 </span>
               </td>
             </tr>

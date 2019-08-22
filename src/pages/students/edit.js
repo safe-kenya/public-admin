@@ -1,5 +1,7 @@
 import React from "react";
-// import "jquery-validation";
+import ErrorMessage from "./components/error-toast";
+const IErrorMessage = new ErrorMessage();
+
 const $ = window.$;
 
 const modalNumber = Math.random()
@@ -48,12 +50,16 @@ class Modal extends React.Component {
         event.preventDefault();
         try {
           _this.setState({ loading: true });
-          await _this.props.save(_this.state.edit);
+          await _this.props.save(_this.state);
           _this.hide();
           _this.setState({ loading: false });
-        } catch (err) {
-          _this.setState({ error: err.message });
+        } catch (error) {
           _this.setState({ loading: false });
+          if (error) {
+            const { message } = error;
+            return IErrorMessage.show({ message });
+          }
+          IErrorMessage.show();
         }
       }
     });
@@ -111,75 +117,38 @@ class Modal extends React.Component {
                           minLength="2"
                           type="text"
                           required
-                          value={names}
-                          onChange={e => {
-                            this.setState({
-                              edit: Object.assign(this.state.edit, {
-                                names: e.target.value
-                              })
-                            });
-                          }}
                         />
                       </div>
                       <div className="col-lg-3">
-                        <label>Route:</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="route"
-                          name="route"
-                          required
-                          value={route.name}
-                          onChange={e => {
-                            this.setState({
-                              edit: Object.assign(this.state.edit, {
-                                route: {
-                                  name: e.target.value
-                                }
-                              })
-                            });
-                          }}
-                        />
+                        <label for="exampleSelect1">Route:</label>
+                        <select name="route" class="form-control" required>
+                          <option value="">Select route</option>
+                          {[2, 3, 4].map(route => (
+                            <option value={route}>{route}</option>
+                          ))}
+                        </select>
                       </div>
                       <div className="col-lg-3">
-                        <label>Gender:</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="fullname"
+                        <label for="exampleSelect1">Gender:</label>
+                        <select
                           name="gender"
-                          minLength="2"
-                          type="text"
+                          class="form-control"
+                          id="exampleSelect1"
                           required
-                          value={gender}
-                          onChange={e => {
-                            this.setState({
-                              edit: Object.assign(this.state.edit, {
-                                gender: e.target.value
-                              })
-                            });
-                          }}
-                        />
+                        >
+                          <option value="">Select gender</option>
+                          <option value="male">male</option>
+                          <option value="female">female</option>
+                        </select>
                       </div>
                       <div className="col-lg-6">
-                        <label>Parent:</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="parent"
-                          name="parent"
-                          minLength="2"
-                          type="text"
-                          required
-                          value={parent.name}
-                          onChange={e => {
-                            this.setState({
-                              edit: Object.assign(this.state.edit, {
-                                parent: { name: e.target.value }
-                              })
-                            });
-                          }}
-                        />
+                        <label for="exampleSelect1">Parent:</label>
+                        <select name="parent" class="form-control" required>
+                          <option value="">Select parent</option>
+                          {[2, 3, 4].map(parent => (
+                            <option value={parent}>parent {parent}</option>
+                          ))}
+                        </select>
                       </div>
                     </div>
                   </div>

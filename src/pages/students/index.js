@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../../components/navbar";
 import Subheader from "../../components/subheader";
-import Table from "./table";
+import List from "./list";
 import Footer from "../../components/footer";
 
 
@@ -22,7 +22,7 @@ class App extends React.Component {
             id="kt_content"
           >
             <div className="kt-container  kt-grid__item kt-grid__item--fluid">
-              <Table />
+              <List />
             </div>
           </div>
           <Footer />

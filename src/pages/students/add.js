@@ -1,8 +1,7 @@
 import React from "react";
-// import "jquery-validation";
-// import $ from "jquery";
+import ErrorMessage from "./components/error-toast";
+const IErrorMessage = new ErrorMessage();
 
-// window.jQuery = window.$ = $;
 const $ = window.$;
 
 const modalNumber = Math.random()
@@ -52,9 +51,13 @@ class Modal extends React.Component {
           await _this.props.save(_this.state);
           _this.hide();
           _this.setState({ loading: false });
-        } catch (err) {
-          _this.setState({ error: err.message });
+        } catch (error) {
           _this.setState({ loading: false });
+          if (error) {
+            const { message } = error;
+            return IErrorMessage.show({ message });
+          }
+          IErrorMessage.show();
         }
       }
     });
@@ -113,7 +116,12 @@ class Modal extends React.Component {
                       </div>
                       <div className="col-lg-3">
                         <label for="exampleSelect1">Gender:</label>
-                        <select name="gender" class="form-control" id="exampleSelect1" required>
+                        <select
+                          name="gender"
+                          class="form-control"
+                          id="exampleSelect1"
+                          required
+                        >
                           <option value="">Select gender</option>
                           <option value="male">male</option>
                           <option value="female">female</option>
