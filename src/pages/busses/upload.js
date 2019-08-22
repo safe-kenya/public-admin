@@ -23,7 +23,7 @@ class Modal extends React.Component {
       name: "mwali route"
     },
     gender: "Male",
-    parent: {
+    bus: {
       name: "Madam Essue"
     }
   };
@@ -89,7 +89,7 @@ class Modal extends React.Component {
                 className="kt-form kt-form--label-right"
               >
                 <div className="modal-header">
-                  <h5 className="modal-title">Upload Students</h5>
+                  <h5 className="modal-title">Upload buss</h5>
                   <button
                     type="button"
                     className="close"
@@ -112,7 +112,7 @@ class Modal extends React.Component {
                         Please upload an Excell sheet with the following
                         collumns in the following order
                         {/* <br/> */}
-                        <code>student_names, parent_phone, etc</code>
+                        <code>bus_names, bus_phone, etc</code>
                       </div>
                     </div>
                     <div className="form-group row">
@@ -131,20 +131,16 @@ class Modal extends React.Component {
                     <Table
                       headers={[
                         {
-                          label: "Student Names",
+                          label: "buss Names",
                           key: "names"
-                        },
-                        {
-                          label: "Route",
-                          key: "route"
                         },
                         {
                           label: "Gender",
                           key: "gender"
                         },
                         {
-                          label: "Parent",
-                          key: "parent"
+                          label: "Phone",
+                          key: "phone"
                         }
                       ]}
                       options={{
@@ -155,18 +151,16 @@ class Modal extends React.Component {
                         {
                           id: "testId",
                           names: "uploaded name",
-                          route: "uploaded route",
-                          gender: "male",
-                          parent: "uploaded parent"
+                          gender: "Father"
                         }
                       ]}
-                      delete={student => {
-                        this.setState({ remove: student }, () => {
+                      delete={bus => {
+                        this.setState({ remove: bus }, () => {
                           IDeleteModal.show();
                         });
 
                         // rm from state to not send to server
-                        // this.setState(students:[...students])
+                        // this.setState(buss:[...buss])
                       }}
                     />
                   </div>

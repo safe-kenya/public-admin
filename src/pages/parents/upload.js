@@ -131,20 +131,20 @@ class Modal extends React.Component {
                     <Table
                       headers={[
                         {
-                          label: "Student Names",
+                          label: "Parent Names",
                           key: "names"
-                        },
-                        {
-                          label: "Route",
-                          key: "route"
                         },
                         {
                           label: "Gender",
                           key: "gender"
                         },
                         {
-                          label: "Parent",
-                          key: "parent"
+                          label: "Email",
+                          key: "email"
+                        },
+                        {
+                          label: "Phone",
+                          key: "phone"
                         }
                       ]}
                       options={{
@@ -155,9 +155,7 @@ class Modal extends React.Component {
                         {
                           id: "testId",
                           names: "uploaded name",
-                          route: "uploaded route",
-                          gender: "male",
-                          parent: "uploaded parent"
+                          gender: "Father"
                         }
                       ]}
                       delete={student => {

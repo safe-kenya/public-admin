@@ -15,14 +15,14 @@ const deleteModalInstance = new DeleteModal();
 
 class BasicTable extends React.Component {
   state = {
-    students: []
+    buss: []
   };
   componentDidMount() {
-    const students = Data.students.list();
-    this.setState({ students });
+    const buss = Data.busses.list();
+    this.setState({ buss });
 
-    Data.students.subscribe(students => {
-      this.setState(students);
+    Data.busses.subscribe(buss => {
+      this.setState(buss);
     });
   }
   render() {
@@ -31,15 +31,15 @@ class BasicTable extends React.Component {
       <div className="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--left kt-aside--fixed kt-aside--offcanvas-default kt-page--loading">
         <div className="kt-grid kt-grid--hor kt-grid--root">
           <div className="kt-portlet kt-portlet--mobile">
-            <AddModal save={student => Data.students.create(student)} />
-            <UploadModal save={student => Data.students.create(student)} />
+            <AddModal save={buss => Data.busses.create(buss)} />
+            <UploadModal save={buss => Data.busses.create(buss)} />
             <DeleteModal
               remove={remove}
-              save={student => Data.students.delete(student)}
+              save={bus => Data.busses.delete(bus)}
             />
             <EditModal
               edit={edit}
-              save={student => Data.students.update(student)}
+              save={bus => Data.busses.update(bus)}
             />
             <div className="kt-portlet__body">
               {/*begin: Search Form */}
@@ -88,30 +88,26 @@ class BasicTable extends React.Component {
               <Table
                 headers={[
                   {
-                    label: "Student Names",
+                    label: "Bus Names",
                     key: "names"
                   },
                   {
-                    label: "Route",
-                    key: "route"
+                    label: "Size",
+                    key: "size"
                   },
                   {
-                    label: "Gender",
-                    key: "gender"
-                  },
-                  {
-                    label: "Parent",
-                    key: "parent"
+                    label: "Plate",
+                    key: "plate"
                   }
                 ]}
-                data={this.state.students}
-                edit={student => {
-                  this.setState({ edit: student }, () => {
+                data={this.state.buss}
+                edit={bus => {
+                  this.setState({ edit: bus }, () => {
                     editModalInstance.show();
                   });
                 }}
-                delete={student => {
-                  this.setState({ remove: student }, () => {
+                delete={bus => {
+                  this.setState({ remove: bus }, () => {
                     deleteModalInstance.show();
                   });
                 }}

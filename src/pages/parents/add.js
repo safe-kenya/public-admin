@@ -1,14 +1,7 @@
 import React from "react";
-import DeleteModal from "./deleteUploadRow";
+import ErrorMessage from "./components/error-toast";
+const IErrorMessage = new ErrorMessage();
 
-// import "jquery-validation";
-// import $ from "jquery";
-
-import Table from "./components/table";
-
-const IDeleteModal = new DeleteModal();
-
-// window.jQuery = window.$ = $;
 const $ = window.$;
 
 const modalNumber = Math.random()
@@ -18,7 +11,7 @@ const modalNumber = Math.random()
 class Modal extends React.Component {
   state = {
     loading: false,
-    names: "Alice A mwali",
+    names: "Parent A test",
     route: {
       name: "mwali route"
     },
@@ -58,9 +51,13 @@ class Modal extends React.Component {
           await _this.props.save(_this.state);
           _this.hide();
           _this.setState({ loading: false });
-        } catch (err) {
-          _this.setState({ error: err.message });
+        } catch (error) {
           _this.setState({ loading: false });
+          if (error) {
+            const { message } = error;
+            return IErrorMessage.show({ message });
+          }
+          IErrorMessage.show();
         }
       }
     });
@@ -78,18 +75,12 @@ class Modal extends React.Component {
         >
           <div className="modal-dialog modal-xl">
             <div className="modal-content">
-              <DeleteModal
-                remove={this.state.remove}
-                save={() => {
-                  // remove from state
-                }}
-              />
               <form
                 id={modalNumber + "form"}
                 className="kt-form kt-form--label-right"
               >
                 <div className="modal-header">
-                  <h5 className="modal-title">Upload Students</h5>
+                  <h5 className="modal-title">Create Parent</h5>
                   <button
                     type="button"
                     className="close"
@@ -101,74 +92,53 @@ class Modal extends React.Component {
                 </div>
                 <div className="modal-body">
                   <div className="kt-portlet__body">
-                    <div
-                      className="alert alert-light alert-elevate fade show"
-                      role="alert"
-                    >
-                      <div className="alert-icon">
-                        <i className="flaticon-warning kt-font-brand" />
-                      </div>
-                      <div className="alert-text">
-                        Please upload an Excell sheet with the following
-                        collumns in the following order
-                        {/* <br/> */}
-                        <code>student_names, parent_phone, etc</code>
-                      </div>
-                    </div>
                     <div className="form-group row">
-                      <div className="col-lg-12">
-                        <label>Excel File:</label>
+                      <div className="col-lg-6">
+                        <label>Full Name:</label>
                         <input
+                          type="text"
                           className="form-control"
                           id="fullname"
-                          name="excell-file"
-                          type="file"
+                          name="fullname"
+                          minLength="2"
+                          type="text"
                           required
                         />
                       </div>
+                      <div className="col-lg-3">
+                        <label>Phone Number:</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="phone"
+                          name="phone"
+                          minLength="12"
+                          type="number"
+                          required
+                        />
+                      </div>
+                      <div className="col-lg-3">
+                        <label>Email:</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="eail"
+                          name="email"
+                          minLength="2"
+                          type="email"
+                          required
+                        />
+                      </div>
+                      <div className="col-lg-3">
+                        <label for="exampleSelect1">Gender:</label>
+                        <select name="route" class="form-control" required>
+                          <option value="">Select gender</option>
+                          {["Father", "Mother"].map(gender => (
+                            <option value={gender}>{gender}</option>
+                          ))}
+                        </select>
+                      </div>
                     </div>
-                    {/*begin: Datatable */}
-                    <Table
-                      headers={[
-                        {
-                          label: "Student Names",
-                          key: "names"
-                        },
-                        {
-                          label: "Route",
-                          key: "route"
-                        },
-                        {
-                          label: "Gender",
-                          key: "gender"
-                        },
-                        {
-                          label: "Parent",
-                          key: "parent"
-                        }
-                      ]}
-                      options={{
-                        deleteable: true,
-                        editable: false
-                      }}
-                      data={[
-                        {
-                          id: "testId",
-                          names: "uploaded name",
-                          route: "uploaded route",
-                          gender: "male",
-                          parent: "uploaded parent"
-                        }
-                      ]}
-                      delete={student => {
-                        this.setState({ remove: student }, () => {
-                          IDeleteModal.show();
-                        });
-
-                        // rm from state to not send to server
-                        // this.setState(students:[...students])
-                      }}
-                    />
                   </div>
                 </div>
                 <div className="modal-footer">

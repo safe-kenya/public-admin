@@ -3,6 +3,10 @@ import { Route, HashRouter } from "react-router-dom";
 
 import home from "./pages/home";
 import students from "./pages/students";
+import parents from "./pages/parents";
+import drivers from "./pages/drivers";
+import busses from "./pages/busses"
+
 // import login from "./pages/auth/login";
 // import recover from "./pages/auth/recover";
 // import register from "./pages/auth/register";
@@ -12,9 +16,9 @@ function App() {
     <HashRouter>
       <Route exact path="/" component={home} />
       <Route path="/students" component={students} />
-      <Route path="/parents" component={students} />
-      <Route path="/drivers" component={students} />
-      <Route path="/busses" component={students} />
+      <Route path="/parents" component={parents} />
+      <Route path="/drivers" component={drivers} />
+      <Route path="/busses" component={busses} />
       <Route path="/routes" component={students} />
       <Route path="/messages" component={students} />
       <Route path="/comms/sms" component={students} />
