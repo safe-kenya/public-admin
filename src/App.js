@@ -8,14 +8,15 @@ import drivers from "./pages/drivers";
 import busses from "./pages/busses"
 import routes from "./pages/routes"
 
-// import login from "./pages/auth/login";
+import login from "./pages/auth/login";
 // import recover from "./pages/auth/recover";
 // import register from "./pages/auth/register";
 
 function App() {
   return (
     <HashRouter>
-      <Route exact path="/" component={home} />
+      <Route exact path="/" component={login} />
+      <Route exact path="/home" component={home} />
       <Route path="/students" component={students} />
       <Route path="/parents" component={parents} />
       <Route path="/drivers" component={drivers} />
