@@ -13,13 +13,9 @@ class Modal extends React.Component {
     loading: false,
     edit: {
       names: "",
-      route: {
-        name: ""
-      },
+      route: "",
       gender: "",
-      parent: {
-        name: ""
-      }
+      parent: ""
     }
   };
 
@@ -39,10 +35,10 @@ class Modal extends React.Component {
       errorClass: "invalid-feedback",
       errorElement: "div",
 
-      highlight: function(element) {
+      highlight: function (element) {
         $(element).addClass("is-invalid");
       },
-      unhighlight: function(element) {
+      unhighlight: function (element) {
         $(element).removeClass("is-invalid");
       },
 
@@ -167,8 +163,8 @@ class Modal extends React.Component {
                         aria-hidden="true"
                       />
                     ) : (
-                      "Save"
-                    )}
+                        "Save"
+                      )}
                   </button>
                   <button
                     data-dismiss="modal"

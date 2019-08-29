@@ -21,8 +21,8 @@ class BasicTable extends React.Component {
     const students = Data.students.list();
     this.setState({ students });
 
-    Data.students.subscribe(students => {
-      this.setState(students);
+    Data.students.subscribe(({ students }) => {
+      this.setState({ students });
     });
   }
   render() {

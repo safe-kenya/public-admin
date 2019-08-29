@@ -26,7 +26,7 @@ function emitize(obj, eventName) {
 const studentsData = [
   {
     id: Math.random().toString(),
-    names: "Existing parent",
+    names: "Existing student",
     route: "Malawa route",
     gender: "Male",
     parent: "Existing parent"
@@ -78,6 +78,10 @@ var Data = (function() {
 
   var subs = {};
   emitize(subs, "students");
+  emitize(subs, "parents");
+  emitize(subs, "drivers");
+  emitize(subs, "busses");
+  emitize(subs, "routes");
 
   // watchers.students = log; //subscribe to events (named 'x') with cb (log)
   // //another subscription won't override the previous one
@@ -115,9 +119,7 @@ var Data = (function() {
           setTimeout(() => {
             students = [...students, data];
             subs.students({ students });
-            reject({
-              message: "the student is already registered"
-            });
+            resolve();
           }, 2000);
         }),
       update: data =>
@@ -127,7 +129,9 @@ var Data = (function() {
             const subtract = students.filter(({ id }) => id !== data.id);
             students = [data, ...subtract];
             subs.students({ students });
-            reject();
+            reject({
+              message: "This is a test error message"
+            });
           }, 2000);
         }),
       delete: data =>
@@ -137,7 +141,7 @@ var Data = (function() {
             const subtract = students.filter(({ id }) => id !== data.id);
             students = [...subtract];
             subs.students({ students });
-            reject();
+            resolve();
           }, 2000);
         }),
       list() {
@@ -196,7 +200,7 @@ var Data = (function() {
           data.id = Math.random().toString();
           setTimeout(() => {
             drivers = [...drivers, data];
-            subs.parents({ drivers });
+            subs.drivers({ drivers });
             resolve();
           }, 2000);
         }),
@@ -276,7 +280,7 @@ var Data = (function() {
           data.id = Math.random().toString();
           setTimeout(() => {
             routes = [...routes, data];
-            subs.busses({ routes });
+            subs.routes({ routes });
             resolve();
           }, 2000);
         }),
@@ -286,7 +290,7 @@ var Data = (function() {
           setTimeout(() => {
             const subtract = routes.filter(({ id }) => id !== data.id);
             routes = [data, ...subtract];
-            subs.busses({ routes });
+            subs.routes({ routes });
             resolve();
           }, 2000);
         }),
@@ -296,7 +300,7 @@ var Data = (function() {
           setTimeout(() => {
             const subtract = routes.filter(({ id }) => id !== data.id);
             routes = [...routes];
-            subs.busses({ routes });
+            subs.routes({ routes });
             resolve();
           }, 2000);
         }),
