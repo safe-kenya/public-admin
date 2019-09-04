@@ -1,6 +1,12 @@
 import axios from "axios"
 
-const { API = `http://localhost:4000` } = process.env
+let API;
+
+if(window.location.href.includes('localhost')){
+    API = `http://localhost:4000`
+} else{
+    API = `https://staging-smartkids.herokuapp.com`
+}
 
 const query = (query, params) => {
     // make request to the server
