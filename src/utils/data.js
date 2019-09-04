@@ -71,20 +71,44 @@ var Data = (function () {
 
   // when the data store gets innitialized, fetch all data and store in cache
   query(`{
+    students {
+      id
+      names
+      route {
+        name
+      }
+      parent {
+        name
+      }
+    }
     buses {
-      id,
-      make,
+      plate
+      make
       size
     }
-    students{
-      id,
-      names,
-      route{
-        name
-      },
-      gender,
-      parent{
-        name
+    drivers {
+      id
+      username
+      email
+      phone
+    }
+    parents {
+      id
+      name
+    }
+    routes {
+      id
+      time
+      path {
+        lat
+        lng
+      }
+    }
+    schedules {
+      id
+      time
+      route {
+        id
       }
     }
   }`).then(response => {
@@ -97,7 +121,11 @@ var Data = (function () {
     })
     subs.students({ students })
 
-    busses = response.busses;
+    busses = response.buses;
+    subs.busses({ busses })
+
+    parents = response.parents;
+    subs.parents({ parents })
   })
 
   function createInstance() {
@@ -247,14 +275,22 @@ var Data = (function () {
       getOne(id) { }
     },
     busses: {
-      create: data =>
-        new Promise((resolve, reject) => {
-          data.id = Math.random().toString();
-          setTimeout(() => {
-            busses = [...busses, data];
-            subs.busses({ busses });
-            resolve();
-          }, 2000);
+      create: bus =>
+        new Promise(async (resolve, reject) => {
+          const { id } = await mutate(`mutation ($bus: Ibus!) {
+            buses {
+              create(bus: $bus) {
+                id
+              }
+            }
+          }`, {
+              bus
+            })
+
+          bus.id = id
+          busses = [...busses, bus];
+          subs.busses({ busses });
+          resolve();
         }),
       update: data =>
         new Promise((resolve, reject) => {
@@ -271,7 +307,7 @@ var Data = (function () {
           data.id = Math.random().toString();
           setTimeout(() => {
             const subtract = busses.filter(({ id }) => id !== data.id);
-            busses = [...busses];
+            busses = [...subtract];
             subs.busses({ busses });
             resolve();
           }, 2000);

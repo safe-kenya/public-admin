@@ -11,14 +11,9 @@ const modalNumber = Math.random()
 class Modal extends React.Component {
   state = {
     loading: false,
-    names: "Parent A test",
-    route: {
-      name: "mwali route"
-    },
-    gender: "Male",
-    bus: {
-      name: "Madam Essue"
-    }
+    make: "",
+    size: 14,
+    plate: ""
   };
 
   show() {
@@ -37,10 +32,11 @@ class Modal extends React.Component {
       errorClass: "invalid-feedback",
       errorElement: "div",
 
-      highlight: function(element) {
+      highlight: function (element) {
         $(element).addClass("is-invalid");
       },
-      unhighlight: function(element) {
+
+      unhighlight: function (element) {
         $(element).removeClass("is-invalid");
       },
 
@@ -48,6 +44,7 @@ class Modal extends React.Component {
         event.preventDefault();
         try {
           _this.setState({ loading: true });
+          _this.state.loading = undefined
           await _this.props.save(_this.state);
           _this.hide();
           _this.setState({ loading: false });
@@ -98,11 +95,14 @@ class Modal extends React.Component {
                         <input
                           type="text"
                           className="form-control"
-                          id="fullname"
-                          name="fullname"
+                          id="busmake"
+                          name="busmake"
                           minLength="2"
-                          type="text"
                           required
+                          value={this.state.make}
+                          onChange={(e) => this.setState({
+                            make: e.target.value
+                          })}
                         />
                       </div>
                       <div className="col-lg-3">
@@ -110,19 +110,30 @@ class Modal extends React.Component {
                         <input
                           type="text"
                           className="form-control"
-                          id="number"
-                          name="number"
-                          type="text"
+                          id="plate"
+                          name="plate"
                           required
+                          value={this.state.plate}
+                          onChange={(e) => this.setState({
+                            plate: e.target.value
+                          })}
                         />
                       </div>
                       <div className="col-lg-3">
                         <label for="exampleSelect1">Size:</label>
-                        <select name="route" class="form-control" required>
+                        <select
+                          name="seats"
+                          class="form-control"
+                          required
+                          value={this.state.size}
+                          onChange={(e) => this.setState({
+                            size: Number(e.target.value)
+                          })}
+                        >
                           <option value="">Number of Seats</option>
                           {["14", "28", "42", "65"].map(
                             seats => (
-                              <option value={seats}>{seats}</option>
+                              <option key={seats} value={seats}>{seats}</option>
                             )
                           )}
                         </select>
@@ -132,7 +143,6 @@ class Modal extends React.Component {
                 </div>
                 <div className="modal-footer">
                   <button
-                    type="button"
                     className="btn btn-outline-brand"
                     type="submit"
                     disabled={this.state.loading}
@@ -144,8 +154,8 @@ class Modal extends React.Component {
                         aria-hidden="true"
                       />
                     ) : (
-                      "Save"
-                    )}
+                        "Save"
+                      )}
                   </button>
                   <button
                     data-dismiss="modal"

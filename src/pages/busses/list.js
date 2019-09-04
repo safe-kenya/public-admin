@@ -15,11 +15,11 @@ const deleteModalInstance = new DeleteModal();
 
 class BasicTable extends React.Component {
   state = {
-    buss: []
+    busses: []
   };
   componentDidMount() {
-    const buss = Data.busses.list();
-    this.setState({ buss });
+    const busses = Data.busses.list();
+    this.setState({ busses });
 
     Data.busses.subscribe(buss => {
       this.setState(buss);
@@ -89,7 +89,7 @@ class BasicTable extends React.Component {
                 headers={[
                   {
                     label: "Bus Names",
-                    key: "names"
+                    key: "make"
                   },
                   {
                     label: "Size",
@@ -100,7 +100,7 @@ class BasicTable extends React.Component {
                     key: "plate"
                   }
                 ]}
-                data={this.state.buss}
+                data={this.state.busses}
                 edit={bus => {
                   this.setState({ edit: bus }, () => {
                     editModalInstance.show();

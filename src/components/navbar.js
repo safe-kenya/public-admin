@@ -197,7 +197,6 @@ class Navbar extends React.Component {
                 aria-haspopup="true"
               >
                 <a
-                  href="#"
                   onClick={e => e.preventDefault()}
                   className="kt-menu__link kt-menu__toggle"
                 >
