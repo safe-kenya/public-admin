@@ -82,6 +82,7 @@ var Data = (function () {
       }
     }
     buses {
+      id,
       plate
       make
       size
@@ -302,15 +303,24 @@ var Data = (function () {
             resolve();
           }, 2000);
         }),
-      delete: data =>
-        new Promise((resolve, reject) => {
-          data.id = Math.random().toString();
-          setTimeout(() => {
-            const subtract = busses.filter(({ id }) => id !== data.id);
-            busses = [...subtract];
-            subs.busses({ busses });
-            resolve();
-          }, 2000);
+      delete: bus =>
+        new Promise(async (resolve, reject) => {
+          await mutate(`mutation ($Ibus: Ubus!) {
+            buses {
+              archive(bus: $Ibus) {
+                id
+              }
+            }
+          }  `, {
+            "Ibus": {
+              "id": bus.id
+            }
+          })
+
+          const subtract = busses.filter(({ id }) => id !== bus.id);
+          busses = [...subtract];
+          subs.busses({ busses });
+          resolve();
         }),
       list() {
         return busses;
