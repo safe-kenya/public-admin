@@ -1,81 +1,62 @@
-function emitize(obj, eventName) {
-  let _subscriptions = new Set();
-  Object.defineProperty(obj, eventName, {
-    set(func) {
-      _subscriptions.add(func);
-    },
-    get() {
-      var emit = (...args) => {
-        _subscriptions.forEach(f => f(...args));
-      };
-
-      Object.defineProperty(emit, "off", {
-        set(func) {
-          _subscriptions.delete(func);
-        },
-        get() {
-          _subscriptions = new Set();
-        }
-      });
-
-      return emit;
-    }
-  });
-}
+import emitize from "./emitize"
+import { query, mutate } from "./requests"
 
 const studentsData = [
-  {
-    id: Math.random().toString(),
-    names: "Existing student",
-    route: "Malawa route",
-    gender: "Male",
-    parent: "Existing parent"
-  }
+  // {
+  //   id: Math.random().toString(),
+  //   names: "Existing student",
+  //   route: "Malawa route",
+  //   gender: "Male",
+  //   parent: "Existing parent"
+  // }
 ];
 
 const parentsData = [
-  {
-    id: Math.random().toString(),
-    names: "Existing parent",
-    gender: "Father",
-    phone: "109876543",
-    email: "test@dfgh.com"
-  }
+  // {
+  //   id: Math.random().toString(),
+  //   names: "Existing parent",
+  //   gender: "Father",
+  //   phone: "109876543",
+  //   email: "test@dfgh.com"
+  // }
 ];
 
 const bussesData = [
-  {
-    id: Math.random().toString(),
-    names: "Existing Bus",
-    size: "small",
-    plate: "plate"
-  }
+  // {
+  //   id: Math.random().toString(),
+  //   names: "Existing Bus",
+  //   size: "small",
+  //   plate: "plate"
+  // }
 ];
 
 const driversData = [
-  {
-    id: Math.random().toString(),
-    names: "Existing driver",
-    gender: "male",
-    phone: "109876543"
-  }
+  // {
+  //   id: Math.random().toString(),
+  //   names: "Existing driver",
+  //   gender: "male",
+  //   phone: "109876543"
+  // }
 ];
 
 const routesData = [
-  {
-    id: Math.random().toString(),
-    names: "Existing route"
-  }
+  // {
+  //   id: Math.random().toString(),
+  //   names: "Existing route"
+  // }
 ];
 
-var Data = (function() {
+var Data = (function () {
   var instance;
+
+  // local variables to keep a cache of every entity
   var students = studentsData;
   var parents = parentsData;
   var drivers = driversData;
   var busses = bussesData;
   var routes = routesData;
 
+  // subscriptions for every entity to keep track of everyone subscribing to any data
   var subs = {};
   emitize(subs, "students");
   emitize(subs, "parents");
@@ -83,10 +64,41 @@ var Data = (function() {
   emitize(subs, "busses");
   emitize(subs, "routes");
 
-  // watchers.students = log; //subscribe to events (named 'x') with cb (log)
+  // subs.students = log; //subscribe to events (named 'x') with cb (log)
   // //another subscription won't override the previous one
-  // watchers.students = logPlus1;
-  // watchers.students(9); //emits '9' to all listeners;
+  // subs.students = logPlus1;
+  // subs.students(9); //emits '9' to all listeners;
+
+  // when the data store gets innitialized, fetch all data and store in cache
+  query(`{
+    buses {
+      id,
+      make,
+      size
+    }
+    students{
+      id,
+      names,
+      route{
+        name
+      },
+      gender,
+      parent{
+        name
+      }
+    }
+  }`).then(response => {
+    // let { students } = response
+    students = response.students.map(student => {
+      student.route = student.route.name
+      student.parent = student.parent.name
+
+      return student
+    })
+    subs.students({ students })
+
+    busses = response.busses;
+  })
 
   function createInstance() {
     var object = new Object("Instance here");
@@ -94,7 +106,7 @@ var Data = (function() {
   }
 
   return {
-    getInstance: function() {
+    getInstance: function () {
       if (!instance) {
         instance = createInstance();
       }
@@ -152,7 +164,7 @@ var Data = (function() {
         subs.students = cb;
         return students;
       },
-      getOne(id) {}
+      getOne(id) { }
     },
     parents: {
       create: data =>
@@ -192,7 +204,7 @@ var Data = (function() {
         subs.parents = cb;
         return parents;
       },
-      getOne(id) {}
+      getOne(id) { }
     },
     drivers: {
       create: data =>
@@ -232,7 +244,7 @@ var Data = (function() {
         subs.drivers = cb;
         return drivers;
       },
-      getOne(id) {}
+      getOne(id) { }
     },
     busses: {
       create: data =>
@@ -272,7 +284,7 @@ var Data = (function() {
         subs.busses = cb;
         return busses;
       },
-      getOne(id) {}
+      getOne(id) { }
     },
     routes: {
       create: data =>
@@ -312,7 +324,7 @@ var Data = (function() {
         subs.routes = cb;
         return routes;
       },
-      getOne(id) {}
+      getOne(id) { }
     },
     picksAndDrops: {
       create(id) {
@@ -327,7 +339,7 @@ var Data = (function() {
       list() {
         return [];
       },
-      getOne(id) {}
+      getOne(id) { }
     },
     messages: {
       create(id) {
@@ -342,7 +354,7 @@ var Data = (function() {
       list() {
         return [];
       },
-      getOne(id) {}
+      getOne(id) { }
     },
     communication: {
       sms: {
@@ -358,7 +370,7 @@ var Data = (function() {
         list() {
           return [];
         },
-        getOne(id) {}
+        getOne(id) { }
       },
       email: {
         create(id) {
@@ -373,7 +385,7 @@ var Data = (function() {
         list() {
           return [];
         },
-        getOne(id) {}
+        getOne(id) { }
       }
     }
   };

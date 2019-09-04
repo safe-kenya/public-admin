@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import app from "../scripts.bundle"
 
 class Navbar extends React.Component {
   componentDidMount() {
-    window.KTLayout.init();
+    // window.KTLayout.init();
+    app.init()
   }
   state = {
     busses: [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -16,7 +18,7 @@ class Navbar extends React.Component {
       >
         {/* begin:: Brand */}
         <div className="kt-header__brand   kt-grid__item" id="kt_header_brand">
-          <Link to="/">
+          <Link to="/home">
             <img
               alt="Logo"
               style={{ width: 150 }}
@@ -46,7 +48,7 @@ class Navbar extends React.Component {
                 data-ktmenu-submenu-toggle="click"
                 aria-haspopup="true"
               >
-                <Link to="/" className="kt-menu__link">
+                <Link to="/home" className="kt-menu__link">
                   <span className="kt-menu__link-text">Home</span>
                 </Link>
               </li>

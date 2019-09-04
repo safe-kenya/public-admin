@@ -3,6 +3,7 @@ import Navbar from "../../components/navbar";
 import Subheader from "../../components/subheader";
 import List from "./list";
 import Footer from "../../components/footer";
+import ProfilePanel from "../../components/profile-panel";
 
 
 class App extends React.Component {
@@ -18,7 +19,7 @@ class App extends React.Component {
 
           <div
             className="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor"
-            style={{height:"100vh"}}
+            style={{ height: "100vh" }}
             id="kt_content"
           >
             <div className="kt-container  kt-grid__item kt-grid__item--fluid">
@@ -27,6 +28,7 @@ class App extends React.Component {
           </div>
           <Footer />
         </div>
+        <ProfilePanel />
       </div>
     );
   }

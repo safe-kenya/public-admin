@@ -6,6 +6,7 @@ import Stat from "./components/stat";
 import Tutorials from "./components/tutorials";
 import Questions from "./components/common-questions";
 import Map from "./components/map";
+import ProfilePanel from "../../components/profile-panel"
 
 class Home extends React.Component {
   render() {
@@ -71,6 +72,7 @@ class Home extends React.Component {
           </div>
           <Footer />
         </div>
+        <ProfilePanel />
       </div>
     );
   }

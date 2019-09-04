@@ -1,7 +1,7 @@
 //
 // Dashboard
 //
-
+let KTLib = window.KTLib
 
 
 // Class definition

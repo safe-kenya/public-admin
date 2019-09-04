@@ -39,10 +39,10 @@ class Modal extends React.Component {
       errorClass: "invalid-feedback",
       errorElement: "div",
 
-      highlight: function(element) {
+      highlight: function (element) {
         $(element).addClass("is-invalid");
       },
-      unhighlight: function(element) {
+      unhighlight: function (element) {
         $(element).removeClass("is-invalid");
       },
 
@@ -108,7 +108,7 @@ class Modal extends React.Component {
                   <div className="kt-portlet__body">
                     <div className="form-group row">
                       <div className="col-lg-6">
-                        <label>Full Name:</label>
+                        <label>Bus Make:</label>
                         <input
                           type="text"
                           className="form-control"
@@ -133,10 +133,10 @@ class Modal extends React.Component {
                       <div className="col-lg-3">
                         <label for="exampleSelect1">Size:</label>
                         <select name="route" class="form-control" required>
-                          <option value="">Select size</option>
-                          {["Van", "MiniBus", "Large", "Super Bus"].map(
-                            gender => (
-                              <option value={gender}>{gender}</option>
+                          <option value="">Number of Seats</option>
+                          {["14", "28", "42", "65"].map(
+                            seats => (
+                              <option value={seats}>{seats}</option>
                             )
                           )}
                         </select>
@@ -158,8 +158,8 @@ class Modal extends React.Component {
                         aria-hidden="true"
                       />
                     ) : (
-                      "Save"
-                    )}
+                        "Save"
+                      )}
                   </button>
                   <button
                     data-dismiss="modal"
