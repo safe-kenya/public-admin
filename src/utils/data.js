@@ -96,6 +96,9 @@ var Data = (function () {
     parents {
       id
       name
+      gender
+      email
+      phone
     }
     routes {
       id
@@ -203,33 +206,61 @@ var Data = (function () {
     },
     parents: {
       create: data =>
-        new Promise((resolve, reject) => {
-          data.id = Math.random().toString();
-          setTimeout(() => {
-            parents = [...parents, data];
-            subs.parents({ parents });
-            resolve();
-          }, 2000);
+        new Promise(async (resolve, reject) => {
+          const { id } = await mutate(`
+          mutation ($Iparent: Iparent!) {
+            parents {
+              create(parent: $Iparent) {
+                id
+              }
+            }
+          }`, {
+              "Iparent": data
+            })
+
+          data.id = id;
+
+          parents = [...parents, data];
+          subs.parents({ parents });
+          resolve();
         }),
       update: data =>
-        new Promise((resolve, reject) => {
-          data.id = Math.random().toString();
-          setTimeout(() => {
-            const subtract = parents.filter(({ id }) => id !== data.id);
-            parents = [data, ...subtract];
-            subs.parents({ parents });
-            resolve();
-          }, 2000);
+        new Promise(async (resolve, reject) => {
+          await mutate(`
+          mutation ($parent: Uparent!) {
+            parents {
+              update(parent: $parent) {
+                id
+              }
+            }
+          }`, {
+              "parent": data
+            })
+
+          const subtract = parents.filter(({ id }) => id !== data.id);
+          parents = [data, ...subtract];
+          subs.parents({ parents });
+          resolve();
         }),
       delete: data =>
-        new Promise((resolve, reject) => {
-          data.id = Math.random().toString();
-          setTimeout(() => {
-            const subtract = parents.filter(({ id }) => id !== data.id);
-            parents = [...subtract];
-            subs.parents({ parents });
-            resolve();
-          }, 2000);
+        new Promise(async (resolve, reject) => {
+          mutate(`
+          mutation ($Iparent: Uparent!) {
+            parents {
+              archive(parent: $Iparent) {
+                id
+              }
+            }
+          } `, {
+              "Iparent": {
+                id: data.id
+              }
+            })
+
+          const subtract = parents.filter(({ id }) => id !== data.id);
+          parents = [...subtract];
+          subs.parents({ parents });
+          resolve();
         }),
       list() {
         return parents;

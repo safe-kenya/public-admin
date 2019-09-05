@@ -39,10 +39,10 @@ class Modal extends React.Component {
       errorClass: "invalid-feedback",
       errorElement: "div",
 
-      highlight: function(element) {
+      highlight: function (element) {
         $(element).addClass("is-invalid");
       },
-      unhighlight: function(element) {
+      unhighlight: function (element) {
         $(element).removeClass("is-invalid");
       },
 
@@ -50,7 +50,7 @@ class Modal extends React.Component {
         event.preventDefault();
         try {
           _this.setState({ loading: true });
-          await _this.props.save(_this.state);
+          await _this.props.save(_this.state.edit);
           _this.hide();
           _this.setState({ loading: false });
         } catch (error) {
@@ -115,7 +115,10 @@ class Modal extends React.Component {
                           id="fullname"
                           name="fullname"
                           minLength="2"
-                          type="text"
+                          value={this.state.edit.name}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            name: e.target.value
+                          }))}
                           required
                         />
                       </div>
@@ -127,7 +130,10 @@ class Modal extends React.Component {
                           id="phone"
                           name="phone"
                           minLength="12"
-                          type="number"
+                          value={this.state.edit.phone}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            phone: e.target.value
+                          }))}
                           required
                         />
                       </div>
@@ -139,15 +145,26 @@ class Modal extends React.Component {
                           id="eail"
                           name="email"
                           minLength="2"
-                          type="email"
+                          value={this.state.edit.email}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            email: e.target.value
+                          }))}
                           required
                         />
                       </div>
                       <div className="col-lg-3">
                         <label for="exampleSelect1">Gender:</label>
-                        <select name="route" class="form-control" required>
+                        <select
+                          name="route"
+                          class="form-control"
+                          required
+                          value={this.state.gender}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            gender: e.target.value
+                          }))}
+                        >
                           <option value="">Select gender</option>
-                          {["Father", "Mother"].map(gender => (
+                          {["MALE", "FEMALE"].map(gender => (
                             <option value={gender}>{gender}</option>
                           ))}
                         </select>
@@ -169,8 +186,8 @@ class Modal extends React.Component {
                         aria-hidden="true"
                       />
                     ) : (
-                      "Save"
-                    )}
+                        "Save"
+                      )}
                   </button>
                   <button
                     data-dismiss="modal"

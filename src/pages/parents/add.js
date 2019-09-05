@@ -11,14 +11,10 @@ const modalNumber = Math.random()
 class Modal extends React.Component {
   state = {
     loading: false,
-    names: "Parent A test",
-    route: {
-      name: "mwali route"
-    },
-    gender: "Male",
-    parent: {
-      name: "Madam Essue"
-    }
+    name: "",
+    phone: '',
+    email: '',
+    gender: ''
   };
 
   show() {
@@ -37,10 +33,10 @@ class Modal extends React.Component {
       errorClass: "invalid-feedback",
       errorElement: "div",
 
-      highlight: function(element) {
+      highlight: function (element) {
         $(element).addClass("is-invalid");
       },
-      unhighlight: function(element) {
+      unhighlight: function (element) {
         $(element).removeClass("is-invalid");
       },
 
@@ -48,6 +44,8 @@ class Modal extends React.Component {
         event.preventDefault();
         try {
           _this.setState({ loading: true });
+
+          _this.state.loading = undefined;
           await _this.props.save(_this.state);
           _this.hide();
           _this.setState({ loading: false });
@@ -101,7 +99,10 @@ class Modal extends React.Component {
                           id="fullname"
                           name="fullname"
                           minLength="2"
-                          type="text"
+                          value={this.state.name}
+                          onChange={(e) => this.setState({
+                            name: e.target.value
+                          })}
                           required
                         />
                       </div>
@@ -113,7 +114,10 @@ class Modal extends React.Component {
                           id="phone"
                           name="phone"
                           minLength="12"
-                          type="number"
+                          value={this.state.phone}
+                          onChange={(e) => this.setState({
+                            phone: e.target.value
+                          })}
                           required
                         />
                       </div>
@@ -125,15 +129,26 @@ class Modal extends React.Component {
                           id="eail"
                           name="email"
                           minLength="2"
-                          type="email"
+                          value={this.state.email}
+                          onChange={(e) => this.setState({
+                            email: e.target.value
+                          })}
                           required
                         />
                       </div>
                       <div className="col-lg-3">
                         <label for="exampleSelect1">Gender:</label>
-                        <select name="route" class="form-control" required>
+                        <select
+                          name="route"
+                          class="form-control"
+                          required
+                          value={this.state.gender}
+                          onChange={(e) => this.setState({
+                            gender: e.target.value
+                          })}
+                        >
                           <option value="">Select gender</option>
-                          {["Father", "Mother"].map(gender => (
+                          {["MALE", "FEMALE"].map(gender => (
                             <option value={gender}>{gender}</option>
                           ))}
                         </select>
@@ -155,8 +170,8 @@ class Modal extends React.Component {
                         aria-hidden="true"
                       />
                     ) : (
-                      "Save"
-                    )}
+                        "Save"
+                      )}
                   </button>
                   <button
                     data-dismiss="modal"

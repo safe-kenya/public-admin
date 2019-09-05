@@ -89,7 +89,7 @@ class BasicTable extends React.Component {
                 headers={[
                   {
                     label: "Parent Names",
-                    key: "names"
+                    key: "name"
                   },
                   {
                     label: "Gender",

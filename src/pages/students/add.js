@@ -11,10 +11,10 @@ const modalNumber = Math.random()
 class Modal extends React.Component {
   state = {
     loading: false,
-    names: "Alice A mwali",
-    route: "mwali route",
-    gender: "Male",
-    parent: "Madam Essue"
+    names: "",
+    route: "",
+    gender: "",
+    parent: ""
   };
 
   show() {
@@ -125,7 +125,15 @@ class Modal extends React.Component {
                       </div>
                       <div className="col-lg-6">
                         <label for="exampleSelect1">Parent:</label>
-                        <select name="parent" class="form-control" required>
+                        <select
+                          name="parent"
+                          class="form-control"
+                          required
+                          value={this.state.gender}
+                          onChange={(e) => this.setState({
+                            gender: e.target.value
+                          })}
+                        >
                           <option value="">Select parent</option>
                           {[2, 3, 4].map(parent => (
                             <option value={parent}>parent {parent}</option>
