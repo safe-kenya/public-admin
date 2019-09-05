@@ -15,14 +15,24 @@ const deleteModalInstance = new DeleteModal();
 
 class BasicTable extends React.Component {
   state = {
-    students: []
+    students: [],
+    routes: [],
+    parents: []
   };
   componentDidMount() {
     const students = Data.students.list();
-    this.setState({ students });
+    const routes = Data.routes.list();
+    const parents = Data.parents.list();
+    this.setState({ students, routes, parents });
 
     Data.students.subscribe(({ students }) => {
       this.setState({ students });
+    });
+    Data.routes.subscribe(({ routes }) => {
+      this.setState({ routes });
+    });
+    Data.parents.subscribe(({ parents }) => {
+      this.setState({ parents });
     });
   }
   render() {
@@ -31,13 +41,14 @@ class BasicTable extends React.Component {
       <div className="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--left kt-aside--fixed kt-aside--offcanvas-default kt-page--loading">
         <div className="kt-grid kt-grid--hor kt-grid--root">
           <div className="kt-portlet kt-portlet--mobile">
-            <AddModal save={student => Data.students.create(student)} />
+            <AddModal routes={this.state.routes} parents={this.state.parents} save={student => Data.students.create(student)} />
             <UploadModal save={student => Data.students.create(student)} />
             <DeleteModal
               remove={remove}
               save={student => Data.students.delete(student)}
             />
             <EditModal
+              routes parents
               edit={edit}
               save={student => Data.students.update(student)}
             />

@@ -74,6 +74,7 @@ var Data = (function () {
     students {
       id
       names
+      gender
       route {
         name
       }
@@ -164,35 +165,66 @@ var Data = (function () {
     },
     students: {
       create: data =>
-        new Promise((resolve, reject) => {
-          data.id = Math.random().toString();
-          setTimeout(() => {
-            students = [...students, data];
-            subs.students({ students });
-            resolve();
-          }, 2000);
+        new Promise(async (resolve, reject) => {
+          const { id } = await mutate(`
+          mutation ($Istudent: Istudent!) {
+            students {
+              create(student: $Istudent) {
+                id
+              }
+            }
+          }`, {
+              "Istudent": data
+            })
+
+          data.id = id;
+
+          data.parent = parents.filter(p => p.id === data.parent)[0].name
+          data.route = routes.filter(p => p.id === data.route)[0].name
+
+          students = [...students, data];
+          subs.students({ students });
+          resolve();
         }),
       update: data =>
-        new Promise((resolve, reject) => {
-          data.id = Math.random().toString();
-          setTimeout(() => {
-            const subtract = students.filter(({ id }) => id !== data.id);
-            students = [data, ...subtract];
-            subs.students({ students });
-            reject({
-              message: "This is a test error message"
-            });
-          }, 2000);
+        new Promise(async (resolve, reject) => {
+          const { id } = await mutate(`
+          mutation ($student: Ustudent!) {
+            students {
+              update(student: $student) {
+                id
+              }
+            }
+          } `, {
+              "student": data
+            })
+
+          data.id = id;
+
+          const subtract = students.filter(({ id }) => id !== data.id);
+          students = [data, ...subtract];
+          subs.students({ students });
+          resolve()
         }),
       delete: data =>
-        new Promise((resolve, reject) => {
-          data.id = Math.random().toString();
-          setTimeout(() => {
-            const subtract = students.filter(({ id }) => id !== data.id);
-            students = [...subtract];
-            subs.students({ students });
-            resolve();
-          }, 2000);
+        new Promise(async (resolve, reject) => {
+          await mutate(`
+          mutation ($Istudent: Ustudent!) {
+            students {
+              archive(student: $Istudent) {
+                id
+              }
+            }
+          }  `, {
+              "Istudent": {
+                id: data.id
+              }
+            })
+
+          const subtract = students.filter(({ id }) => id !== data.id);
+          students = [...subtract];
+          subs.students({ students });
+          resolve();
         }),
       list() {
         return students;

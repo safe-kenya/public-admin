@@ -153,7 +153,7 @@ class Modal extends React.Component {
                 </div>
                 <div className="modal-footer">
                   <button
-                    type="button"
+                    type="submit"
                     className="btn btn-outline-brand"
                     disabled={this.state.loading}
                   >

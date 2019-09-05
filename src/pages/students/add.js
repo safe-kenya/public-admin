@@ -14,7 +14,9 @@ class Modal extends React.Component {
     names: "",
     route: "",
     gender: "",
-    parent: ""
+    parent: "",
+    parents: [],
+    routes: []
   };
 
   show() {
@@ -44,6 +46,14 @@ class Modal extends React.Component {
         event.preventDefault();
         try {
           _this.setState({ loading: true });
+
+          // cleanup
+          _this.state.loading = undefined;
+          
+          // reassign
+          _this.state.parents = undefined;
+          _this.state.routes = undefined;
+
           await _this.props.save(_this.state);
           _this.hide();
           _this.setState({ loading: false });
@@ -97,16 +107,27 @@ class Modal extends React.Component {
                           id="fullname"
                           name="fullname"
                           minLength="2"
-                          type="text"
                           required
+                          value={this.state.names}
+                          onChange={(e) => this.setState({
+                            names: e.target.value
+                          })}
                         />
                       </div>
                       <div className="col-lg-3">
                         <label for="exampleSelect1">Route:</label>
-                        <select name="route" class="form-control" required>
+                        <select
+                          name="route"
+                          class="form-control"
+                          required
+                          value={this.state.route}
+                          onChange={(e) => this.setState({
+                            route: e.target.value
+                          })}
+                        >
                           <option value="">Select route</option>
-                          {[2, 3, 4].map(route => (
-                            <option value={route}>{route}</option>
+                          {this.props.routes.map(route => (
+                            <option value={route.id}>{route.name}</option>
                           ))}
                         </select>
                       </div>
@@ -117,10 +138,15 @@ class Modal extends React.Component {
                           class="form-control"
                           id="exampleSelect1"
                           required
+                          value={this.state.gender}
+                          onChange={(e) => this.setState({
+                            gender: e.target.value
+                          })}
                         >
                           <option value="">Select gender</option>
-                          <option value="male">male</option>
-                          <option value="female">female</option>
+                          {["MALE", "FEMALE"].map(gender => {
+                            return <option value={gender}>{gender}</option>
+                          })}
                         </select>
                       </div>
                       <div className="col-lg-6">
@@ -129,14 +155,14 @@ class Modal extends React.Component {
                           name="parent"
                           class="form-control"
                           required
-                          value={this.state.gender}
+                          value={this.state.parent}
                           onChange={(e) => this.setState({
-                            gender: e.target.value
+                            parent: e.target.value
                           })}
                         >
                           <option value="">Select parent</option>
-                          {[2, 3, 4].map(parent => (
-                            <option value={parent}>parent {parent}</option>
+                          {this.props.parents.map(parent => (
+                            <option value={parent.id}>{parent.name}</option>
                           ))}
                         </select>
                       </div>
@@ -145,7 +171,6 @@ class Modal extends React.Component {
                 </div>
                 <div className="modal-footer">
                   <button
-                    type="button"
                     className="btn btn-outline-brand"
                     type="submit"
                     disabled={this.state.loading}
