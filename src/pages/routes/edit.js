@@ -12,14 +12,7 @@ class Modal extends React.Component {
   state = {
     loading: false,
     edit: {
-      names: "",
-      route: {
-        name: ""
-      },
-      gender: "",
-      route: {
-        name: ""
-      }
+      name: "",
     }
   };
 
@@ -39,10 +32,10 @@ class Modal extends React.Component {
       errorClass: "invalid-feedback",
       errorElement: "div",
 
-      highlight: function(element) {
+      highlight: function (element) {
         $(element).addClass("is-invalid");
       },
-      unhighlight: function(element) {
+      unhighlight: function (element) {
         $(element).removeClass("is-invalid");
       },
 
@@ -50,7 +43,7 @@ class Modal extends React.Component {
         event.preventDefault();
         try {
           _this.setState({ loading: true });
-          await _this.props.save(_this.state);
+          await _this.props.save(_this.state.edit);
           _this.hide();
           _this.setState({ loading: false });
         } catch (error) {
@@ -112,7 +105,10 @@ class Modal extends React.Component {
                           id="fullname"
                           name="fullname"
                           minLength="2"
-                          type="text"
+                          value={this.state.edit.name}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            name: e.target.value
+                          }))}
                           required
                         />
                       </div>
@@ -133,8 +129,8 @@ class Modal extends React.Component {
                         aria-hidden="true"
                       />
                     ) : (
-                      "Save"
-                    )}
+                        "Save"
+                      )}
                   </button>
                   <button
                     data-dismiss="modal"

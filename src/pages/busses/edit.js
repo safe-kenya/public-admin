@@ -155,7 +155,6 @@ class Modal extends React.Component {
                   <button
                     type="button"
                     className="btn btn-outline-brand"
-                    type="submit"
                     disabled={this.state.loading}
                   >
                     {this.state.loading ? (

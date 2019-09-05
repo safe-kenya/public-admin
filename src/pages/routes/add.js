@@ -11,14 +11,7 @@ const modalNumber = Math.random()
 class Modal extends React.Component {
   state = {
     loading: false,
-    names: "route A test",
-    route: {
-      name: "mwali route"
-    },
-    gender: "Male",
-    route: {
-      name: "Madam Essue"
-    }
+    name: ""
   };
 
   show() {
@@ -37,10 +30,10 @@ class Modal extends React.Component {
       errorClass: "invalid-feedback",
       errorElement: "div",
 
-      highlight: function(element) {
+      highlight: function (element) {
         $(element).addClass("is-invalid");
       },
-      unhighlight: function(element) {
+      unhighlight: function (element) {
         $(element).removeClass("is-invalid");
       },
 
@@ -48,9 +41,10 @@ class Modal extends React.Component {
         event.preventDefault();
         try {
           _this.setState({ loading: true });
+          _this.state.loading = undefined;
           await _this.props.save(_this.state);
           _this.hide();
-          _this.setState({ loading: false });
+          _this.setState({ loading: false, name: "" });
         } catch (error) {
           _this.setState({ loading: false });
           if (error) {
@@ -101,8 +95,11 @@ class Modal extends React.Component {
                           id="fullname"
                           name="fullname"
                           minLength="2"
-                          type="text"
                           required
+                          value={this.state.name}
+                          onChange={(e) => this.setState({
+                            name: e.target.value
+                          })}
                         />
                       </div>
                     </div>
@@ -122,8 +119,8 @@ class Modal extends React.Component {
                         aria-hidden="true"
                       />
                     ) : (
-                      "Save"
-                    )}
+                        "Save"
+                      )}
                   </button>
                   <button
                     data-dismiss="modal"

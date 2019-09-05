@@ -25,7 +25,7 @@ class App extends React.Component {
               <List />
             </div>
           </div>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </div>
     );

@@ -89,7 +89,7 @@ class BasicTable extends React.Component {
                 headers={[
                   {
                     label: "Route Names",
-                    key: "names"
+                    key: "name"
                   }
                 ]}
                 data={this.state.routes}

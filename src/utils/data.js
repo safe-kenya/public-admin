@@ -99,7 +99,7 @@ var Data = (function () {
     }
     routes {
       id
-      time
+      name
       path {
         lat
         lng
@@ -127,6 +127,9 @@ var Data = (function () {
 
     parents = response.parents;
     subs.parents({ parents })
+
+    routes = response.routes;
+    subs.routes({ routes })
   })
 
   function createInstance() {
@@ -341,33 +344,61 @@ var Data = (function () {
     },
     routes: {
       create: data =>
-        new Promise((resolve, reject) => {
-          data.id = Math.random().toString();
-          setTimeout(() => {
-            routes = [...routes, data];
-            subs.routes({ routes });
-            resolve();
-          }, 2000);
+        new Promise(async (resolve, reject) => {
+          const { id } = await mutate(`
+            mutation ($Iroute: Iroute!) {
+              routes {
+                create(route: $Iroute) {
+                  id
+                }
+              }
+            }`, {
+              "Iroute": data
+            })
+
+          data.id = id
+          routes = [...routes, data];
+          subs.routes({ routes });
+          resolve();
         }),
       update: data =>
-        new Promise((resolve, reject) => {
-          data.id = Math.random().toString();
-          setTimeout(() => {
-            const subtract = routes.filter(({ id }) => id !== data.id);
-            routes = [data, ...subtract];
-            subs.routes({ routes });
-            resolve();
-          }, 2000);
+        new Promise(async (resolve, reject) => {
+          await mutate(`mutation ($route: Uroute!) {
+            routes {
+              update(route: $route) {
+                id
+              }
+            }
+          } `, {
+              "route": {
+                id: data.id,
+                name: data.name
+              }
+            })
+
+          const subtract = routes.filter(({ id }) => id !== data.id);
+          routes = [data, ...subtract];
+          subs.routes({ routes });
+          resolve();
         }),
       delete: data =>
-        new Promise((resolve, reject) => {
-          data.id = Math.random().toString();
-          setTimeout(() => {
-            const subtract = routes.filter(({ id }) => id !== data.id);
-            routes = [...routes];
-            subs.routes({ routes });
-            resolve();
-          }, 2000);
+        new Promise(async (resolve, reject) => {
+          await mutate(`mutation ($Iroute: Uroute!) {
+            routes {
+              archive(route: $Iroute) {
+                id
+              }
+            }
+          }`, {
+              "Iroute": {
+                id: data.id
+              }
+            })
+
+          const subtract = routes.filter(({ id }) => id !== data.id);
+          routes = [...subtract];
+          subs.routes({ routes });
+          resolve();
         }),
       list() {
         return routes;
