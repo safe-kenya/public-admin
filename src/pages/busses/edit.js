@@ -12,14 +12,9 @@ class Modal extends React.Component {
   state = {
     loading: false,
     edit: {
-      names: "",
-      route: {
-        name: ""
-      },
-      gender: "",
-      bus: {
-        name: ""
-      }
+      make: "",
+      size: "",
+      plate: ""
     }
   };
 
@@ -50,7 +45,7 @@ class Modal extends React.Component {
         event.preventDefault();
         try {
           _this.setState({ loading: true });
-          await _this.props.save(_this.state);
+          await _this.props.save(_this.state.edit);
           _this.hide();
           _this.setState({ loading: false });
         } catch (error) {
@@ -105,42 +100,54 @@ class Modal extends React.Component {
                   </button>
                 </div>
                 <div className="modal-body">
-                  <div className="kt-portlet__body">
-                    <div className="form-group row">
-                      <div className="col-lg-6">
-                        <label>Bus Make:</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="fullname"
-                          name="fullname"
-                          minLength="2"
-                          type="text"
-                          required
-                        />
-                      </div>
-                      <div className="col-lg-3">
-                        <label>Plate Number:</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="number"
-                          name="number"
-                          type="text"
-                          required
-                        />
-                      </div>
-                      <div className="col-lg-3">
-                        <label for="exampleSelect1">Size:</label>
-                        <select name="route" class="form-control" required>
-                          <option value="">Number of Seats</option>
-                          {["14", "28", "42", "65"].map(
-                            seats => (
-                              <option value={seats}>{seats}</option>
-                            )
-                          )}
-                        </select>
-                      </div>
+                  <div className="form-group row">
+                    <div className="col-lg-6">
+                      <label>Bus Make:</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="busmake"
+                        name="busmake"
+                        minLength="2"
+                        required
+                        value={this.state.edit.make}
+                        onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                          make: e.target.value
+                        }))}
+                      />
+                    </div>
+                    <div className="col-lg-3">
+                      <label>Plate Number:</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="plate"
+                        name="plate"
+                        required
+                        value={this.state.edit.plate}
+                        onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                          plate: e.target.value
+                        }))}
+                      />
+                    </div>
+                    <div className="col-lg-3">
+                      <label for="exampleSelect1">Size:</label>
+                      <select
+                        name="seats"
+                        class="form-control"
+                        required
+                        value={this.state.edit.size}
+                        onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                          size: Number(e.target.value)
+                        }))}
+                      >
+                        <option value="">Number of Seats</option>
+                        {["14", "28", "42", "65"].map(
+                          seats => (
+                            <option key={seats} value={seats}>{seats}</option>
+                          )
+                        )}
+                      </select>
                     </div>
                   </div>
                 </div>

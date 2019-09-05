@@ -294,14 +294,21 @@ var Data = (function () {
           resolve();
         }),
       update: data =>
-        new Promise((resolve, reject) => {
-          data.id = Math.random().toString();
-          setTimeout(() => {
-            const subtract = busses.filter(({ id }) => id !== data.id);
-            busses = [data, ...subtract];
-            subs.busses({ busses });
-            resolve();
-          }, 2000);
+        new Promise(async (resolve, reject) => {
+          await mutate(`mutation ($bus: Ubus!) {
+            buses {
+              update(bus: $bus) {
+                id
+              }
+            }
+          }`, {
+              bus: data
+            })
+
+          const subtract = busses.filter(({ id }) => id !== data.id);
+          busses = [data, ...subtract];
+          subs.busses({ busses });
+          resolve();
         }),
       delete: bus =>
         new Promise(async (resolve, reject) => {
@@ -312,10 +319,10 @@ var Data = (function () {
               }
             }
           }  `, {
-            "Ibus": {
-              "id": bus.id
-            }
-          })
+              "Ibus": {
+                "id": bus.id
+              }
+            })
 
           const subtract = busses.filter(({ id }) => id !== bus.id);
           busses = [...subtract];
