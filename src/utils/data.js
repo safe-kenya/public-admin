@@ -130,6 +130,9 @@ var Data = (function () {
 
     routes = response.routes;
     subs.routes({ routes })
+
+    drivers = response.drivers;
+    subs.drivers({ drivers })
   })
 
   function createInstance() {
@@ -240,33 +243,63 @@ var Data = (function () {
     },
     drivers: {
       create: data =>
-        new Promise((resolve, reject) => {
-          data.id = Math.random().toString();
-          setTimeout(() => {
-            drivers = [...drivers, data];
-            subs.drivers({ drivers });
-            resolve();
-          }, 2000);
+        new Promise(async (resolve, reject) => {
+          const { id } = await mutate(`
+            mutation ($Idriver: Idriver!) {
+              drivers {
+                create(driver: $Idriver) {
+                  id
+                }
+              }
+            }`, {
+              "Idriver": data
+            })
+
+          data.id = id;
+
+          drivers = [...drivers, data];
+          subs.drivers({ drivers });
+          resolve();
         }),
       update: data =>
-        new Promise((resolve, reject) => {
-          data.id = Math.random().toString();
-          setTimeout(() => {
-            const subtract = drivers.filter(({ id }) => id !== data.id);
-            drivers = [data, ...subtract];
-            subs.drivers({ drivers });
-            resolve();
-          }, 2000);
+        new Promise(async (resolve, reject) => {
+          await mutate(`
+          mutation ($driver: Udriver!) {
+            drivers {
+              update(driver: $driver) {
+                id
+              }
+            }
+          } 
+          `, {
+              "driver": data
+            })
+
+          const subtract = drivers.filter(({ id }) => id !== data.id);
+          drivers = [data, ...subtract];
+          subs.drivers({ drivers });
+          resolve();
         }),
       delete: data =>
-        new Promise((resolve, reject) => {
-          data.id = Math.random().toString();
-          setTimeout(() => {
-            const subtract = drivers.filter(({ id }) => id !== data.id);
-            drivers = [...subtract];
-            subs.drivers({ drivers });
-            resolve();
-          }, 2000);
+        new Promise(async (resolve, reject) => {
+          await mutate(`
+          mutation ($Idriver: Udriver!) {
+            drivers {
+              archive(driver: $Idriver) {
+                id
+              }
+            }
+          } 
+          `, {
+              "Idriver": {
+                id: data.id
+              }
+            })
+
+          const subtract = drivers.filter(({ id }) => id !== data.id);
+          drivers = [...subtract];
+          subs.drivers({ drivers });
+          resolve();
         }),
       list() {
         return drivers;

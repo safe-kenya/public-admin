@@ -12,14 +12,9 @@ class Modal extends React.Component {
   state = {
     loading: false,
     edit: {
-      names: "",
-      route: {
-        name: ""
-      },
-      gender: "",
-      driver: {
-        name: ""
-      }
+      username: "",
+      email: "",
+      phone: ""
     }
   };
 
@@ -39,10 +34,10 @@ class Modal extends React.Component {
       errorClass: "invalid-feedback",
       errorElement: "div",
 
-      highlight: function(element) {
+      highlight: function (element) {
         $(element).addClass("is-invalid");
       },
-      unhighlight: function(element) {
+      unhighlight: function (element) {
         $(element).removeClass("is-invalid");
       },
 
@@ -50,7 +45,7 @@ class Modal extends React.Component {
         event.preventDefault();
         try {
           _this.setState({ loading: true });
-          await _this.props.save(_this.state);
+          await _this.props.save(_this.state.edit);
           _this.hide();
           _this.setState({ loading: false });
         } catch (error) {
@@ -74,9 +69,6 @@ class Modal extends React.Component {
     return null;
   }
   render() {
-    const {
-      edit: { names, route = {}, driver = {}, gender } = {}
-    } = this.state;
     return (
       <div>
         <div
@@ -107,19 +99,37 @@ class Modal extends React.Component {
                 <div className="modal-body">
                   <div className="kt-portlet__body">
                     <div className="form-group row">
-                      <div className="col-lg-6">
-                        <label>Full Name:</label>
+                      <div className="col-lg-4">
+                        <label>Names:</label>
                         <input
                           type="text"
                           className="form-control"
                           id="fullname"
                           name="fullname"
                           minLength="2"
-                          type="text"
+                          value={this.state.edit.username}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            username: e.target.value
+                          }))}
                           required
                         />
                       </div>
-                      <div className="col-lg-3">
+                      <div className="col-lg-4">
+                        <label>Email:</label>
+                        <input
+                          type="email"
+                          className="form-control"
+                          id="fullname"
+                          name="fullname"
+                          minLength="2"
+                          value={this.state.edit.email}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            email: e.target.value
+                          }))}
+                          required
+                        />
+                      </div>
+                      <div className="col-lg-4">
                         <label>Phone Number:</label>
                         <input
                           type="text"
@@ -127,18 +137,12 @@ class Modal extends React.Component {
                           id="phone"
                           name="phone"
                           minLength="12"
-                          type="number"
+                          value={this.state.edit.phone}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            phone: e.target.value
+                          }))}
                           required
                         />
-                      </div>
-                      <div className="col-lg-3">
-                        <label for="exampleSelect1">Gender:</label>
-                        <select name="route" class="form-control" required>
-                          <option value="">Select gender</option>
-                          {["Male", "Female"].map(gender => (
-                            <option value={gender}>{gender}</option>
-                          ))}
-                        </select>
                       </div>
                     </div>
                   </div>
@@ -157,8 +161,8 @@ class Modal extends React.Component {
                         aria-hidden="true"
                       />
                     ) : (
-                      "Save"
-                    )}
+                        "Save"
+                      )}
                   </button>
                   <button
                     data-dismiss="modal"
