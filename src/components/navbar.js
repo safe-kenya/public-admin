@@ -181,6 +181,16 @@ class Navbar extends React.Component {
                 data-ktmenu-submenu-toggle="click"
                 aria-haspopup="true"
               >
+                <Link to="/schedules" className="kt-menu__link">
+                  <span className="kt-menu__link-text">Schedules</span>
+                </Link>
+              </li>
+
+              <li
+                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
+                data-ktmenu-submenu-toggle="click"
+                aria-haspopup="true"
+              >
                 <Link
                   to="/messages"
                   href="#"

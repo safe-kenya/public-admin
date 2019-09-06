@@ -7,6 +7,7 @@ import parents from "./pages/parents";
 import drivers from "./pages/drivers";
 import busses from "./pages/busses"
 import routes from "./pages/routes"
+import schedules from "./pages/schedules"
 
 import login from "./pages/auth/login";
 // import recover from "./pages/auth/recover";
@@ -18,6 +19,7 @@ function App() {
       <Route exact path="/" component={login} />
       <Route exact path="/home" component={home} />
       <Route path="/students" component={students} />
+      <Route path="/schedules" component={schedules} />
       <Route path="/parents" component={parents} />
       <Route path="/drivers" component={drivers} />
       <Route path="/busses" component={busses} />
