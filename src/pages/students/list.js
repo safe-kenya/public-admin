@@ -48,7 +48,8 @@ class BasicTable extends React.Component {
               save={student => Data.students.delete(student)}
             />
             <EditModal
-              routes parents
+              routes={this.state.routes}
+              parents={this.state.parents}
               edit={edit}
               save={student => Data.students.update(student)}
             />
