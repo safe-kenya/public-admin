@@ -15,23 +15,30 @@ const deleteModalInstance = new DeleteModal();
 
 class BasicTable extends React.Component {
   state = {
-    busses: []
+    busses: [],
+    routes: []
   };
   componentDidMount() {
     const busses = Data.busses.list();
-    this.setState({ busses });
+    const routes = Data.routes.list();
+    this.setState({ busses, routes });
 
     Data.busses.subscribe(buss => {
       this.setState(buss);
     });
+
+    Data.routes.subscribe(routes => {
+      this.setState(routes);
+    });
+
   }
   render() {
-    const { edit, remove } = this.state;
+    const { edit, remove, routes } = this.state;
     return (
       <div className="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--left kt-aside--fixed kt-aside--offcanvas-default kt-page--loading">
         <div className="kt-grid kt-grid--hor kt-grid--root">
           <div className="kt-portlet kt-portlet--mobile">
-            <AddModal save={buss => Data.busses.create(buss)} />
+            <AddModal routes={routes} save={buss => Data.busses.create(buss)} />
             <UploadModal save={buss => Data.busses.create(buss)} />
             <DeleteModal
               remove={remove}
@@ -88,7 +95,7 @@ class BasicTable extends React.Component {
               <Table
                 headers={[
                   {
-                    label: "Schedule Name",
+                    label: "Trip Name",
                     key: "make"
                   },
                   {

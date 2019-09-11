@@ -11,9 +11,7 @@ const modalNumber = Math.random()
 class Modal extends React.Component {
   state = {
     loading: false,
-    make: "",
-    size: 14,
-    plate: ""
+    route: "",
   };
 
   show() {
@@ -77,7 +75,7 @@ class Modal extends React.Component {
                 className="kt-form kt-form--label-right"
               >
                 <div className="modal-header">
-                  <h5 className="modal-title">Create bus</h5>
+                  <h5 className="modal-title">Schedule a trip</h5>
                   <button
                     type="button"
                     className="close"
@@ -90,8 +88,8 @@ class Modal extends React.Component {
                 <div className="modal-body">
                   <div className="kt-portlet__body">
                     <div className="form-group row">
-                      <div className="col-lg-6">
-                        <label>Bus Make:</label>
+                      <div className="col-lg-3">
+                        <label>Trip name:</label>
                         <input
                           type="text"
                           className="form-control"
@@ -106,7 +104,7 @@ class Modal extends React.Component {
                         />
                       </div>
                       <div className="col-lg-3">
-                        <label>Plate Number:</label>
+                        <label>Time</label>
                         <input
                           type="text"
                           className="form-control"
@@ -120,23 +118,43 @@ class Modal extends React.Component {
                         />
                       </div>
                       <div className="col-lg-3">
-                        <label for="exampleSelect1">Size:</label>
+                        <label for="exampleSelect1">Route:</label>
                         <select
                           name="seats"
                           class="form-control"
                           required
-                          value={this.state.size}
+                          value={this.state.route}
                           onChange={(e) => this.setState({
-                            size: Number(e.target.value)
+                            route: e.target.value
                           })}
                         >
-                          <option value="">Number of Seats</option>
-                          {["14", "28", "42", "65"].map(
-                            seats => (
-                              <option key={seats} value={seats}>{seats}</option>
+                          <option value="">Select Route</option>
+                          {this.props.routes.map(
+                            route => (
+                              <option key={route.id} value={route.id}>{route.name}</option>
                             )
                           )}
                         </select>
+                      </div>
+                      <div className="col-lg-6">
+                        <br />
+                        <label for="exampleSelect1">Select Days the route is taken</label>
+                        <div className="kt-checkbox-list">
+                          {[
+                            "MONDAY",
+                            "TEUSDAY",
+                            "WEDNESDAY",
+                            "THURSDAY",
+                            "FRIDAY",
+                            "SATURDAY",
+                            "SUNDAY"
+                          ].map(day => {
+                            return (<label className="kt-checkbox">
+                              <input type="checkbox" /> {day}
+                              <span />
+                            </label>)
+                          })}
+                        </div>
                       </div>
                     </div>
                   </div>

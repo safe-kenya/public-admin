@@ -119,8 +119,11 @@ var Data = (function () {
   }`).then(response => {
     // let { students } = response
     students = response.students.map(student => {
-      student.route = student.route.name
-      student.parent = student.parent.name
+      if (student.route)
+        student.route = student.route.name
+
+      if (student.parent)
+        student.parent = student.parent.name
 
       return student
     })
