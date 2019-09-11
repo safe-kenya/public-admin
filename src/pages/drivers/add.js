@@ -46,7 +46,12 @@ class Modal extends React.Component {
           _this.state.loading = undefined
           await _this.props.save(_this.state);
           _this.hide();
-          _this.setState({ loading: false });
+          _this.setState({
+            loading: false,
+            username: "",
+            phone: "",
+            email: ""
+          });
         } catch (error) {
           _this.setState({ loading: false });
           if (error) {

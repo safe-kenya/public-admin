@@ -12,7 +12,7 @@ class Modal extends React.Component {
   state = {
     loading: false,
     make: "",
-    size: 14,
+    size: "",
     plate: ""
   };
 
@@ -47,7 +47,12 @@ class Modal extends React.Component {
           _this.state.loading = undefined
           await _this.props.save(_this.state);
           _this.hide();
-          _this.setState({ loading: false });
+          _this.setState({
+            loading: false,
+            make: "",
+            size: "",
+            plate: ""
+          });
         } catch (error) {
           _this.setState({ loading: false });
           if (error) {
