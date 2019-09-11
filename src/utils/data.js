@@ -46,6 +46,8 @@ const routesData = [
   // }
 ];
 
+const schedulesData = []
+
 var Data = (function () {
   var instance;
 
@@ -55,6 +57,7 @@ var Data = (function () {
   var drivers = driversData;
   var busses = bussesData;
   var routes = routesData;
+  var schedules = schedulesData;
 
   // subscriptions for every entity to keep track of everyone subscribing to any data
   var subs = {};
@@ -63,6 +66,7 @@ var Data = (function () {
   emitize(subs, "drivers");
   emitize(subs, "busses");
   emitize(subs, "routes");
+  emitize(subs, "schedules");
 
   // subs.students = log; //subscribe to events (named 'x') with cb (log)
   // //another subscription won't override the previous one
@@ -112,8 +116,15 @@ var Data = (function () {
     schedules {
       id
       time
+      name
+      days
       route {
+        id,
+        name
+      },
+      bus{
         id
+        make
       }
     }
   }`).then(response => {
@@ -140,6 +151,9 @@ var Data = (function () {
 
     drivers = response.drivers;
     subs.drivers({ drivers })
+
+    schedules = response.schedules;
+    subs.schedules({ schedules })
   })
 
   function createInstance() {
@@ -506,6 +520,76 @@ var Data = (function () {
         // listen for even change on the students observables
         subs.routes = cb;
         return routes;
+      },
+      getOne(id) { }
+    },
+    schedules: {
+      create: schedule =>
+        new Promise(async (resolve, reject) => {
+          const { id } = await mutate(`
+          mutation ($schedule: Ischedule!) {
+            schedules {
+              create(schedule: $schedule) {
+                id
+              }
+            }
+          }            
+        `, {
+              schedule
+            })
+  
+          schedule.id = id
+          schedules = [...schedules, schedule];
+          subs.schedules({ schedules });
+          resolve();
+        }),
+      update: data =>
+        new Promise(async (resolve, reject) => {
+          await mutate(`
+          mutation ($Ischedule: Ischedule!) {
+            schedules {
+              create(schedule: $Ischedule) {
+                id
+              }
+            }
+          }            
+        `, {
+              schedule: data
+            })
+  
+          const subtract = schedules.filter(({ id }) => id !== data.id);
+          schedules = [data, ...subtract];
+          subs.schedules({ schedules });
+          resolve();
+        }),
+      delete: schedule =>
+        new Promise(async (resolve, reject) => {
+          await mutate(`
+          mutation ($Ischedule: Uschedule!) {
+            schedules {
+              archive(schedule: $Ischedule) {
+                id
+              }
+            }
+          }                  
+        `, {
+              "Ischedule": {
+                "id": schedule.id
+              }
+            })
+  
+          const subtract = schedules.filter(({ id }) => id !== schedule.id);
+          schedules = [...subtract];
+          subs.schedules({ schedules });
+          resolve();
+        }),
+      list() {
+        return schedules;
+      },
+      subscribe(cb) {
+        // listen for even change on the students observables
+        subs.schedules = cb;
+        return schedules;
       },
       getOne(id) { }
     },
