@@ -56,8 +56,8 @@ class Modal extends React.Component {
           _this.setState({ loading: true });
           _this.state.loading = undefined
           await _this.props.save(Object.assign({}, _this.state, {
-            days: _this.state.selectedDays.join(","),
-            selectedDays: undefined
+            selectedDays: undefined,
+            days: _this.state.selectedDays
           }));
           _this.hide();
           _this.setState({ loading: false });
@@ -165,7 +165,7 @@ class Modal extends React.Component {
                           <option value="">Select Bus</option>
                           {this.props.busses.map(
                             bus => (
-                              <option key={bus.id} value={bus.id}>{bus.make}</option>
+                              <option key={bus.id} value={bus.id}>{bus.name}</option>
                             )
                           )}
                         </select>

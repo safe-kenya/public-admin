@@ -526,6 +526,8 @@ var Data = (function () {
     schedules: {
       create: schedule =>
         new Promise(async (resolve, reject) => {
+          schedule.days = schedule.days.join(",")
+
           const { id } = await mutate(`
           mutation ($schedule: Ischedule!) {
             schedules {
@@ -537,8 +539,11 @@ var Data = (function () {
         `, {
               schedule
             })
-  
+
           schedule.id = id
+          schedule.days = schedule.days.split(",")
+          schedule.route = routes.filter(route => route.id === schedule.route)[0]
+          schedule.bus = busses.filter(bus => bus.id === schedule.bus)[0]
           schedules = [...schedules, schedule];
           subs.schedules({ schedules });
           resolve();
@@ -556,7 +561,7 @@ var Data = (function () {
         `, {
               schedule: data
             })
-  
+
           const subtract = schedules.filter(({ id }) => id !== data.id);
           schedules = [data, ...subtract];
           subs.schedules({ schedules });
@@ -577,7 +582,7 @@ var Data = (function () {
                 "id": schedule.id
               }
             })
-  
+
           const subtract = schedules.filter(({ id }) => id !== schedule.id);
           schedules = [...subtract];
           subs.schedules({ schedules });
