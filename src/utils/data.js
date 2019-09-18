@@ -104,6 +104,13 @@ var Data = (function () {
       gender
       email
       phone
+      students {
+        names
+        gender
+        route {
+          name
+        }
+      }
     }
     routes {
       id

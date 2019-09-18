@@ -65,29 +65,41 @@ class TableRow extends React.Component {
                         <span style={{ width: " 165px;" }}>Route</span>
                       </th>
                     </tr>
-                    
                   </thead>
                   <tbody
                     className="kt-datatable__body ps ps--active-y"
                     style={{ "max-height": "246px;" }}
                   >
-                    <tr data-row="0" className="kt-datatable__row">
-                      <td data-field="OrderID" className="kt-datatable__cell">
-                        <span>
-                          <span>Test student</span>
-                        </span>
-                      </td>
-                      <td data-field="OrderID" className="kt-datatable__cell">
-                        <span>
-                          <span>Male</span>
-                        </span>
-                      </td>
-                      <td data-field="OrderID" className="kt-datatable__cell">
-                        <span>
-                          <span>Route 1</span>
-                        </span>
-                      </td>
-                    </tr>
+                    {this.props.data.students.map(student => {
+                      return (
+                        <tr data-row="0" className="kt-datatable__row">
+                          <td
+                            data-field="OrderID"
+                            className="kt-datatable__cell"
+                          >
+                            <span>
+                              <span>{student.names}</span>
+                            </span>
+                          </td>
+                          <td
+                            data-field="OrderID"
+                            className="kt-datatable__cell"
+                          >
+                            <span>
+                              <span>{student.gender}</span>
+                            </span>
+                          </td>
+                          <td
+                            data-field="OrderID"
+                            className="kt-datatable__cell"
+                          >
+                            <span>
+                              <span>{student.route.name}</span>
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
                 <div className="kt-datatable__pager kt-datatable--paging-loaded"></div>
