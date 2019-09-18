@@ -152,7 +152,7 @@ var Data = (function () {
     drivers = response.drivers;
     subs.drivers({ drivers })
 
-    schedules = response.schedules;
+    schedules = response.schedules
     subs.schedules({ schedules })
   })
 

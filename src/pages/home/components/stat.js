@@ -20,7 +20,7 @@ export default props => (
             alt="bg"
           />
         </div>
-        <div className="kt-widget-19__data">
+        {!props.bars ? null : <div className="kt-widget-19__data">
           {/*Doc: For the chart bars you can use state helper classes: kt-bg-success, kt-bg-info, kt-bg-danger. Refer: components/custom/colors.html */}
           <div className="kt-widget-19__chart">
             {props.bars.map(bar => (
@@ -36,7 +36,7 @@ export default props => (
               </div>
             ))}
           </div>
-        </div>
+        </div>}
       </div>
     </div>
   </div>

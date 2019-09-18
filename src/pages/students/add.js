@@ -14,7 +14,9 @@ class Modal extends React.Component {
     names: "",
     route: "",
     gender: "",
+    registration:"",
     parent: "",
+    parent2: "",
     parents: [],
     routes: []
   };
@@ -99,7 +101,7 @@ class Modal extends React.Component {
                 <div className="modal-body">
                   <div className="kt-portlet__body">
                     <div className="form-group row">
-                      <div className="col-lg-6">
+                      <div className="col-lg-3">
                         <label>Full Name:</label>
                         <input
                           type="text"
@@ -111,6 +113,21 @@ class Modal extends React.Component {
                           value={this.state.names}
                           onChange={(e) => this.setState({
                             names: e.target.value
+                          })}
+                        />
+                      </div>
+                      <div className="col-lg-3">
+                        <label>Registration Number:</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="fullname"
+                          name="fullname"
+                          minLength="2"
+                          required
+                          value={this.state.registration}
+                          onChange={(e) => this.setState({
+                            registration: e.target.value
                           })}
                         />
                       </div>
@@ -158,6 +175,23 @@ class Modal extends React.Component {
                           value={this.state.parent}
                           onChange={(e) => this.setState({
                             parent: e.target.value
+                          })}
+                        >
+                          <option value="">Select parent</option>
+                          {this.props.parents.map(parent => (
+                            <option value={parent.id}>{parent.name}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="col-lg-6">
+                        <label for="exampleSelect1">Alternative Parent:</label>
+                        <select
+                          name="parent2"
+                          class="form-control"
+                          required
+                          value={this.state.parent2}
+                          onChange={(e) => this.setState({
+                            parent2: e.target.value
                           })}
                         >
                           <option value="">Select parent</option>

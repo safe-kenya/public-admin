@@ -26,6 +26,45 @@ class Home extends React.Component {
           >
             <div className="kt-container  kt-grid__item kt-grid__item--fluid">
               <div className="row">
+                <div className="col-lg-2 col-xl-2">
+                  <Stat
+                    label="All trips"
+                    number={0}
+                  />
+                </div>
+                <div className="col-lg-2 col-xl-2">
+                  <Stat
+                    label="Running Trips"
+                    number={0}
+                  />
+                </div>
+                <div className="col-lg-2 col-xl-2">
+                  <Stat
+                    label="Scheduled trips"
+                    number={0}
+                  />
+                </div>
+                <div className="col-lg-2 col-xl-2">
+                  <Stat
+                    label="Complete trips"
+                    number={0}
+                  />
+                </div>
+                <div className="col-lg-2 col-xl-2">
+                  <Stat
+                    label="Cancelled trips"
+                    number={0}
+                  />
+                </div>
+                <div className="col-lg-2 col-xl-2">
+                  <Stat
+                    label="Students In Bus"
+                    number={0}
+                  />
+                </div>
+              </div>
+              <div className="row">
+
                 <div className="col-lg-6 col-xl-4 order-lg-1 order-xl-1">
                   <div className="row">
                     <div className="col-lg-12 col-xl-12 order-lg-1 order-xl-1">

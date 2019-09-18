@@ -121,11 +121,10 @@ class BasicTable extends React.Component {
                   }
                 ]}
                 data={this.state.schedules.map(schedule => {
-                  console.log(schedule)
                   return Object.assign(schedule, {
                     route_name: schedule.route.name,
                     bus_make: schedule.bus.make,
-                    days: schedule.days ? schedule.days.join(", ") : ""
+                    days: typeof schedule.days === 'string' ?  schedule.days : schedule.days.join(", ")
                   })
                 })}
                 edit={schedule => {
