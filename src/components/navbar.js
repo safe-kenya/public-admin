@@ -22,7 +22,7 @@ class Navbar extends React.Component {
             <img
               alt="Logo"
               style={{ width: 150 }}
-              src="/assets/media/logos/logo-v2.png"
+              src="/assets/media/logos/logo-v4.png"
             />
           </Link>
         </div>
