@@ -90,6 +90,10 @@ class BasicTable extends React.Component {
                   {
                     label: "Route Names",
                     key: "name"
+                  },
+                  {
+                    label: "Route description",
+                    key: "description"
                   }
                 ]}
                 data={this.state.routes}

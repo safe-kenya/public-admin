@@ -108,6 +108,7 @@ var Data = (function () {
     routes {
       id
       name
+      description
       path {
         lat
         lng

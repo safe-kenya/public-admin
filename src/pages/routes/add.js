@@ -11,7 +11,8 @@ const modalNumber = Math.random()
 class Modal extends React.Component {
   state = {
     loading: false,
-    name: ""
+    name: "",
+    description: ""
   };
 
   show() {
@@ -30,10 +31,10 @@ class Modal extends React.Component {
       errorClass: "invalid-feedback",
       errorElement: "div",
 
-      highlight: function (element) {
+      highlight: function(element) {
         $(element).addClass("is-invalid");
       },
-      unhighlight: function (element) {
+      unhighlight: function(element) {
         $(element).removeClass("is-invalid");
       },
 
@@ -97,9 +98,31 @@ class Modal extends React.Component {
                           minLength="2"
                           required
                           value={this.state.name}
-                          onChange={(e) => this.setState({
-                            name: e.target.value
-                          })}
+                          onChange={e =>
+                            this.setState({
+                              name: e.target.value
+                            })
+                          }
+                        />
+                      </div>
+                    </div>
+                    <div className="form-group row">
+                      <div className="col-lg-6">
+                        <label>Description:</label>
+                        <textarea
+                          type="text"
+                          className="form-control"
+                          id="fullname"
+                          name="fullname"
+                          minLength="2"
+                          rows="6"
+                          required
+                          value={this.state.description}
+                          onChange={e =>
+                            this.setState({
+                              description: e.target.value
+                            })
+                          }
                         />
                       </div>
                     </div>
@@ -119,8 +142,8 @@ class Modal extends React.Component {
                         aria-hidden="true"
                       />
                     ) : (
-                        "Save"
-                      )}
+                      "Save"
+                    )}
                   </button>
                   <button
                     data-dismiss="modal"
