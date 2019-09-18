@@ -15,12 +15,12 @@ class Login extends React.Component {
                             <div className="kt-login-v2__body">
                                 {/*begin::Wrapper*/}
                                 <div className="kt-login-v2__wrapper">
-                                    <div className="kt-login-v2__container" style={{ "margin-top": "20vh" }}>
+                                    <div className="kt-login-v2__container" style={{ "marginTop": "20vh" }}>
                                         <div className="kt-login-v2__title">
                                             <h3>Sign to Account</h3>
                                         </div>
                                         {/*begin::Form*/}
-                                        <form className="kt-login-v2__form kt-form" action autoComplete="off">
+                                        <form className="kt-login-v2__form kt-form" action="true" autoComplete="off">
                                             <div className="form-group">
                                                 <input className="form-control" type="text" placeholder="Username" name="username" autoComplete="off" />
                                             </div>

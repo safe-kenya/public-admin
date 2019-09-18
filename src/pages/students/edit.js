@@ -13,8 +13,12 @@ class Modal extends React.Component {
     loading: false,
     edit: {
       names: "",
-      routes: [],
-      parents: []
+      route: "",
+      gender: "",
+      reg: "",
+      parent: "",
+      parents: [],
+      routes: []
     }
   };
 
@@ -102,7 +106,7 @@ class Modal extends React.Component {
                 <div className="modal-body">
                   <div className="kt-portlet__body">
                     <div className="form-group row">
-                      <div className="col-lg-6">
+                      <div className="col-lg-3">
                         <label>Full Name:</label>
                         <input
                           type="text"

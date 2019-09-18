@@ -47,7 +47,12 @@ class Modal extends React.Component {
           _this.state.loading = undefined
           await _this.props.save(_this.state);
           _this.hide();
-          _this.setState({ loading: false });
+          _this.setState({
+            loading: false,
+            make: "",
+            size: "",
+            plate: ""
+          });
         } catch (error) {
           _this.setState({ loading: false });
           if (error) {
@@ -90,7 +95,7 @@ class Modal extends React.Component {
                 <div className="modal-body">
                   <div className="kt-portlet__body">
                     <div className="form-group row">
-                      <div className="col-lg-6">
+                      <div className="col-lg-3">
                         <label>Bus Make:</label>
                         <input
                           type="text"
@@ -120,20 +125,35 @@ class Modal extends React.Component {
                         />
                       </div>
                       <div className="col-lg-3">
-                        <label for="exampleSelect1">Size:</label>
-                        <select
-                          name="seats"
-                          class="form-control"
+                        <label>Size:</label>
+                        <input
+                          type="number"
+                          className="form-control"
+                          id="plate"
+                          name="plate"
                           required
                           value={this.state.size}
                           onChange={(e) => this.setState({
                             size: Number(e.target.value)
                           })}
+                        />
+                      </div>
+                      <div className="col-lg-3">
+                        <label for="exampleSelect1">Drivers:</label>
+                        <select
+                          name="seats"
+                          type="text"
+                          class="form-control"
+                          required
+                          value={this.state.driver}
+                          onChange={(e) => this.setState({
+                            driver: e.target.value
+                          })}
                         >
-                          <option value="">Number of Seats</option>
-                          {["14", "28", "42", "65"].map(
-                            seats => (
-                              <option key={seats} value={seats}>{seats}</option>
+                          <option value="">Select driver</option>
+                          {this.props.drivers.map(
+                            driver => (
+                              <option key={driver.id} value={driver.id}>{driver.username}</option>
                             )
                           )}
                         </select>

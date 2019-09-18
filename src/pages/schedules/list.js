@@ -15,31 +15,43 @@ const deleteModalInstance = new DeleteModal();
 
 class BasicTable extends React.Component {
   state = {
+    schedules: [],
+    routes: [],
     busses: []
   };
   componentDidMount() {
+    const schedules = Data.schedules.list();
+    const routes = Data.routes.list();
     const busses = Data.busses.list();
-    this.setState({ busses });
+    this.setState({ schedules, routes, busses });
 
-    Data.busses.subscribe(buss => {
-      this.setState(buss);
+    Data.schedules.subscribe(schedule => {
+      this.setState(schedule);
+    });
+
+    Data.routes.subscribe(routes => {
+      this.setState(routes);
+    });
+
+    Data.busses.subscribe(busses => {
+      this.setState(busses);
     });
   }
   render() {
-    const { edit, remove } = this.state;
+    const { edit, remove, routes, busses } = this.state;
     return (
       <div className="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--left kt-aside--fixed kt-aside--offcanvas-default kt-page--loading">
         <div className="kt-grid kt-grid--hor kt-grid--root">
           <div className="kt-portlet kt-portlet--mobile">
-            <AddModal save={buss => Data.busses.create(buss)} />
-            <UploadModal save={buss => Data.busses.create(buss)} />
+            <AddModal routes={routes} busses={busses} save={schedule => Data.schedules.create(schedule)} />
+            <UploadModal save={schedule => Data.schedules.create(schedule)} />
             <DeleteModal
               remove={remove}
-              save={bus => Data.busses.delete(bus)}
+              save={schedule => Data.schedules.delete(schedule)}
             />
             <EditModal
               edit={edit}
-              save={bus => Data.busses.update(bus)}
+              save={schedule => Data.schedules.update(schedule)}
             />
             <div className="kt-portlet__body">
               {/*begin: Search Form */}
@@ -88,30 +100,40 @@ class BasicTable extends React.Component {
               <Table
                 headers={[
                   {
-                    label: "Schedule Name",
-                    key: "make"
+                    label: "Trip Name",
+                    key: "name"
                   },
                   {
                     label: "Time",
-                    key: "size"
+                    key: "time"
+                  },
+                  {
+                    label: "Bus",
+                    key: "bus_make"
                   },
                   {
                     label: "Route",
-                    key: "size"
+                    key: "route_name"
                   },
                   {
                     label: "Days",
-                    key: "plate"
+                    key: "days"
                   }
                 ]}
-                data={this.state.busses}
-                edit={bus => {
-                  this.setState({ edit: bus }, () => {
+                data={this.state.schedules.map(schedule => {
+                  return Object.assign(schedule, {
+                    route_name: schedule.route.name,
+                    bus_make: schedule.bus.make,
+                    days: typeof schedule.days === 'string' ?  schedule.days : schedule.days.join(", ")
+                  })
+                })}
+                edit={schedule => {
+                  this.setState({ edit: schedule }, () => {
                     editModalInstance.show();
                   });
                 }}
-                delete={bus => {
-                  this.setState({ remove: bus }, () => {
+                delete={schedule => {
+                  this.setState({ remove: schedule }, () => {
                     deleteModalInstance.show();
                   });
                 }}

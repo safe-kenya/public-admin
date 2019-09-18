@@ -63,7 +63,7 @@ class Navbar extends React.Component {
                   className="kt-menu__link kt-menu__toggle"
                 >
                   <span className="kt-menu__link-text">
-                    PickUps and DropOffs
+                    Trip Reports
                   </span>
                   <i className="kt-menu__hor-arrow la la-angle-down" />
                   <i className="kt-menu__ver-arrow la la-angle-right" />
@@ -81,10 +81,80 @@ class Navbar extends React.Component {
                         className="kt-menu__link kt-menu__toggle"
                       >
                         <i className="kt-menu__link-icon flaticon-file-2" />
-                        <span className="kt-menu__link-text">In Summary</span>
+                        <span className="kt-menu__link-text">All</span>
                       </a>
                     </li>
                     <li
+                      className="kt-menu__item  kt-menu__item--submenu"
+                      data-ktmenu-submenu-toggle="hover"
+                      aria-haspopup="true"
+                    >
+                      <a
+                        href="#"
+                        onClick={e => e.preventDefault()}
+                        className="kt-menu__link kt-menu__toggle"
+                      >
+                        <i className="kt-menu__link-icon flaticon-file-2" />
+                        <span className="kt-menu__link-text">Running</span>
+                      </a>
+                    </li>
+                    <li
+                      className="kt-menu__item  kt-menu__item--submenu"
+                      data-ktmenu-submenu-toggle="hover"
+                      aria-haspopup="true"
+                    >
+                      <a
+                        href="#"
+                        onClick={e => e.preventDefault()}
+                        className="kt-menu__link kt-menu__toggle"
+                      >
+                        <i className="kt-menu__link-icon flaticon-file-2" />
+                        <span className="kt-menu__link-text">Scheduled</span>
+                      </a>
+                    </li>
+                    <li
+                      className="kt-menu__item  kt-menu__item--submenu"
+                      data-ktmenu-submenu-toggle="hover"
+                      aria-haspopup="true"
+                    >
+                      <a
+                        href="#"
+                        onClick={e => e.preventDefault()}
+                        className="kt-menu__link kt-menu__toggle"
+                      >
+                        <i className="kt-menu__link-icon flaticon-file-2" />
+                        <span className="kt-menu__link-text">Complete</span>
+                      </a>
+                    </li>
+                    <li
+                      className="kt-menu__item  kt-menu__item--submenu"
+                      data-ktmenu-submenu-toggle="hover"
+                      aria-haspopup="true"
+                    >
+                      <a
+                        href="#"
+                        onClick={e => e.preventDefault()}
+                        className="kt-menu__link kt-menu__toggle"
+                      >
+                        <i className="kt-menu__link-icon flaticon-file-2" />
+                        <span className="kt-menu__link-text">Cancelled</span>
+                      </a>
+                    </li>
+                    <li
+                      className="kt-menu__item  kt-menu__item--submenu"
+                      data-ktmenu-submenu-toggle="hover"
+                      aria-haspopup="true"
+                    >
+                      <a
+                        href="#"
+                        onClick={e => e.preventDefault()}
+                        className="kt-menu__link kt-menu__toggle"
+                      >
+                        <i className="kt-menu__link-icon flaticon-file-2" />
+                        <span className="kt-menu__link-text">Exceptions</span>
+                      </a>
+                    </li>
+                    {/* <li
                       className="kt-menu__item  kt-menu__item--submenu"
                       data-ktmenu-submenu-toggle="hover"
                       aria-haspopup="true"
@@ -126,7 +196,7 @@ class Navbar extends React.Component {
                           })}
                         </ul>
                       </div>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </li>

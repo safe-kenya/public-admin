@@ -2,9 +2,9 @@ import axios from "axios"
 
 let API;
 
-if(window.location.href.includes('localhost')){
+if (window.location.href.includes('localhost')) {
     API = `http://localhost:4000`
-} else{
+} else {
     API = `https://staging-smartkids.herokuapp.com`
 }
 
@@ -18,7 +18,10 @@ const query = (query, params) => {
 
             resolve(data)
         } catch (error) {
-            reject(error.response.data.errors)
+            if (error.response)
+                return reject(error.response.data.errors)
+
+            reject(error)
         }
     })
 }

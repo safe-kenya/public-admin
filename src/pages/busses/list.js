@@ -15,7 +15,8 @@ const deleteModalInstance = new DeleteModal();
 
 class BasicTable extends React.Component {
   state = {
-    busses: []
+    busses: [],
+    drivers: []
   };
   componentDidMount() {
     const busses = Data.busses.list();
@@ -24,14 +25,21 @@ class BasicTable extends React.Component {
     Data.busses.subscribe(buss => {
       this.setState(buss);
     });
+
+    const drivers = Data.drivers.list();
+    this.setState({ drivers });
+
+    Data.drivers.subscribe(driver => {
+      this.setState(driver);
+    });
   }
   render() {
-    const { edit, remove } = this.state;
+    const { edit, remove, drivers } = this.state;
     return (
       <div className="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--left kt-aside--fixed kt-aside--offcanvas-default kt-page--loading">
         <div className="kt-grid kt-grid--hor kt-grid--root">
           <div className="kt-portlet kt-portlet--mobile">
-            <AddModal save={buss => Data.busses.create(buss)} />
+            <AddModal drivers={drivers} save={buss => Data.busses.create(buss)} />
             <UploadModal save={buss => Data.busses.create(buss)} />
             <DeleteModal
               remove={remove}
