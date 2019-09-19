@@ -76,14 +76,14 @@ class Home extends React.Component {
                     </div>
                     <div className="col-lg-12 col-xl-12 order-lg-1 order-xl-1">
                       <Stat
-                        label="Students Complains this week"
+                        label="Parent Complains this week"
                         number={20}
                         bars={["0", "2", "3", "7", "4", "7"]}
                       />
                     </div>
                     <div className="col-lg-12 col-xl-12 order-lg-1 order-xl-1">
                       <Stat
-                        label="Students Lateness time this week"
+                        label="Bus Lateness time this week"
                         number={6}
                         bars={["5", "4", "6", "3", "0", "0"]}
                       />
