@@ -43,7 +43,11 @@ class BasicTable extends React.Component {
       <div className="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--left kt-aside--fixed kt-aside--offcanvas-default kt-page--loading">
         <div className="kt-grid kt-grid--hor kt-grid--root">
           <div className="kt-portlet kt-portlet--mobile">
-            <AddModal routes={routes} busses={busses} save={schedule => Data.schedules.create(schedule)} />
+            <AddModal
+              routes={routes}
+              busses={busses}
+              save={schedule => Data.schedules.create(schedule)}
+            />
             <UploadModal save={schedule => Data.schedules.create(schedule)} />
             <DeleteModal
               remove={remove}
@@ -121,11 +125,15 @@ class BasicTable extends React.Component {
                   }
                 ]}
                 data={this.state.schedules.map(schedule => {
+                  const { route = {}, bus = {}, days = [] } = schedule;
                   return Object.assign(schedule, {
-                    route_name: schedule.route.name,
-                    bus_make: schedule.bus.make,
-                    days: typeof schedule.days === 'string' ?  schedule.days : schedule.days.join(", ")
-                  })
+                    route_name: route ? route.name : "",
+                    bus_make: bus ? bus.make : "",
+                    days:
+                      typeof schedule.days === "string"
+                        ? schedule.days
+                        : schedule.days.join(", ")
+                  });
                 })}
                 edit={schedule => {
                   this.setState({ edit: schedule }, () => {
@@ -147,6 +155,3 @@ class BasicTable extends React.Component {
 }
 
 export default BasicTable;
-
-
-
