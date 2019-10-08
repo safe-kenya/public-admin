@@ -6,9 +6,36 @@ import Stat from "./components/stat";
 import Tutorials from "./components/tutorials";
 import Questions from "./components/common-questions";
 import Map from "./components/map";
-import ProfilePanel from "../../components/profile-panel"
+import ProfilePanel from "../../components/profile-panel";
+import Data from "../../utils/data";
 
 class Home extends React.Component {
+  state = {
+    trips: [],
+    schedules: [],
+    students: 0
+  };
+  componentDidMount() {
+    const trips = Data.trips.list();
+    this.setState({ trips });
+
+    Data.trips.subscribe(({ trips }) => {
+      const students = trips.trips
+        .filter(trip => !trip.completedAt && !trip.isCancelled)
+        .reduce((acc, trip) => {
+          return (acc += trip.schedule.route.students.length);
+        }, 0);
+
+      this.setState(Object.assign({ trips }, { students }));
+    });
+
+    const schedules = Data.schedules.list();
+    this.setState({ schedules });
+
+    Data.schedules.subscribe(schedules => {
+      this.setState(schedules);
+    });
+  }
   render() {
     return (
       <div className="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
@@ -27,44 +54,45 @@ class Home extends React.Component {
             <div className="kt-container  kt-grid__item kt-grid__item--fluid">
               <div className="row">
                 <div className="col-lg-2 col-xl-2">
-                  <Stat
-                    label="All trips"
-                    number={0}
-                  />
+                  <Stat label="All trips" number={this.state.trips.length} />
                 </div>
                 <div className="col-lg-2 col-xl-2">
                   <Stat
                     label="Running Trips"
-                    number={0}
+                    number={
+                      this.state.trips.filter(
+                        trip => !trip.completedAt && !trip.isCancelled
+                      ).length
+                    }
                   />
                 </div>
                 <div className="col-lg-2 col-xl-2">
                   <Stat
                     label="Scheduled trips"
-                    number={0}
+                    number={this.state.schedules.length}
                   />
                 </div>
                 <div className="col-lg-2 col-xl-2">
                   <Stat
                     label="Complete trips"
-                    number={0}
+                    number={
+                      this.state.trips.filter(trip => trip.completedAt).length
+                    }
                   />
                 </div>
                 <div className="col-lg-2 col-xl-2">
                   <Stat
                     label="Cancelled trips"
-                    number={0}
+                    number={
+                      this.state.trips.filter(trip => trip.isCancelled).length
+                    }
                   />
                 </div>
                 <div className="col-lg-2 col-xl-2">
-                  <Stat
-                    label="Students In Bus"
-                    number={0}
-                  />
+                  <Stat label="Students In Bus" number={this.state.students} />
                 </div>
               </div>
               <div className="row">
-
                 <div className="col-lg-6 col-xl-4 order-lg-1 order-xl-1">
                   <div className="row">
                     <div className="col-lg-12 col-xl-12 order-lg-1 order-xl-1">

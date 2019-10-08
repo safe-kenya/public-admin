@@ -1,5 +1,5 @@
-import emitize from "./emitize"
-import { query, mutate } from "./requests"
+import emitize from "./emitize";
+import { query, mutate } from "./requests";
 
 const studentsData = [
   // {
@@ -46,9 +46,11 @@ const routesData = [
   // }
 ];
 
-const schedulesData = []
+const tripsData = [];
 
-var Data = (function () {
+const schedulesData = [];
+
+var Data = (function() {
   var instance;
 
   // local variables to keep a cache of every entity
@@ -58,6 +60,7 @@ var Data = (function () {
   var busses = bussesData;
   var routes = routesData;
   var schedules = schedulesData;
+  var trips = tripsData;
 
   // subscriptions for every entity to keep track of everyone subscribing to any data
   var subs = {};
@@ -67,6 +70,7 @@ var Data = (function () {
   emitize(subs, "busses");
   emitize(subs, "routes");
   emitize(subs, "schedules");
+  emitize(subs, "trips");
 
   // subs.students = log; //subscribe to events (named 'x') with cb (log)
   // //another subscription won't override the previous one
@@ -135,35 +139,74 @@ var Data = (function () {
         id
         make
       }
+    },
+    trips {
+      schedule {
+        id
+        time
+        end_time,
+        route{
+          id,
+          students{
+            id
+          }
+        }
+      }
+      startedAt,
+      isCancelled
+      completedAt
+      bus{
+        id,
+        make
+      }
+      driver{
+        id
+      }
+      locReports{
+        id
+        time
+        loc{
+          lat
+          lng
+        }
+      }
+      events{
+        time,
+        type,
+        student{
+          id
+        }
+      }
     }
   }`).then(response => {
     // let { students } = response
     students = response.students.map(student => {
-      if (student.route)
-        student.route = student.route.name
+      if (student.route) student.route = student.route.name;
 
-      if (student.parent)
-        student.parent = student.parent.name
+      if (student.parent) student.parent = student.parent.name;
 
-      return student
-    })
-    subs.students({ students })
+      return student;
+    });
+    subs.students({ students });
 
     busses = response.buses;
-    subs.busses({ busses })
+    subs.busses({ busses });
 
     parents = response.parents;
-    subs.parents({ parents })
+    subs.parents({ parents });
 
     routes = response.routes;
-    subs.routes({ routes })
+    subs.routes({ routes });
 
     drivers = response.drivers;
-    subs.drivers({ drivers })
+    subs.drivers({ drivers });
 
-    schedules = response.schedules
-    subs.schedules({ schedules })
-  })
+    schedules = response.schedules;
+    subs.schedules({ schedules });
+
+    trips = response.trips;
+    subs.trips({ trips });
+  });
 
   function createInstance() {
     var object = new Object("Instance here");
@@ -171,7 +214,7 @@ var Data = (function () {
   }
 
   return {
-    getInstance: function () {
+    getInstance: function() {
       if (!instance) {
         instance = createInstance();
       }
@@ -192,21 +235,24 @@ var Data = (function () {
     students: {
       create: data =>
         new Promise(async (resolve, reject) => {
-          const { id } = await mutate(`
+          const { id } = await mutate(
+            `
           mutation ($Istudent: Istudent!) {
             students {
               create(student: $Istudent) {
                 id
               }
             }
-          }`, {
-              "Istudent": data
-            })
+          }`,
+            {
+              Istudent: data
+            }
+          );
 
           data.id = id;
 
-          data.parent = parents.filter(p => p.id === data.parent)[0].name
-          data.route = routes.filter(p => p.id === data.route)[0].name
+          data.parent = parents.filter(p => p.id === data.parent)[0].name;
+          data.route = routes.filter(p => p.id === data.route)[0].name;
 
           students = [...students, data];
           subs.students({ students });
@@ -214,38 +260,44 @@ var Data = (function () {
         }),
       update: data =>
         new Promise(async (resolve, reject) => {
-          const { id } = await mutate(`
+          const { id } = await mutate(
+            `
           mutation ($student: Ustudent!) {
             students {
               update(student: $student) {
                 id
               }
             }
-          } `, {
-              "student": data
-            })
+          } `,
+            {
+              student: data
+            }
+          );
 
           data.id = id;
 
           const subtract = students.filter(({ id }) => id !== data.id);
           students = [data, ...subtract];
           subs.students({ students });
-          resolve()
+          resolve();
         }),
       delete: data =>
         new Promise(async (resolve, reject) => {
-          await mutate(`
+          await mutate(
+            `
           mutation ($Istudent: Ustudent!) {
             students {
               archive(student: $Istudent) {
                 id
               }
             }
-          }  `, {
-              "Istudent": {
+          }  `,
+            {
+              Istudent: {
                 id: data.id
               }
-            })
+            }
+          );
 
           const subtract = students.filter(({ id }) => id !== data.id);
           students = [...subtract];
@@ -260,21 +312,24 @@ var Data = (function () {
         subs.students = cb;
         return students;
       },
-      getOne(id) { }
+      getOne(id) {}
     },
     parents: {
       create: data =>
         new Promise(async (resolve, reject) => {
-          const { id } = await mutate(`
+          const { id } = await mutate(
+            `
           mutation ($Iparent: Iparent!) {
             parents {
               create(parent: $Iparent) {
                 id
               }
             }
-          }`, {
-              "Iparent": data
-            })
+          }`,
+            {
+              Iparent: data
+            }
+          );
 
           data.id = id;
 
@@ -284,16 +339,19 @@ var Data = (function () {
         }),
       update: data =>
         new Promise(async (resolve, reject) => {
-          await mutate(`
+          await mutate(
+            `
           mutation ($parent: Uparent!) {
             parents {
               update(parent: $parent) {
                 id
               }
             }
-          }`, {
-              "parent": data
-            })
+          }`,
+            {
+              parent: data
+            }
+          );
 
           const subtract = parents.filter(({ id }) => id !== data.id);
           parents = [data, ...subtract];
@@ -302,18 +360,21 @@ var Data = (function () {
         }),
       delete: data =>
         new Promise(async (resolve, reject) => {
-          mutate(`
+          mutate(
+            `
           mutation ($Iparent: Uparent!) {
             parents {
               archive(parent: $Iparent) {
                 id
               }
             }
-          } `, {
-              "Iparent": {
+          } `,
+            {
+              Iparent: {
                 id: data.id
               }
-            })
+            }
+          );
 
           const subtract = parents.filter(({ id }) => id !== data.id);
           parents = [...subtract];
@@ -328,21 +389,24 @@ var Data = (function () {
         subs.parents = cb;
         return parents;
       },
-      getOne(id) { }
+      getOne(id) {}
     },
     drivers: {
       create: data =>
         new Promise(async (resolve, reject) => {
-          const { id } = await mutate(`
+          const { id } = await mutate(
+            `
             mutation ($Idriver: Idriver!) {
               drivers {
                 create(driver: $Idriver) {
                   id
                 }
               }
-            }`, {
-              "Idriver": data
-            })
+            }`,
+            {
+              Idriver: data
+            }
+          );
 
           data.id = id;
 
@@ -352,7 +416,8 @@ var Data = (function () {
         }),
       update: data =>
         new Promise(async (resolve, reject) => {
-          await mutate(`
+          await mutate(
+            `
           mutation ($driver: Udriver!) {
             drivers {
               update(driver: $driver) {
@@ -360,9 +425,11 @@ var Data = (function () {
               }
             }
           } 
-          `, {
-              "driver": data
-            })
+          `,
+            {
+              driver: data
+            }
+          );
 
           const subtract = drivers.filter(({ id }) => id !== data.id);
           drivers = [data, ...subtract];
@@ -371,7 +438,8 @@ var Data = (function () {
         }),
       delete: data =>
         new Promise(async (resolve, reject) => {
-          await mutate(`
+          await mutate(
+            `
           mutation ($Idriver: Udriver!) {
             drivers {
               archive(driver: $Idriver) {
@@ -379,11 +447,13 @@ var Data = (function () {
               }
             }
           } 
-          `, {
-              "Idriver": {
+          `,
+            {
+              Idriver: {
                 id: data.id
               }
-            })
+            }
+          );
 
           const subtract = drivers.filter(({ id }) => id !== data.id);
           drivers = [...subtract];
@@ -398,37 +468,43 @@ var Data = (function () {
         subs.drivers = cb;
         return drivers;
       },
-      getOne(id) { }
+      getOne(id) {}
     },
     busses: {
       create: bus =>
         new Promise(async (resolve, reject) => {
-          const { id } = await mutate(`mutation ($bus: Ibus!) {
+          const { id } = await mutate(
+            `mutation ($bus: Ibus!) {
             buses {
               create(bus: $bus) {
                 id
               }
             }
-          }`, {
+          }`,
+            {
               bus
-            })
+            }
+          );
 
-          bus.id = id
+          bus.id = id;
           busses = [...busses, bus];
           subs.busses({ busses });
           resolve();
         }),
       update: data =>
         new Promise(async (resolve, reject) => {
-          await mutate(`mutation ($bus: Ubus!) {
+          await mutate(
+            `mutation ($bus: Ubus!) {
             buses {
               update(bus: $bus) {
                 id
               }
             }
-          }`, {
+          }`,
+            {
               bus: data
-            })
+            }
+          );
 
           const subtract = busses.filter(({ id }) => id !== data.id);
           busses = [data, ...subtract];
@@ -437,17 +513,20 @@ var Data = (function () {
         }),
       delete: bus =>
         new Promise(async (resolve, reject) => {
-          await mutate(`mutation ($Ibus: Ubus!) {
+          await mutate(
+            `mutation ($Ibus: Ubus!) {
             buses {
               archive(bus: $Ibus) {
                 id
               }
             }
-          }  `, {
-              "Ibus": {
-                "id": bus.id
+          }  `,
+            {
+              Ibus: {
+                id: bus.id
               }
-            })
+            }
+          );
 
           const subtract = busses.filter(({ id }) => id !== bus.id);
           busses = [...subtract];
@@ -462,41 +541,58 @@ var Data = (function () {
         subs.busses = cb;
         return busses;
       },
-      getOne(id) { }
+      getOne(id) {}
+    },
+    trips: {
+      list() {
+        return trips;
+      },
+      subscribe(cb) {
+        // listen for even change on the students observables
+        subs.trips = cb;
+        return trips;
+      },
+      getOne(id) {}
     },
     routes: {
       create: data =>
         new Promise(async (resolve, reject) => {
-          const { id } = await mutate(`
+          const { id } = await mutate(
+            `
             mutation ($Iroute: Iroute!) {
               routes {
                 create(route: $Iroute) {
                   id
                 }
               }
-            }`, {
-              "Iroute": data
-            })
+            }`,
+            {
+              Iroute: data
+            }
+          );
 
-          data.id = id
+          data.id = id;
           routes = [...routes, data];
           subs.routes({ routes });
           resolve();
         }),
       update: data =>
         new Promise(async (resolve, reject) => {
-          await mutate(`mutation ($route: Uroute!) {
+          await mutate(
+            `mutation ($route: Uroute!) {
             routes {
               update(route: $route) {
                 id
               }
             }
-          } `, {
-              "route": {
+          } `,
+            {
+              route: {
                 id: data.id,
                 name: data.name
               }
-            })
+            }
+          );
 
           const subtract = routes.filter(({ id }) => id !== data.id);
           routes = [data, ...subtract];
@@ -505,17 +601,20 @@ var Data = (function () {
         }),
       delete: data =>
         new Promise(async (resolve, reject) => {
-          await mutate(`mutation ($Iroute: Uroute!) {
+          await mutate(
+            `mutation ($Iroute: Uroute!) {
             routes {
               archive(route: $Iroute) {
                 id
               }
             }
-          }`, {
-              "Iroute": {
+          }`,
+            {
+              Iroute: {
                 id: data.id
               }
-            })
+            }
+          );
 
           const subtract = routes.filter(({ id }) => id !== data.id);
           routes = [...subtract];
@@ -530,14 +629,15 @@ var Data = (function () {
         subs.routes = cb;
         return routes;
       },
-      getOne(id) { }
+      getOne(id) {}
     },
     schedules: {
       create: schedule =>
         new Promise(async (resolve, reject) => {
-          schedule.days = schedule.days.join(",")
+          schedule.days = schedule.days.join(",");
 
-          const { id } = await mutate(`
+          const { id } = await mutate(
+            `
           mutation ($schedule: Ischedule!) {
             schedules {
               create(schedule: $schedule) {
@@ -545,21 +645,26 @@ var Data = (function () {
               }
             }
           }            
-        `, {
+        `,
+            {
               schedule
-            })
+            }
+          );
 
-          schedule.id = id
-          schedule.days = schedule.days.split(",")
-          schedule.route = routes.filter(route => route.id === schedule.route)[0]
-          schedule.bus = busses.filter(bus => bus.id === schedule.bus)[0]
+          schedule.id = id;
+          schedule.days = schedule.days.split(",");
+          schedule.route = routes.filter(
+            route => route.id === schedule.route
+          )[0];
+          schedule.bus = busses.filter(bus => bus.id === schedule.bus)[0];
           schedules = [...schedules, schedule];
           subs.schedules({ schedules });
           resolve();
         }),
       update: data =>
         new Promise(async (resolve, reject) => {
-          await mutate(`
+          await mutate(
+            `
           mutation ($Ischedule: Ischedule!) {
             schedules {
               create(schedule: $Ischedule) {
@@ -567,9 +672,11 @@ var Data = (function () {
               }
             }
           }            
-        `, {
+        `,
+            {
               schedule: data
-            })
+            }
+          );
 
           const subtract = schedules.filter(({ id }) => id !== data.id);
           schedules = [data, ...subtract];
@@ -578,7 +685,8 @@ var Data = (function () {
         }),
       delete: schedule =>
         new Promise(async (resolve, reject) => {
-          await mutate(`
+          await mutate(
+            `
           mutation ($Ischedule: Uschedule!) {
             schedules {
               archive(schedule: $Ischedule) {
@@ -586,11 +694,13 @@ var Data = (function () {
               }
             }
           }                  
-        `, {
-              "Ischedule": {
-                "id": schedule.id
+        `,
+            {
+              Ischedule: {
+                id: schedule.id
               }
-            })
+            }
+          );
 
           const subtract = schedules.filter(({ id }) => id !== schedule.id);
           schedules = [...subtract];
@@ -605,7 +715,7 @@ var Data = (function () {
         subs.schedules = cb;
         return schedules;
       },
-      getOne(id) { }
+      getOne(id) {}
     },
     picksAndDrops: {
       create(id) {
@@ -620,7 +730,7 @@ var Data = (function () {
       list() {
         return [];
       },
-      getOne(id) { }
+      getOne(id) {}
     },
     messages: {
       create(id) {
@@ -635,7 +745,7 @@ var Data = (function () {
       list() {
         return [];
       },
-      getOne(id) { }
+      getOne(id) {}
     },
     communication: {
       sms: {
@@ -651,7 +761,7 @@ var Data = (function () {
         list() {
           return [];
         },
-        getOne(id) { }
+        getOne(id) {}
       },
       email: {
         create(id) {
@@ -666,7 +776,7 @@ var Data = (function () {
         list() {
           return [];
         },
-        getOne(id) { }
+        getOne(id) {}
       }
     }
   };
