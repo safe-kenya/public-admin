@@ -71,6 +71,9 @@ class Modal extends React.Component {
         }
       }
     });
+
+    $('#timepicker_start').timepicker();
+    $('#timepicker_end').timepicker();
   }
   render() {
     return (
@@ -119,16 +122,30 @@ class Modal extends React.Component {
                         />
                       </div>
                       <div className="col-lg-3">
-                        <label>Time</label>
+                        <label>Start Time</label>
                         <input
                           type="text"
                           className="form-control"
-                          id="plate"
-                          name="plate"
+                          id="timepicker_start"
+                          name="start"
                           required
                           value={this.state.time}
                           onChange={(e) => this.setState({
                             time: e.target.value
+                          })}
+                        />
+                      </div>
+                      <div className="col-lg-3">
+                        <label>End Time</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="timepicker_end"
+                          name="end"
+                          required
+                          value={this.state.end_time}
+                          onChange={(e) => this.setState({
+                            end_time: e.target.value
                           })}
                         />
                       </div>

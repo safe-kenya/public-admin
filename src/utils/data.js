@@ -124,6 +124,7 @@ var Data = (function () {
     schedules {
       id
       time
+      end_time
       name
       days
       route {
