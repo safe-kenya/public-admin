@@ -1,56 +1,23 @@
 import emitize from "./emitize";
 import { query, mutate } from "./requests";
 
-const studentsData = [
-  // {
-  //   id: Math.random().toString(),
-  //   names: "Existing student",
-  //   route: "Malawa route",
-  //   gender: "Male",
-  //   parent: "Existing parent"
-  // }
-];
+const studentsData = [];
 
-const parentsData = [
-  // {
-  //   id: Math.random().toString(),
-  //   names: "Existing parent",
-  //   gender: "Father",
-  //   phone: "109876543",
-  //   email: "test@dfgh.com"
-  // }
-];
+const parentsData = [];
 
-const bussesData = [
-  // {
-  //   id: Math.random().toString(),
-  //   names: "Existing Bus",
-  //   size: "small",
-  //   plate: "plate"
-  // }
-];
+const bussesData = [];
 
-const driversData = [
-  // {
-  //   id: Math.random().toString(),
-  //   names: "Existing driver",
-  //   gender: "male",
-  //   phone: "109876543"
-  // }
-];
+const driversData = [];
 
-const routesData = [
-  // {
-  //   id: Math.random().toString(),
-  //   names: "Existing route"
-  // }
-];
+const routesData = [];
+
+const complaintsData = []
 
 const tripsData = [];
 
 const schedulesData = [];
 
-var Data = (function() {
+var Data = (function () {
   var instance;
 
   // local variables to keep a cache of every entity
@@ -61,6 +28,7 @@ var Data = (function() {
   var routes = routesData;
   var schedules = schedulesData;
   var trips = tripsData;
+  var complaints = complaintsData;
 
   // subscriptions for every entity to keep track of everyone subscribing to any data
   var subs = {};
@@ -71,6 +39,7 @@ var Data = (function() {
   emitize(subs, "routes");
   emitize(subs, "schedules");
   emitize(subs, "trips");
+  emitize(subs, "complaints");
 
   // subs.students = log; //subscribe to events (named 'x') with cb (log)
   // //another subscription won't override the previous one
@@ -79,6 +48,13 @@ var Data = (function() {
 
   // when the data store gets innitialized, fetch all data and store in cache
   query(`{
+    complaints{
+      id
+      time
+      parent{
+        id
+      }
+    }
     students {
       id
       names
@@ -206,6 +182,9 @@ var Data = (function() {
 
     trips = response.trips;
     subs.trips({ trips });
+
+    complaints = response.complaints;
+    subs.complaints({ complaints });
   });
 
   function createInstance() {
@@ -214,7 +193,7 @@ var Data = (function() {
   }
 
   return {
-    getInstance: function() {
+    getInstance: function () {
       if (!instance) {
         instance = createInstance();
       }
@@ -312,7 +291,7 @@ var Data = (function() {
         subs.students = cb;
         return students;
       },
-      getOne(id) {}
+      getOne(id) { }
     },
     parents: {
       create: data =>
@@ -389,7 +368,7 @@ var Data = (function() {
         subs.parents = cb;
         return parents;
       },
-      getOne(id) {}
+      getOne(id) { }
     },
     drivers: {
       create: data =>
@@ -468,7 +447,7 @@ var Data = (function() {
         subs.drivers = cb;
         return drivers;
       },
-      getOne(id) {}
+      getOne(id) { }
     },
     busses: {
       create: bus =>
@@ -541,7 +520,7 @@ var Data = (function() {
         subs.busses = cb;
         return busses;
       },
-      getOne(id) {}
+      getOne(id) { }
     },
     trips: {
       list() {
@@ -552,7 +531,18 @@ var Data = (function() {
         subs.trips = cb;
         return trips;
       },
-      getOne(id) {}
+      getOne(id) { }
+    },
+    complaints: {
+      list() {
+        return complaints;
+      },
+      subscribe(cb) {
+        // listen for even change on the students observables
+        subs.complaints = cb;
+        return complaints;
+      },
+      getOne(id) { }
     },
     routes: {
       create: data =>
@@ -629,7 +619,7 @@ var Data = (function() {
         subs.routes = cb;
         return routes;
       },
-      getOne(id) {}
+      getOne(id) { }
     },
     schedules: {
       create: schedule =>
@@ -715,7 +705,7 @@ var Data = (function() {
         subs.schedules = cb;
         return schedules;
       },
-      getOne(id) {}
+      getOne(id) { }
     },
     picksAndDrops: {
       create(id) {
@@ -730,7 +720,7 @@ var Data = (function() {
       list() {
         return [];
       },
-      getOne(id) {}
+      getOne(id) { }
     },
     messages: {
       create(id) {
@@ -745,7 +735,7 @@ var Data = (function() {
       list() {
         return [];
       },
-      getOne(id) {}
+      getOne(id) { }
     },
     communication: {
       sms: {
@@ -761,7 +751,7 @@ var Data = (function() {
         list() {
           return [];
         },
-        getOne(id) {}
+        getOne(id) { }
       },
       email: {
         create(id) {
@@ -776,7 +766,7 @@ var Data = (function() {
         list() {
           return [];
         },
-        getOne(id) {}
+        getOne(id) { }
       }
     }
   };

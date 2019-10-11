@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment"
 import Navbar from "../../components/navbar";
 import Subheader from "../../components/subheader";
 import Footer from "../../components/footer";
@@ -13,11 +14,15 @@ class Home extends React.Component {
   state = {
     trips: [],
     schedules: [],
+    complaints:[],
     students: 0
   };
   componentDidMount() {
     const trips = Data.trips.list();
     this.setState({ trips });
+
+    const complaints = Data.complaints.list();
+    this.setState({ complaints });
 
     Data.trips.subscribe(({ trips }) => {
       const students = trips
@@ -98,21 +103,37 @@ class Home extends React.Component {
                     <div className="col-lg-12 col-xl-12 order-lg-1 order-xl-1">
                       <Stat
                         label="Bus Trips this week"
-                        number={6}
+                        number={this.state.trips.filter(trip => {
+                          var now = moment();
+                          var input = moment(trip.startedAt);
+                          var isThisWeek = (now.isoWeek() == input.isoWeek())
+                          return isThisWeek;
+                        }).length}
                         bars={["20", "20", "20", "30", "20", "5"]}
                       />
                     </div>
                     <div className="col-lg-12 col-xl-12 order-lg-1 order-xl-1">
                       <Stat
                         label="Parent Complains this week"
-                        number={20}
+                        number={this.state.complaints.filter(complaint => {
+                          var now = moment();
+                          var input = moment(complaint.time);
+                          var isThisWeek = (now.isoWeek() == input.isoWeek())
+                          return isThisWeek;
+                        }).length}
                         bars={["0", "2", "3", "7", "4", "7"]}
                       />
                     </div>
                     <div className="col-lg-12 col-xl-12 order-lg-1 order-xl-1">
                       <Stat
                         label="Bus Lateness time this week"
-                        number={6}
+                        number={this.state.trips.filter(trip => {
+                          var now = moment();
+                          // check againts schedule to check if late
+                          var input = moment(trip.startedAt);
+                          var isThisWeek = (now.isoWeek() == input.isoWeek())
+                          return isThisWeek;
+                        }).length}
                         bars={["5", "4", "6", "3", "0", "0"]}
                       />
                     </div>
