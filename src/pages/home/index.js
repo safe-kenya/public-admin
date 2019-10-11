@@ -20,13 +20,13 @@ class Home extends React.Component {
     this.setState({ trips });
 
     Data.trips.subscribe(({ trips }) => {
-      const students = trips.trips
-        .filter(trip => !trip.completedAt && !trip.isCancelled)
-        .reduce((acc, trip) => {
-          return (acc += trip.schedule.route.students.length);
-        }, 0);
+      const students = trips
+          .filter(trip => !trip.completedAt && !trip.isCancelled)
+          .reduce((acc, trip) => {
+            return (acc += trip.schedule.route.students.length);
+          }, 0);
 
-      this.setState(Object.assign({ trips }, { students }));
+        this.setState(Object.assign({ trips }, { students }));
     });
 
     const schedules = Data.schedules.list();
