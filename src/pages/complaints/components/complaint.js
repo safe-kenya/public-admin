@@ -7,7 +7,7 @@ const ComplaintView = ({ complaint, onClickDelete }) => {
       <div className="kt-portlet__head">
         <div class="kt-portlet__head-label">
 					<span class="kt-portlet__head-icon">
-						<i class="flaticon-interface-2"></i>
+						<i class="la la-comment-o"></i>
 					</span>
           <h3 className="kt-portlet__head-title kt-heading kt-heading--center kt-heading--thin">
             {complaint.parent && complaint.parent.name}
@@ -17,12 +17,9 @@ const ComplaintView = ({ complaint, onClickDelete }) => {
         <div class="kt-portlet__head-toolbar">
 					<div class="kt-portlet__head-group">
 						<div class="btn-group">
-							<button type="button" class="btn btn-pill btn-outline-brand btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Actions
+							<button type="button" class="btn btn-pill btn-outline-danger btn-sm" onClick={onClickDelete}>
+                <i className="la la-trash" />
 							</button>
-							<div class="dropdown-menu dropdown-menu-right">
-								<a class="dropdown-item" onClick={onClickDelete}>Delete</a>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -30,11 +27,9 @@ const ComplaintView = ({ complaint, onClickDelete }) => {
       <div className="kt-portlet__body">
         {complaint.content}
       </div>
-      <div className="card-footer">
-        <div className="row">
-          <textarea className="form-control col-md-6 my-2"></textarea>
-          <button className="btn btn-primary btn-sm pull-right">Respond</button>
-        </div>
+      <div className="kt-portlet__foot">
+        <textarea className="form-control my-2"></textarea>
+        <button className="btn btn-outline-success btn-pill btn-sm kt-align-right">Respond</button>
       </div>
     </div>
     )
