@@ -531,7 +531,29 @@ var Data = (function () {
         subs.trips = cb;
         return trips;
       },
-      getOne(id) { }
+      getOne(id) { },
+      delete: trip =>
+        new Promise(async (resolve, reject) => {
+          await mutate(
+            `mutation ($Itrip: Utrip!) {
+            trips {
+              archive(trip: $Itrip) {
+                id
+              }
+            }
+          }  `,
+            {
+              Itrip: {
+                id: trip.id
+              }
+            }
+          );
+
+          const subtract = trips.filter(({ id }) => id !== trip.id);
+          trips = [...subtract];
+          subs.trips({ trips });
+          resolve();
+        }),
     },
     complaints: {
       list() {
@@ -542,7 +564,29 @@ var Data = (function () {
         subs.complaints = cb;
         return complaints;
       },
-      getOne(id) { }
+      delete: complaint =>
+        new Promise(async (resolve, reject) => {
+          await mutate(
+            `mutation ($Icomplaint: Ucomplaint!) {
+            complaints {
+              archive(complaint: $Icomplaint) {
+                id
+              }
+            }
+          }  `,
+            {
+              Icomplaint: {
+                id: complaint.id
+              }
+            }
+          );
+
+          const subtract = complaints.filter(({ id }) => id !== complaint.id);
+          complaints = [...subtract];
+          subs.complaints({ complaints });
+          resolve();
+        }),
+      getOne(id) {}
     },
     routes: {
       create: data =>

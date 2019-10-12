@@ -264,7 +264,6 @@ class Navbar extends React.Component {
                 <Link
                   to="/messages"
                   href="#"
-                  onClick={e => e.preventDefault()}
                   className="kt-menu__link"
                 >
                   <span className="kt-menu__link-text">Recieved Messages</span>

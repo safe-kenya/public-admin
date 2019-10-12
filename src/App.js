@@ -8,6 +8,7 @@ import drivers from "./pages/drivers";
 import busses from "./pages/busses"
 import routes from "./pages/routes"
 import schedules from "./pages/schedules"
+import complaints from "./pages/complaints"
 
 import login from "./pages/auth/login";
 // import recover from "./pages/auth/recover";
@@ -24,7 +25,7 @@ function App() {
       <Route path="/drivers" component={drivers} />
       <Route path="/busses" component={busses} />
       <Route path="/routes" component={routes} />
-      <Route path="/messages" component={students} />
+      <Route path="/messages" component={complaints} />
       <Route path="/comms/sms" component={students} />
       <Route path="/comms/email" component={students} />
       <Route path="/reports/bus/:id" component={students} />
