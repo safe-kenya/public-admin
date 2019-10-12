@@ -51,8 +51,10 @@ var Data = (function () {
     complaints{
       id
       time
+      content
       parent{
-        id
+        id,
+        name
       }
     }
     students {
