@@ -55,6 +55,10 @@ class Modal extends React.Component {
         try {
           _this.setState({ loading: true });
           _this.state.loading = undefined
+
+          _this.state.time = $('#timepicker_start').data("timepicker").getTime()
+          _this.state.end_time = $('#timepicker_end').data("timepicker").getTime()
+
           await _this.props.save(Object.assign({}, _this.state, {
             selectedDays: undefined,
             days: _this.state.selectedDays
@@ -129,7 +133,7 @@ class Modal extends React.Component {
                           id="timepicker_start"
                           name="start"
                           required
-                          value={this.state.time}
+                          // value={this.state.time}
                           onChange={(e) => this.setState({
                             time: e.target.value
                           })}
@@ -143,7 +147,7 @@ class Modal extends React.Component {
                           id="timepicker_end"
                           name="end"
                           required
-                          value={this.state.end_time}
+                          // value={this.state.end_time}
                           onChange={(e) => this.setState({
                             end_time: e.target.value
                           })}
