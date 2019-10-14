@@ -120,6 +120,7 @@ var Data = (function () {
     },
     trips {
       schedule {
+        name
         id
         time
         end_time,
@@ -190,6 +191,7 @@ var Data = (function () {
   });
 
   function createInstance() {
+    // eslint-disable-next-line no-new-object
     var object = new Object("Instance here");
     return object;
   }
