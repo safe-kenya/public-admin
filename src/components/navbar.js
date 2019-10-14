@@ -76,8 +76,7 @@ class Navbar extends React.Component {
                       aria-haspopup="true"
                     >
                       <a
-                        href="#"
-                        onClick={e => e.preventDefault()}
+                        href="#/trips/all"
                         className="kt-menu__link kt-menu__toggle"
                       >
                         <i className="kt-menu__link-icon flaticon-file-2" />
@@ -90,8 +89,7 @@ class Navbar extends React.Component {
                       aria-haspopup="true"
                     >
                       <a
-                        href="#"
-                        onClick={e => e.preventDefault()}
+                        href="#/trips/running"
                         className="kt-menu__link kt-menu__toggle"
                       >
                         <i className="kt-menu__link-icon flaticon-file-2" />
@@ -104,8 +102,7 @@ class Navbar extends React.Component {
                       aria-haspopup="true"
                     >
                       <a
-                        href="#"
-                        onClick={e => e.preventDefault()}
+                        href="#/schedules"
                         className="kt-menu__link kt-menu__toggle"
                       >
                         <i className="kt-menu__link-icon flaticon-file-2" />
@@ -118,8 +115,7 @@ class Navbar extends React.Component {
                       aria-haspopup="true"
                     >
                       <a
-                        href="#"
-                        onClick={e => e.preventDefault()}
+                        href="#/trips/complete"
                         className="kt-menu__link kt-menu__toggle"
                       >
                         <i className="kt-menu__link-icon flaticon-file-2" />
@@ -132,8 +128,7 @@ class Navbar extends React.Component {
                       aria-haspopup="true"
                     >
                       <a
-                        href="#"
-                        onClick={e => e.preventDefault()}
+                        href="#/trips/cancelled"
                         className="kt-menu__link kt-menu__toggle"
                       >
                         <i className="kt-menu__link-icon flaticon-file-2" />
