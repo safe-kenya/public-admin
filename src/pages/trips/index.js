@@ -15,7 +15,7 @@ class App extends React.Component {
           id="kt_wrapper"
         >
           <Navbar />
-          <Subheader links={["Buses", "Manage"]} />
+          <Subheader links={["Trips", "Manage"]} />
 
           <div
             className="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor"
