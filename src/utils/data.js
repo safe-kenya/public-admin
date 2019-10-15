@@ -205,6 +205,11 @@ var Data = (function () {
 
       return instance;
     },
+    comms:{
+      send: ({ type, parents, message }) => new Promise(async (resolve, reject) => {
+        resolve('ok')
+      })
+    },
     auth: {
       login(id) {
         return {};

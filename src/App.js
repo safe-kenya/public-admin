@@ -10,6 +10,7 @@ import routes from "./pages/routes"
 import schedules from "./pages/schedules"
 import complaints from "./pages/complaints"
 import trips from "./pages/trips"
+import communications from "./pages/communications"
 
 import login from "./pages/auth/login";
 // import recover from "./pages/auth/recover";
@@ -27,8 +28,8 @@ function App() {
       <Route path="/busses" component={busses} />
       <Route path="/routes" component={routes} />
       <Route path="/messages" component={complaints} />
-      <Route path="/comms/sms" component={students} />
-      <Route path="/comms/email" component={students} />
+      <Route path="/comms/sms" component={communications} />
+      <Route path="/comms/email" component={communications} />
       <Route path="/reports/bus/:id" component={students} />
       <Route path="/trips" render={props => <Redirect to="/trips/all"/>} />
       <Route path="/trips/:filter" component={trips} />
