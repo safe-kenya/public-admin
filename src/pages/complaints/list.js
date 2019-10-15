@@ -10,7 +10,7 @@ class ComplaintList extends Component{
 
   componentDidMount(){
     const complaints = Data.complaints.list()
-    this.setState(complaints)
+    this.setState({ complaints })
 
     Data.complaints.subscribe(complaints => {
       this.setState(complaints)
