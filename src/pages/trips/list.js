@@ -100,6 +100,7 @@ class BasicTable extends React.Component {
                     deleteModalInstance.show();
                   });
                 }}
+                onClick={this.onClickHandler}
               />
             </div>
           </div>
