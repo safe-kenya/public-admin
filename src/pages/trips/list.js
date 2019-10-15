@@ -23,15 +23,20 @@ class BasicTable extends React.Component {
 
   componentDidMount() {
     const trips = Data.trips.list();
-    this.setState({ trips:trips.map(trip => trip.name = trip.schedule.name) });
+    this.setState({ trips:trips.map(trip => ({...trip, name: trip.schedule.name})) });
 
     Data.trips.subscribe(({ trips }) => {
-      this.setState({ trips: trips.map(trip => trip.name = trip.schedule.name) });
+      this.setState({ trips: trips.map(trip => ({...trip, name: trip.schedule.name})) });
     });
 
     /*const drivers = Data.drivers.list();
     this.setState({ drivers });*/
   }
+
+  onClickHandler(trip){
+    window.location= `#/trip/${trip.id}`
+  }
+
   render() {
     const { remove, trips, filter } = this.state;
     const filteredTrips = trips.filter(filters[filter])

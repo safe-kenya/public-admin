@@ -20,7 +20,7 @@ export default props => {
           return (
             <tr key={Math.random().toString()}>
               {props.headers.map(header => {
-                return <td>{row[header.key]}</td>;
+                return <td onClick={() => this.props.onClick(row.id)}>{row[header.key]}</td>;
               })}
 
               <td

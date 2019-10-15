@@ -32,6 +32,7 @@ function App() {
       <Route path="/reports/bus/:id" component={students} />
       <Route path="/trips" render={props => <Redirect to="/trips/all"/>} />
       <Route path="/trips/:filter" component={trips} />
+      {/*<Route path="/trip/:id" component={trips} />*/}
       {/* <Route exact path="/login" component={login} />
         <Route exact path="/recover" component={recover} />
         <Route exact path="/register" component={register} /> */}

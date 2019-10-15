@@ -119,6 +119,7 @@ var Data = (function () {
       }
     },
     trips {
+      id
       schedule {
         name
         id
@@ -535,7 +536,7 @@ var Data = (function () {
         subs.trips = cb;
         return trips;
       },
-      getOne(id) { },
+      getOne: id => trips.find(trip => trip.id === id),
       delete: trip =>
         new Promise(async (resolve, reject) => {
           await mutate(
