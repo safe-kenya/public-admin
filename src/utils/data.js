@@ -685,7 +685,7 @@ var Data = (function () {
         new Promise(async (resolve, reject) => {
           schedule.days = schedule.days.join(",");
 
-          const { id } = await mutate(
+          const res = await mutate(
             `
           mutation ($schedule: Ischedule!) {
             schedules {
@@ -699,6 +699,8 @@ var Data = (function () {
               schedule
             }
           );
+
+          const { id } = res
 
           schedule.id = id;
           schedule.days = schedule.days.split(",");
@@ -714,16 +716,16 @@ var Data = (function () {
         new Promise(async (resolve, reject) => {
           await mutate(
             `
-          mutation ($Ischedule: Ischedule!) {
+          mutation ($Uschedule: Uschedule!) {
             schedules {
-              create(schedule: $Ischedule) {
+              update(schedule: $Uschedule) {
                 id
               }
             }
           }            
         `,
             {
-              schedule: data
+              Uschedule: data
             }
           );
 

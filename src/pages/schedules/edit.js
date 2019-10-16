@@ -55,10 +55,19 @@ class Modal extends React.Component {
         try {
           _this.setState({ loading: true });
 
-          _this.state.edit.time = $('#timepicker_start').data("timepicker").getTime()
-          _this.state.edit.end_time = $('#timepicker_end').data("timepicker").getTime()
+          const data = {}
+          Object.assign(data, _this.state.edit)
 
-          await _this.props.save(_this.state.edit);
+          data.time = $('#timepicker_start').data("timepicker").getTime()
+          data.end_time = $('#timepicker_end').data("timepicker").getTime()
+          data.route = data.route.id
+          data.bus = data.bus.id
+          data.route_name = undefined
+          data.bus_make = undefined
+          // data.id = undefined
+          data.days = data.days.join(",")
+
+          await _this.props.save(data);
           _this.hide();
           _this.setState({ loading: false });
         } catch (error) {
@@ -208,17 +217,22 @@ class Modal extends React.Component {
                               <input
                                 type="checkbox"
                                 checked={this.state.edit.days.includes(day)}
-                              // onChange={() => {
-                              //   if (this.state.edit.selectedDays.includes(day)) {
-                              //     return this.setState({
-                              //       ...this.state.edit,
-                              //       selectedDays: this.state.edit.selectedDays.filter(eday => eday !== day)
-                              //     })
-                              //   }
-                              //   this.setState({
-                              //     selectedDays: [...this.state.edit.selectedDays, day]
-                              //   })
-                              // }} 
+                                onChange={() => {
+                                  if (this.state.edit.days.includes(day)) {
+                                    return this.setState({
+                                      edit: {
+                                        ...this.state.edit,
+                                        days: this.state.edit.days.filter(eday => eday !== day)
+                                      }
+                                    })
+                                  }
+                                  this.setState({
+                                    edit: {
+                                      ...this.state.edit,
+                                      days: [...this.state.edit.days, day]
+                                    }
+                                  })
+                                }}
                               /> {day}
                               <span />
                             </label>)
