@@ -103,6 +103,7 @@ class Modal extends React.Component {
                     <span aria-hidden="true">×</span>
                   </button>
                 </div>
+
                 <div className="modal-body">
                   <div className="kt-portlet__body">
                     <div className="form-group row">
@@ -114,11 +115,26 @@ class Modal extends React.Component {
                           id="fullname"
                           name="fullname"
                           minLength="2"
+                          required
                           value={this.state.edit.names}
                           onChange={(e) => this.setState(Object.assign(this.state.edit, {
                             names: e.target.value
                           }))}
+                        />
+                      </div>
+                      <div className="col-lg-3">
+                        <label>Registration Number:</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="registration"
+                          name="registration"
+                          minLength="2"
                           required
+                          value={this.state.edit.registration}
+                          onChange={(e) => this.setState({
+                            registration: e.target.value
+                          })}
                         />
                       </div>
                       <div className="col-lg-3">
@@ -127,14 +143,14 @@ class Modal extends React.Component {
                           name="route"
                           class="form-control"
                           required
-                          value={this.state.route}
+                          value={this.state.edit.route}
                           onChange={(e) => this.setState(Object.assign(this.state.edit, {
                             route: e.target.value
                           }))}
                         >
                           <option value="">Select route</option>
                           {this.props.routes.map(route => (
-                            <option value={route.names}>{route.name}</option>
+                            <option value={route.name}>{route.name}</option>
                           ))}
                         </select>
                       </div>
@@ -146,14 +162,16 @@ class Modal extends React.Component {
                           id="exampleSelect1"
                           required
                           value={this.state.edit.gender}
-                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
-                            gender: e.target.value
-                          }))}
+                          onChange={(e) => {
+                            this.setState(Object.assign(this.state.edit, {
+                              gender: e.target.value
+                            }))
+                          }}
                         >
                           <option value="">Select gender</option>
-                          {["MALE", "FEMALE"].map(gender => (
-                            <option value={gender}>{gender}</option>
-                          ))}
+                          {["MALE", "FEMALE"].map(gender => {
+                            return <option value={gender}>{gender}</option>
+                          })}
                         </select>
                       </div>
                       <div className="col-lg-6">
@@ -162,14 +180,29 @@ class Modal extends React.Component {
                           name="parent"
                           class="form-control"
                           required
-                          value={this.state.parent}
-                          onChange={(e) => {
-                            this.setState(Object.assign(this.state.edit, {
-                              parent: e.target.value
-                            }))
-                          }}
+                          value={this.state.edit.parent}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            parent: e.target.value
+                          }))}
                         >
-                          <option value="">Select Parent</option>
+                          <option value="">Select parent</option>
+                          {this.props.parents.map(parent => (
+                            <option value={parent.name}>{parent.name}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="col-lg-6">
+                        <label for="exampleSelect1">Alternative Parent:</label>
+                        <select
+                          name="parent2"
+                          class="form-control"
+                          required
+                          value={this.state.edit.parent2}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            parent2: e.target.value
+                          }))}
+                        >
+                          <option value="">Select parent</option>
                           {this.props.parents.map(parent => (
                             <option value={parent.name}>{parent.name}</option>
                           ))}
@@ -178,6 +211,7 @@ class Modal extends React.Component {
                     </div>
                   </div>
                 </div>
+
                 <div className="modal-footer">
                   <button
                     type="button"

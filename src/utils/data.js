@@ -61,10 +61,14 @@ var Data = (function () {
       id
       names
       gender
+      registration
       route {
         name
       }
       parent {
+        name
+      }
+      parent2 {
         name
       }
     }
@@ -164,6 +168,7 @@ var Data = (function () {
       if (student.route) student.route = student.route.name;
 
       if (student.parent) student.parent = student.parent.name;
+      if (student.parent2) student.parent2 = student.parent2.name;
 
       return student;
     });
@@ -205,7 +210,7 @@ var Data = (function () {
 
       return instance;
     },
-    comms:{
+    comms: {
       send: ({ type, parents, message }) => new Promise(async (resolve, reject) => {
         resolve('ok')
       })
@@ -596,7 +601,7 @@ var Data = (function () {
           subs.complaints({ complaints });
           resolve();
         }),
-      getOne(id) {}
+      getOne(id) { }
     },
     routes: {
       create: data =>

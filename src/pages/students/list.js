@@ -104,6 +104,10 @@ class BasicTable extends React.Component {
                     key: "names"
                   },
                   {
+                    label: "Registration",
+                    key: "registration"
+                  },
+                  {
                     label: "Route",
                     key: "route"
                   },
@@ -114,6 +118,10 @@ class BasicTable extends React.Component {
                   {
                     label: "Parent",
                     key: "parent"
+                  },
+                  {
+                    label: "Alt Parent",
+                    key: "parent2"
                   }
                 ]}
                 data={this.state.students}
