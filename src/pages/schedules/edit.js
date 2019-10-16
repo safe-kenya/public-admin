@@ -11,10 +11,19 @@ const modalNumber = Math.random()
 class Modal extends React.Component {
   state = {
     loading: false,
+    days: [
+      "MONDAY",
+      "TEUSDAY",
+      "WEDNESDAY",
+      "THURSDAY",
+      "FRIDAY",
+      "SATURDAY",
+      "SUNDAY"
+    ],
     edit: {
-      make: "",
-      size: "",
-      plate: ""
+      route: "",
+      days: [],
+      selectedDays: []
     }
   };
 
@@ -45,6 +54,10 @@ class Modal extends React.Component {
         event.preventDefault();
         try {
           _this.setState({ loading: true });
+
+          _this.state.edit.time = $('#timepicker_start').data("timepicker").getTime()
+          _this.state.edit.end_time = $('#timepicker_end').data("timepicker").getTime()
+
           await _this.props.save(_this.state.edit);
           _this.hide();
           _this.setState({ loading: false });
@@ -58,6 +71,9 @@ class Modal extends React.Component {
         }
       }
     });
+
+    $('#timepicker_start_edit').timepicker();
+    $('#timepicker_end_edit').timepicker();
   }
   static getDerivedStateFromProps(props, state) {
     if (props.edit)
@@ -100,54 +116,115 @@ class Modal extends React.Component {
                   </button>
                 </div>
                 <div className="modal-body">
-                  <div className="form-group row">
-                    <div className="col-lg-6">
-                      <label>Bus Make:</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="busmake"
-                        name="busmake"
-                        minLength="2"
-                        required
-                        value={this.state.edit.make}
-                        onChange={(e) => this.setState(Object.assign(this.state.edit, {
-                          make: e.target.value
-                        }))}
-                      />
-                    </div>
-                    <div className="col-lg-3">
-                      <label>Plate Number:</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="plate"
-                        name="plate"
-                        required
-                        value={this.state.edit.plate}
-                        onChange={(e) => this.setState(Object.assign(this.state.edit, {
-                          plate: e.target.value
-                        }))}
-                      />
-                    </div>
-                    <div className="col-lg-3">
-                      <label for="exampleSelect1">Size:</label>
-                      <select
-                        name="seats"
-                        class="form-control"
-                        required
-                        value={this.state.edit.size}
-                        onChange={(e) => this.setState(Object.assign(this.state.edit, {
-                          size: Number(e.target.value)
-                        }))}
-                      >
-                        <option value="">Number of Seats</option>
-                        {["14", "28", "42", "65"].map(
-                          seats => (
-                            <option key={seats} value={seats}>{seats}</option>
-                          )
-                        )}
-                      </select>
+                  <div className="kt-portlet__body">
+                    <div className="form-group row">
+                      <div className="col-lg-3">
+                        <label>Trip name:</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="busmake"
+                          name="busmake"
+                          minLength="2"
+                          required
+                          value={this.state.edit.name}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            name: e.target.value
+                          }))}
+                        />
+                      </div>
+                      <div className="col-lg-3">
+                        <label>Start Time</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="timepicker_start_edit"
+                          name="start"
+                          required
+                          value={this.state.edit.time}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            name: e.target.value
+                          }))}
+                        />
+                      </div>
+                      <div className="col-lg-3">
+                        <label>End Time</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="timepicker_end_edit"
+                          name="end"
+                          required
+                          value={this.state.edit.end_time}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            name: e.target.value
+                          }))}
+                        />
+                      </div>
+                      <div className="col-lg-3">
+                        <label for="exampleSelect1">Route:</label>
+                        <select
+                          name="seats"
+                          class="form-control"
+                          required
+                          value={this.state.edit.route_name}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            name: e.target.value
+                          }))}
+                        >
+                          <option value="">Select Route</option>
+                          {this.props.routes.map(
+                            route => (
+                              <option key={route.name} value={route.name}>{route.name}</option>
+                            )
+                          )}
+                        </select>
+                      </div>
+                      <div className="col-lg-3">
+                        <label for="exampleSelect1">Bus:</label>
+                        <select
+                          name="bus"
+                          class="form-control"
+                          required
+                          value={this.state.edit.bus_make}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            name: e.target.value
+                          }))}
+                        >
+                          <option value="">Select Bus</option>
+                          {this.props.busses.map(
+                            bus => (
+                              <option key={bus.make} value={bus.make}>{bus.make}</option>
+                            )
+                          )}
+                        </select>
+                      </div>
+                      <div className="col-lg-6">
+                        <br />
+                        <label for="exampleSelect1">Select Days the route is taken</label>
+                        <div className="kt-checkbox-list">
+                          {this.state.days.map(day => {
+                            return (<label className="kt-checkbox">
+                              <input
+                                type="checkbox"
+                                checked={this.state.edit.days.includes(day)}
+                              // onChange={() => {
+                              //   if (this.state.edit.selectedDays.includes(day)) {
+                              //     return this.setState({
+                              //       ...this.state.edit,
+                              //       selectedDays: this.state.edit.selectedDays.filter(eday => eday !== day)
+                              //     })
+                              //   }
+                              //   this.setState({
+                              //     selectedDays: [...this.state.edit.selectedDays, day]
+                              //   })
+                              // }} 
+                              /> {day}
+                              <span />
+                            </label>)
+                          })}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

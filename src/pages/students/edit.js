@@ -49,6 +49,8 @@ class Modal extends React.Component {
         event.preventDefault();
         try {
           _this.setState({ loading: true });
+
+          // replace the names with the selected values with ids
           await _this.props.save(_this.state.edit);
           _this.hide();
           _this.setState({ loading: false });
