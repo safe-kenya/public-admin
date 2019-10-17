@@ -1,5 +1,6 @@
 import emitize from "./emitize";
 import { query, mutate } from "./requests";
+import log from "loglevel";
 
 const studentsData = [];
 
@@ -154,7 +155,8 @@ var Data = (function () {
         time,
         type,
         student{
-          id
+          id,
+          names
         }
       }
     }
@@ -541,7 +543,10 @@ var Data = (function () {
         subs.trips = cb;
         return trips;
       },
-      getOne: id => trips.find(trip => trip.id === id),
+      getOne: id =>{
+        const trip = trips.find(trip => trip.id === id)
+        return trip
+      },
       delete: trip =>
         new Promise(async (resolve, reject) => {
           await mutate(

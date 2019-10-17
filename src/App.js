@@ -10,6 +10,7 @@ import routes from "./pages/routes"
 import schedules from "./pages/schedules"
 import complaints from "./pages/complaints"
 import trips from "./pages/trips"
+import trip from "./pages/trip"
 import communications from "./pages/communications"
 
 import login from "./pages/auth/login";
@@ -33,7 +34,7 @@ function App() {
       <Route path="/reports/bus/:id" component={students} />
       <Route path="/trips" render={props => <Redirect to="/trips/all"/>} />
       <Route path="/trips/:filter" component={trips} />
-      {/*<Route path="/trip/:id" component={trips} />*/}
+      <Route path="/trip/:id" component={trip} />
       {/* <Route exact path="/login" component={login} />
         <Route exact path="/recover" component={recover} />
         <Route exact path="/register" component={register} /> */}
