@@ -14,7 +14,7 @@ class Home extends React.Component {
   state = {
     trips: [],
     schedules: [],
-    complaints:[],
+    complaints: [],
     students: 0
   };
   componentDidMount() {
@@ -26,12 +26,12 @@ class Home extends React.Component {
 
     Data.trips.subscribe(({ trips }) => {
       const students = trips
-          .filter(trip => !trip.completedAt && !trip.isCancelled)
-          .reduce((acc, trip) => {
-            return (acc += trip.schedule.route.students.length);
-          }, 0);
+        .filter(trip => !trip.completedAt && !trip.isCancelled)
+        .reduce((acc, trip) => {
+          return (acc += trip.schedule.route.students.length);
+        }, 0);
 
-        this.setState(Object.assign({ trips }, { students }));
+      this.setState(Object.assign({ trips }, { students }));
     });
 
     const schedules = Data.schedules.list();
@@ -124,22 +124,9 @@ class Home extends React.Component {
                         bars={["0", "2", "3", "7", "4", "7"]}
                       />
                     </div>
-                    <div className="col-lg-12 col-xl-12 order-lg-1 order-xl-1">
-                      <Stat
-                        label="Bus Lateness time this week"
-                        number={this.state.trips.filter(trip => {
-                          var now = moment();
-                          // check againts schedule to check if late
-                          var input = moment(trip.startedAt);
-                          var isThisWeek = (now.isoWeek() == input.isoWeek())
-                          return isThisWeek;
-                        }).length}
-                        bars={["5", "4", "6", "3", "0", "0"]}
-                      />
-                    </div>
                   </div>
                 </div>
-                <div className="col-lg-6 col-xl-8 order-lg-1 order-xl-1">
+                {/* <div className="col-lg-6 col-xl-8 order-lg-1 order-xl-1">
                   <div className="row">
                     <div
                       className="col-lg-12 col-xl-12 order-lg-1 order-xl-1"
@@ -154,7 +141,7 @@ class Home extends React.Component {
                       <Questions />
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

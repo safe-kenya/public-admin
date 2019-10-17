@@ -57,7 +57,7 @@ class Navbar extends React.Component {
                 data-ktmenu-submenu-toggle="click"
                 aria-haspopup="true"
               >
-                <Link to="/trips"className="kt-menu__link">
+                <Link to="/trips" className="kt-menu__link">
                   <span className="kt-menu__link-text">Trip Reports</span>
                 </Link>
               </li>
@@ -136,46 +136,13 @@ class Navbar extends React.Component {
                 data-ktmenu-submenu-toggle="click"
                 aria-haspopup="true"
               >
-                <a
-                  href="#/home"
-                  onClick={e => e.preventDefault()}
-                  className="kt-menu__link kt-menu__toggle"
+                <Link
+                  to="/comms"
+                  href="#"
+                  className="kt-menu__link"
                 >
-                  <span className="kt-menu__link-text">
-                    SMS & Email Communication
-                  </span>
-                  <i className="kt-menu__hor-arrow la la-angle-down" />
-                  <i className="kt-menu__ver-arrow la la-angle-right" />
-                </a>
-                <div className="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
-                  <ul className="kt-menu__subnav">
-                    <li
-                      className="kt-menu__item  kt-menu__item--submenu"
-                      data-ktmenu-submenu-toggle="hover"
-                      aria-haspopup="true"
-                    >
-                      <Link
-                        to="/comms/sms"
-                        href="#"
-                        onClick={e => e.preventDefault()}
-                        className="kt-menu__link"
-                      >
-                        <i className="kt-menu__link-icon flaticon2-phone" />
-                        <span className="kt-menu__link-text">Send SMS</span>
-                      </Link>
-                    </li>
-                    <li
-                      className="kt-menu__item  kt-menu__item--submenu"
-                      data-ktmenu-submenu-toggle="hover"
-                      aria-haspopup="true"
-                    >
-                      <Link to="/comms/email" className="kt-menu__link">
-                        <i className="kt-menu__link-icon flaticon-email" />
-                        <span className="kt-menu__link-text">Send Email</span>
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
+                  <span className="kt-menu__link-text">SMS & Email Communication</span>
+                </Link>
               </li>
             </ul>
           </div>

@@ -29,10 +29,9 @@ function App() {
       <Route path="/busses" component={busses} />
       <Route path="/routes" component={routes} />
       <Route path="/messages" component={complaints} />
-      <Route path="/comms/sms" component={communications} />
-      <Route path="/comms/email" component={communications} />
+      <Route path="/comms" component={communications} />
       <Route path="/reports/bus/:id" component={students} />
-      <Route path="/trips" render={props => <Redirect to="/trips/all"/>} />
+      <Route path="/trips" render={props => <Redirect to="/trips/all" />} />
       <Route path="/trips/:filter" component={trips} />
       <Route path="/trip/:id" component={trip} />
       {/* <Route exact path="/login" component={login} />

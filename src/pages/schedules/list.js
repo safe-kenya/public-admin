@@ -55,6 +55,8 @@ class BasicTable extends React.Component {
             />
             <EditModal
               edit={edit}
+              routes={routes}
+              busses={busses}
               save={schedule => Data.schedules.update(schedule)}
             />
             <div className="kt-portlet__body">
@@ -130,7 +132,7 @@ class BasicTable extends React.Component {
                 ]}
                 data={this.state.schedules.map(schedule => {
                   const { route = {}, bus = {}, days = [] } = schedule;
-                  return Object.assign(schedule, {
+                  return Object.assign({}, schedule, {
                     route_name: route ? route.name : "",
                     bus_make: bus ? bus.make : "",
                     days:
@@ -140,6 +142,7 @@ class BasicTable extends React.Component {
                   });
                 })}
                 edit={schedule => {
+                  schedule.days = schedule.days.split(", ")
                   this.setState({ edit: schedule }, () => {
                     editModalInstance.show();
                   });
