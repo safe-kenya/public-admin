@@ -10,6 +10,7 @@ import routes from "./pages/routes"
 import schedules from "./pages/schedules"
 import complaints from "./pages/complaints"
 import trips from "./pages/trips"
+import trip from "./pages/trip"
 import communications from "./pages/communications"
 
 import login from "./pages/auth/login";
