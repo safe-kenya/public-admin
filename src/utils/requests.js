@@ -5,7 +5,7 @@ let API;
 if (window.location.href.includes('localhost')) {
     API = `http://localhost:4000`
 } else {
-    API = `https://development-smartkids.herokuapp.com/`
+    API = `https://development-smartkids.herokuapp.com`
 }
 
 // localStorage.setItem("authorization", res.token)
