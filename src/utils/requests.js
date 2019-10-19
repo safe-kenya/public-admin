@@ -8,12 +8,18 @@ if (window.location.href.includes('localhost')) {
     API = `https://staging-smartkids.herokuapp.com`
 }
 
+// localStorage.setItem("authorization", res.token)
+
 const query = (query, params) => {
     // make request to the server
     return new Promise(async (resolve, reject) => {
         try {
             const { data: { data } } = await axios.post(`${API}/graph`, {
                 query
+            }, {
+                headers: {
+                    authorization: localStorage.getItem("authorization")
+                }
             })
 
             resolve(data)
@@ -33,6 +39,10 @@ const mutate = (query, variables) => {
             const { data: { data } } = await axios.post(`${API}/graph`, {
                 query,
                 variables
+            }, {
+                headers: {
+                    authorization: localStorage.getItem("authorization")
+                }
             })
 
             resolve(data)
@@ -44,5 +54,6 @@ const mutate = (query, variables) => {
 
 export {
     query,
-    mutate
+    mutate,
+    API
 }

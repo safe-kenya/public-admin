@@ -16,22 +16,30 @@ import login from "./pages/auth/login";
 // import recover from "./pages/auth/recover";
 // import register from "./pages/auth/register";
 
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    localStorage.getItem('authorization')
+      ? <Component {...props} />
+      : <Redirect to='/' />
+  )} />
+)
+
 function App() {
   return (
     <HashRouter>
       <Route exact path="/" component={login} />
-      <Route exact path="/home" component={home} />
-      <Route path="/students" component={students} />
-      <Route path="/schedules" component={schedules} />
-      <Route path="/parents" component={parents} />
-      <Route path="/drivers" component={drivers} />
-      <Route path="/busses" component={busses} />
-      <Route path="/routes" component={routes} />
-      <Route path="/messages" component={complaints} />
-      <Route path="/comms" component={communications} />
-      <Route path="/reports/bus/:id" component={students} />
-      <Route path="/trips" render={props => <Redirect to="/trips/all" />} />
-      <Route path="/trips/:filter" component={trips} />
+      <PrivateRoute exact path="/home" component={home} />
+      <PrivateRoute path="/students" component={students} />
+      <PrivateRoute path="/schedules" component={schedules} />
+      <PrivateRoute path="/parents" component={parents} />
+      <PrivateRoute path="/drivers" component={drivers} />
+      <PrivateRoute path="/busses" component={busses} />
+      <PrivateRoute path="/routes" component={routes} />
+      <PrivateRoute path="/messages" component={complaints} />
+      <PrivateRoute path="/comms" component={communications} />
+      <PrivateRoute path="/reports/bus/:id" component={students} />
+      <PrivateRoute path="/trips" render={props => <Redirect to="/trips/all" />} />
+      <PrivateRoute path="/trips/:filter" component={trips} />
       {/*<Route path="/trip/:id" component={trips} />*/}
       {/* <Route exact path="/login" component={login} />
         <Route exact path="/recover" component={recover} />

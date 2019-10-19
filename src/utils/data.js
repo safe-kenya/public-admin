@@ -47,154 +47,7 @@ var Data = (function () {
   // subs.students(9); //emits '9' to all listeners;
 
   // when the data store gets innitialized, fetch all data and store in cache
-  query(`{
-    complaints{
-      id
-      time
-      content
-      parent{
-        id,
-        name
-      }
-    }
-    students {
-      id
-      names
-      gender
-      registration
-      route {
-        name
-      }
-      parent {
-        name
-      }
-      parent2 {
-        name
-      }
-    }
-    buses {
-      id,
-      plate
-      make
-      size
-    }
-    drivers {
-      id
-      username
-      email
-      phone
-    }
-    parents {
-      id
-      name
-      gender
-      email
-      phone
-      students {
-        names
-        gender
-        route {
-          name
-        }
-      }
-    }
-    routes {
-      id
-      name
-      description
-      path {
-        lat
-        lng
-      }
-    }
-    schedules {
-      id
-      time
-      end_time
-      name
-      days
-      route {
-        id,
-        name
-      },
-      bus{
-        id
-        make
-      }
-    },
-    trips {
-      id
-      schedule {
-        name
-        id
-        time
-        end_time,
-        route{
-          id,
-          students{
-            id
-          }
-        }
-      }
-      startedAt,
-      isCancelled
-      completedAt
-      bus{
-        id,
-        make
-      }
-      driver{
-        id
-      }
-      locReports{
-        id
-        time
-        loc{
-          lat
-          lng
-        }
-      }
-      events{
-        time,
-        type,
-        student{
-          id
-        }
-      }
-    }
-  }`).then(response => {
-    // let { students } = response
-    students = response.students.map(student => {
-      if (student.route) student.route = student.route.name;
 
-      if (student.parent) student.parent = student.parent.name;
-      if (student.parent2) student.parent2 = student.parent2.name;
-
-      return student;
-    });
-    subs.students({ students });
-
-    busses = response.buses;
-    subs.busses({ busses });
-
-    parents = response.parents;
-    subs.parents({ parents });
-
-    routes = response.routes;
-    subs.routes({ routes });
-
-    drivers = response.drivers;
-    subs.drivers({ drivers });
-
-    schedules = response.schedules;
-    subs.schedules({ schedules });
-
-    trips = response.trips;
-    subs.trips({ trips });
-
-    complaints = response.complaints;
-    subs.complaints({ complaints });
-  });
 
   function createInstance() {
     // eslint-disable-next-line no-new-object
@@ -209,6 +62,156 @@ var Data = (function () {
       }
 
       return instance;
+    },
+    init() {
+      query(`{
+        complaints{
+          id
+          time
+          content
+          parent{
+            id,
+            name
+          }
+        }
+        students {
+          id
+          names
+          gender
+          registration
+          route {
+            name
+          }
+          parent {
+            name
+          }
+          parent2 {
+            name
+          }
+        }
+        buses {
+          id,
+          plate
+          make
+          size
+        }
+        drivers {
+          id
+          username
+          email
+          phone
+        }
+        parents {
+          id
+          name
+          gender
+          email
+          phone
+          students {
+            names
+            gender
+            route {
+              name
+            }
+          }
+        }
+        routes {
+          id
+          name
+          description
+          path {
+            lat
+            lng
+          }
+        }
+        schedules {
+          id
+          time
+          end_time
+          name
+          days
+          route {
+            id,
+            name
+          },
+          bus{
+            id
+            make
+          }
+        },
+        trips {
+          id
+          schedule {
+            name
+            id
+            time
+            end_time,
+            route{
+              id,
+              students{
+                id
+              }
+            }
+          }
+          startedAt,
+          isCancelled
+          completedAt
+          bus{
+            id,
+            make
+          }
+          driver{
+            id
+          }
+          locReports{
+            id
+            time
+            loc{
+              lat
+              lng
+            }
+          }
+          events{
+            time,
+            type,
+            student{
+              id
+            }
+          }
+        }
+      }`).then(response => {
+        // let { students } = response
+        students = response.students.map(student => {
+          if (student.route) student.route = student.route.name;
+
+          if (student.parent) student.parent = student.parent.name;
+          if (student.parent2) student.parent2 = student.parent2.name;
+
+          return student;
+        });
+        subs.students({ students });
+
+        busses = response.buses;
+        subs.busses({ busses });
+
+        parents = response.parents;
+        subs.parents({ parents });
+
+        routes = response.routes;
+        subs.routes({ routes });
+
+        drivers = response.drivers;
+        subs.drivers({ drivers });
+
+        schedules = response.schedules;
+        subs.schedules({ schedules });
+
+        trips = response.trips;
+        subs.trips({ trips });
+
+        complaints = response.complaints;
+        subs.complaints({ complaints });
+      });
     },
     comms: {
       send: ({ type, parents, message }) => new Promise(async (resolve, reject) => {

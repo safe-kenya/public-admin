@@ -1,8 +1,57 @@
 import React from "react";
 import './login.css'
 import { Link } from "react-router-dom";
+import axios from "axios"
+import { API } from "../../utils/requests"
+import Data from "../../utils/data"
+
+const $ = window.$;
 
 class Login extends React.Component {
+    state = {
+        user: "",
+        password: "",
+        error: undefined
+    }
+    componentDidMount() {
+        const _this = this;
+        this.validator = $("#login").validate({
+            errorClass: "invalid-feedback",
+            errorElement: "div",
+
+            highlight: function (element) {
+                $(element).addClass("is-invalid");
+            },
+
+            unhighlight: function (element) {
+                $(element).removeClass("is-invalid");
+            },
+
+            async submitHandler(form, event) {
+                event.preventDefault();
+                try {
+                    const { user, password } = _this.state
+                    const res = await axios.post(`${API}/auth/login`, {
+                        user,
+                        password,
+                    })
+
+                    const { data: { token, data } } = res
+
+                    localStorage.setItem("authorization", token)
+                    localStorage.setItem("user", JSON.stringify(data))
+
+                    Data.init()
+
+                    return _this.props.history.push({
+                        pathname: '/home'
+                    })
+                } catch (err) {
+                    _this.setState({ error: err.message })
+                }
+            }
+        });
+    }
     render() {
         return (
             <div>
@@ -19,25 +68,29 @@ class Login extends React.Component {
                                         <div className="kt-login-v2__title">
                                             <h3>Sign to Account</h3>
                                         </div>
+
                                         {/*begin::Form*/}
-                                        <form className="kt-login-v2__form kt-form" action="true" autoComplete="off">
+                                        <form id="login" className="kt-login-v2__form kt-form" action="true" autoComplete="off">
+                                            {this.state.error ? <div className="alert alert-danger">
+                                                <div className="alert-text">{this.state.error}</div>
+                                            </div> : null}
+
                                             <div className="form-group">
-                                                <input className="form-control" type="text" placeholder="Username" name="username" autoComplete="off" />
+                                                <input onChange={(e) => this.setState({ user: e.target.value })} className="form-control" type="text" placeholder="Username" name="username" autoComplete="off" required={true} />
                                             </div>
                                             <div className="form-group">
-                                                <input className="form-control" type="password" placeholder="Password" name="password" autoComplete="off" />
+                                                <input onChange={(e) => this.setState({ password: e.target.value })} className="form-control" type="password" placeholder="Password" name="password" autoComplete="off" required={true} />
                                             </div>
                                             {/*begin::Action*/}
                                             <div className="kt-login-v2__actions">
                                                 <a href="#" className="kt-link kt-link--brand">
                                                     Forgot Password ?
-                            </a>
-                                                <button type="button" className="btn btn-brand btn-elevate btn-pill" onClick={() => {
-                                                    this.props.history.push({
-                                                        pathname: '/home'
-                                                    })
-                                                }}>Sign In</button>
+                                                </a>
+                                                <button type="submit" className="btn btn-brand btn-elevate btn-pill" >Sign In</button>
                                             </div>
+
+
+
                                             {/*end::Action*/}
                                         </form>
                                         {/*end::Form*/}
