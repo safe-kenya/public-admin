@@ -39,9 +39,8 @@ function App() {
       <PrivateRoute path="/messages" component={complaints} />
       <PrivateRoute path="/comms" component={communications} />
       <PrivateRoute path="/reports/bus/:id" component={students} />
-      <PrivateRoute path="/trips" render={props => <Redirect to="/trips/all" />} />
       <PrivateRoute path="/trips/:filter" component={trips} />
-      {/*<Route path="/trip/:id" component={trips} />*/}
+      <PrivateRoute path="/trip/:id" component={trip} />
       {/* <Route exact path="/login" component={login} />
         <Route exact path="/recover" component={recover} />
         <Route exact path="/register" component={register} /> */}
