@@ -13,8 +13,9 @@ export default props => {
           <tr className="kt-datatable__row">
             <th style={{ width: "30px" }} className="kt-datatable__cell"></th>
             {props.headers.map(header => {
-              return <th style={{ width: "130px" }} className="kt-datatable__cell">{header.label}</th>;
+              return <th style={{ width: "150px" }} className="kt-datatable__cell">{header.label}</th>;
             })}
+            <th style={{ width: "110px" }} className="kt-datatable__cell"></th>
           </tr>
         </thead>
         <tbody className="kt-datatable__body">
@@ -26,6 +27,7 @@ export default props => {
                 data={row}
                 edit={() => props.edit(row)}
                 delete={() => props.delete(row)}
+                options={options}
               />
             );
           })}
