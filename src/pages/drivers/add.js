@@ -12,6 +12,7 @@ class Modal extends React.Component {
   state = {
     loading: false,
     username: "",
+    password: "",
     phone: "",
     email: ""
   };
@@ -135,6 +136,21 @@ class Modal extends React.Component {
                           value={this.state.phone}
                           onChange={(e) => this.setState({
                             phone: e.target.value
+                          })}
+                          required
+                        />
+                      </div>
+                      <div className="col-lg-4">
+                        <label>Password:</label>
+                        <input
+                          type="password"
+                          className="form-control"
+                          id="phone"
+                          name="password"
+                          minLength="5"
+                          value={this.state.password}
+                          onChange={(e) => this.setState({
+                            password: e.target.value
                           })}
                           required
                         />

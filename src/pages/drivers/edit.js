@@ -144,6 +144,21 @@ class Modal extends React.Component {
                           required
                         />
                       </div>
+                      <div className="col-lg-4">
+                        <label>Password:</label>
+                        <input
+                          type="password"
+                          className="form-control"
+                          id="password"
+                          name="password"
+                          minLength="5"
+                          value={this.state.edit.password}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            password: e.target.value
+                          }))}
+                          required
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
