@@ -15,9 +15,10 @@ class BasicTable extends React.Component {
     trip: {}
   };
 
-  async componentDidMount() {
-    const trip = await Data.trips.getOne(this.props.id);
-    this.setState({ trip: { ...trip, name: trip.schedule.name } });
+  componentDidMount() {
+    const trips = Data.trips.list();
+    const trip = trips.find(t => t.id === this.props.id)
+    trip && this.setState({ trip:  { ...trip, name: trip.schedule.name } });
 
     Data.trips.subscribe(({ trips }) => {
       const trip = trips.find(trip => trip.id === this.props.id)
@@ -30,7 +31,7 @@ class BasicTable extends React.Component {
 
   render() {
     const { remove, trip } = this.state;
-    const events = trip.events && trip.events.map(ev => ({ ...ev, name: ev.student.name }))
+    const events = trip.events ? trip.events.map(ev => ({ ...ev, name: ev.student.name })) : undefined
     const students = trip.schedule && trip.schedule.route && trip.schedule.route.students
     return (
       <div className="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--left kt-aside--fixed kt-aside--offcanvas-default kt-page--loading">
@@ -41,47 +42,48 @@ class BasicTable extends React.Component {
               save={trip => Data.trips.delete(trip)}
             />
             <div className="kt-portlet__body" style={{ minHeight: "500px" }}>
+                <TripDetails
+                  trip={trip}
+                  stats={{
+                    late: (false).toString(),
+                    complete: (!!trip.finishedAt).toString(),
+                    cancelled: (!!trip.isCancelled).toString(),
+                    students: students && students.length 
+                  }}
+                />
               <div className="row">
-                <div className="col-md-4">
-                  <TripDetails
-                    trip={trip}
-                    stats={{
-                      late: (false).toString(),
-                      complete: (!!trip.finishedAt).toString(),
-                      cancelled: (!!trip.isCancelled).toString(),
-                      students: students && students.length 
-                    }}
-                  />
-                </div>
-                <div className="col-md-8">
-                  <Map locations={trip.locReports} />
-                </div>
+                <Map locations={trip.locReports} />
               </div>
             </div>
             <div className="kt-portlet__body" style={{ minHeight: "500px" }}>
-              <Table
-                headers={[
-                  {
-                    label: "Event Type",
-                    key: "type"
-                  },
-                  {
-                    label: "Event Time",
-                    key: "time"
-                  },
-                  {
-                    label: "Student",
-                    key: "name"
-                  }
-                ]}
-                data={events}
-                delete={trip => {
-                  this.setState({ remove: trip }, () => {
-                    deleteModalInstance.show();
-                  });
-                }}
-              />
+              <div className="row">
+                <Map locations={trip.locReports} />
+              </div>
             </div>
+          </div>
+          <div className="kt-portlet__body" style={{ minHeight: "500px" }}>
+            <Table
+              headers={[
+                {
+                  label: "Event Type",
+                  key: "type"
+                },
+                {
+                  label: "Event Time",
+                  key: "time"
+                },
+                {
+                  label: "Student",
+                  key: "name"
+                }
+              ]}
+              data={events}
+              delete={trip => {
+                this.setState({ remove: trip }, () => {
+                  deleteModalInstance.show();
+                });
+              }}
+            />
           </div>
         </div>
       </div>

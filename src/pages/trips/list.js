@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 import Table from "./components/table";
 import DeleteModal from "./delete";
@@ -23,10 +24,20 @@ class BasicTable extends React.Component {
 
   componentDidMount() {
     const trips = Data.trips.list();
-    this.setState({ trips:trips.map(trip => ({...trip, name: trip.schedule.name})) });
+    this.setState({ trips:trips.map(trip => ({
+      ...trip,
+      name: trip.schedule.name,
+      startedAt: moment(trip.startedAt).format('MMMM Do YYYY, h:mm:ss a'),
+      completedAt: moment(trip.completedAt).format('MMMM Do YYYY, h:mm:ss a')
+    })) });
 
     Data.trips.subscribe(({ trips }) => {
-      this.setState({ trips: trips.map(trip => ({...trip, name: trip.schedule.name})) });
+      this.setState({ trips: trips.map(trip => ({
+        ...trip,
+        name: trip.schedule.name,
+        startedAt: moment(trip.startedAt).format('MMMM Do YYYY, h:mm:ss a'),
+        completedAt: trip.completedAt? moment(trip.completedAt).format('MMMM Do YYYY, h:mm:ss a'): ''
+      })) });
     });
 
     /*const drivers = Data.drivers.list();

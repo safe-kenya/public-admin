@@ -1,6 +1,8 @@
 import React from "react";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 
+const { KEY: apiKey } = process.env
+
 class MapContainer extends React.Component {
   render() {
     var points = [
@@ -31,7 +33,7 @@ class MapContainer extends React.Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyAh3Dzo3-VFymDTgvQI28NVqfa0qOx05cc"
+  apiKey
 })(MapContainer);
 
 // export default props => (

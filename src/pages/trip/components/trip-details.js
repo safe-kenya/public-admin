@@ -1,26 +1,38 @@
-import React from 'react'
+import React from 'react';
+import moment from 'moment';
+
+import Stat from "./stat";
 
 export default ({ trip, stats }) => {
   return (
-  <>
-    <h3 className="text-dark border-bottom">Schedule : {trip.name}</h3>
-    <div className="mt-3">
-      <h5 className="text-dark">Details</h5>
-      <div className="mt-3">
-        <p>Driver : {trip.driver && trip.driver.username}</p>
-        <p>Start Time: {trip.startedAt}</p>
-        <p>Finish Time: {trip.completedAt ? trip.completedAt : 'Not complete'}</p>
+    <>
+      <h3 className="text-dark border-bottom">Schedule : {trip.name}</h3>
+      <div className="row">
+        <Stat
+          label="Driver"
+          number={trip.driver && trip.driver.username} />
+        <Stat
+          label="Start Time"
+          number={moment(trip.startedAt).format('MMMM Do YYYY, h:mm:ss a')} />
+        <Stat
+          label="Finish Time"
+          number={trip.completedAt ? moment(trip.completedAt).format('MMMM Do YYYY, h:mm:ss a') : 'Not complete'} />
       </div>
-    </div>
-    <div className="mt-3">
       <h5 className="text-dark">Stats</h5>
-      <div className="mt-3">
-        <p>Students : {stats.students}</p>
-        <p>Complete : {stats.complete}</p>
-        <p>Cancelled: {stats.cancelled}</p>
-        <p>Late: {stats.late}</p>
+      <div className="row">
+        <Stat
+          label="Students"
+          number={stats.students} />
+        <Stat
+          label="Is Complete"
+          number={stats.complete} />
+        <Stat
+          label="Is Cancelled"
+          number={stats.cancelled} />
+        <Stat
+          label="Is Late"
+          number={stats.late} />
       </div>
-    </div>
   </>
   )
 }

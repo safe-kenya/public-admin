@@ -20,7 +20,7 @@ export default props => {
           return (
             <tr key={Math.random().toString()}>
               {props.headers.map(header => {
-                return <td onClick={() => props.onClick(row)}>{row[header.key]}</td>;
+                return <td>{row[header.key]}</td>;
               })}
 
               <td
@@ -59,6 +59,14 @@ export default props => {
                       <i className="la la-trash" />
                     </button>
                   ) : null}
+                  <button
+                      title="View"
+                      type="button"
+                      className="btn btn-sm btn-clean"
+                      onClick={() => props.onClick(row)}
+                    >
+                      View
+                    </button>
                 </span>
               </td>
             </tr>

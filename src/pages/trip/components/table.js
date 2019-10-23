@@ -3,7 +3,7 @@ import React from "react";
 export default props => {
   if (!props.headers || !props.data) return null;
   const { options = { deleteable: false, editable: false } } = props;
-  return (
+  return ( props.data && props.data.length > 0 &&
     <table
       className="table"
       // width="100%"
@@ -16,7 +16,7 @@ export default props => {
         </tr>
       </thead>
       <tbody>
-        {props.data.map(row => {
+        {props.data && props.data.map(row => {
           return (
             <tr key={Math.random().toString()}>
               {props.headers.map(header => {
