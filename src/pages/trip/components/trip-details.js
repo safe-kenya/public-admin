@@ -29,9 +29,6 @@ export default ({ trip, stats }) => {
         <Stat
           label="Is Cancelled"
           number={stats.cancelled} />
-        <Stat
-          label="Is Late"
-          number={stats.late} />
       </div>
   </>
   )
