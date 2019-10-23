@@ -82,21 +82,41 @@ class Modal extends React.Component {
     });
 
     $('#timepicker_start_edit').timepicker();
+    $('#timepicker_start_edit').timepicker().on('changeTime.timepicker', e => {
+      // e.time
+      this.setState({
+        edit: Object.assign(this.state.edit, {
+          time: e.time.value
+        })
+      })
+    })
     $('#timepicker_end_edit').timepicker();
+    $('#timepicker_end_edit').timepicker().on('changeTime.timepicker', e => {
+      // e.time
+      this.setState({
+        edit: Object.assign(this.state.edit, {
+          end_time: e.time.value
+        })
+      })
+    })
   }
   static getDerivedStateFromProps(props, state) {
-    if (props.edit)
+    if (props.edit) {
       if (props.edit.id !== state.edit.id) {
+        console.log("updating", props.edit.id, state.edit.id, props.edit.id !== state.edit.id)
         return {
           edit: props.edit
         };
       }
+      return null;
+    }
     return null;
   }
   render() {
     const {
       edit: { names, route = {}, bus = {}, gender } = {}
     } = this.state;
+    console.log(this.state)
     return (
       <div>
         <div
@@ -114,7 +134,7 @@ class Modal extends React.Component {
                 className="kt-form kt-form--label-right"
               >
                 <div className="modal-header">
-                  <h5 className="modal-title">Edit bus</h5>
+                  <h5 className="modal-title">Edit Schedule</h5>
                   <button
                     type="button"
                     className="close"
@@ -137,9 +157,11 @@ class Modal extends React.Component {
                           minLength="2"
                           required
                           value={this.state.edit.name}
-                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
-                            name: e.target.value
-                          }))}
+                          onChange={(e) => this.setState({
+                            edit: Object.assign(this.state.edit, {
+                              name: e.target.value
+                            })
+                          })}
                         />
                       </div>
                       <div className="col-lg-3">
@@ -151,9 +173,13 @@ class Modal extends React.Component {
                           name="start"
                           required
                           value={this.state.edit.time}
-                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
-                            name: e.target.value
-                          }))}
+                          onChange={(e) => {
+                            this.setState({
+                              edit: Object.assign(this.state.edit, {
+                                name: $('#timepicker_start').data("timepicker").getTime()
+                              })
+                            })
+                          }}
                         />
                       </div>
                       <div className="col-lg-3">
@@ -165,9 +191,11 @@ class Modal extends React.Component {
                           name="end"
                           required
                           value={this.state.edit.end_time}
-                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
-                            name: e.target.value
-                          }))}
+                          onChange={(e) => this.setState({
+                            edit: Object.assign(this.state.edit, {
+                              name: $('#timepicker_end_edit').data("timepicker").getTime()
+                            })
+                          })}
                         />
                       </div>
                       <div className="col-lg-3">
@@ -177,9 +205,11 @@ class Modal extends React.Component {
                           class="form-control"
                           required
                           value={this.state.edit.route_name}
-                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
-                            name: e.target.value
-                          }))}
+                          onChange={(e) => this.setState({
+                            edit: Object.assign(this.state.edit, {
+                              route_name: e.target.value
+                            })
+                          })}
                         >
                           <option value="">Select Route</option>
                           {this.props.routes.map(
@@ -196,9 +226,11 @@ class Modal extends React.Component {
                           class="form-control"
                           required
                           value={this.state.edit.bus_make}
-                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
-                            bus_make: e.target.value
-                          }))}
+                          onChange={(e) => this.setState({
+                            edit: Object.assign(this.state.edit, {
+                              bus_make: e.target.value
+                            })
+                          })}
                         >
                           <option value="">Select Bus</option>
                           {this.props.busses.map(
