@@ -197,7 +197,7 @@ class Modal extends React.Component {
                           required
                           value={this.state.edit.bus_make}
                           onChange={(e) => this.setState(Object.assign(this.state.edit, {
-                            name: e.target.value
+                            bus_make: e.target.value
                           }))}
                         >
                           <option value="">Select Bus</option>

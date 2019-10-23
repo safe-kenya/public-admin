@@ -115,8 +115,8 @@ class Modal extends React.Component {
                         <input
                           type="text"
                           className="form-control"
-                          id="busmake"
-                          name="busmake"
+                          id="name"
+                          name="name"
                           minLength="2"
                           required
                           value={this.state.name}
