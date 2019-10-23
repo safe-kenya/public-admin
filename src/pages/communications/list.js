@@ -8,7 +8,8 @@ export default class MessageList extends Component {
     parents: [],
     selected: [],
     message: '',
-    type: 'sms'
+    type: 'sms',
+    allSelected: false
   }
 
   componentDidMount() {
@@ -35,7 +36,8 @@ export default class MessageList extends Component {
   }
 
   selectAll = () => {
-    this.setState({ selected: this.state.parents.map(p => p.id) })
+    const { allSelected } = this.state
+    allSelected ? this.setState({ selected: [], allSelected: false })  : this.setState({ selected: this.state.parents.map(p => p.id), allSelected:true })
   }
 
   onSelect = (parent) => {
@@ -47,12 +49,12 @@ export default class MessageList extends Component {
   }
 
   render() {
-    const { parents, selected } = this.state
+    const { parents, selected, allSelected } = this.state
     return (
       <div class="kt-portlet kt-portlet--height-fluid">
         <div class="kt-portlet__body kt-portlet__body--fluid">
           <ul class="list-group list-group-flush col-md-4 col-sm-6">
-            <button style={{ marginBottom: "20px" }} className="btn btn-secondary btn-pill" onClick={this.selectAll}>Select All Parents</button>
+            <button style={{ marginBottom: "20px" }} className={`btn btn-${allSelected? "danger" : "secondary"} btn-pill`} onClick={this.selectAll}>{allSelected ? 'Unselect All Parents' : 'Select All Parents'}</button>
             {parents.map(parent => {
               return <li
                 className="list-group-item"

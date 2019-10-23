@@ -1,5 +1,4 @@
 import React from "react";
-import moment from "moment";
 
 import Table from "./components/table";
 import Map from "./components/map"
@@ -9,20 +8,6 @@ import Data from "../../utils/data";
 
 //const $ = window.$;
 const deleteModalInstance = new DeleteModal();
-
-const isLate = trip => {
-  const completedAt = trip.completedAt, scheduledCompleteTime = trip.scheduledCompleteTime
-
-  if(!completedAt) return false;
-
-  const [hour, rest] = scheduledCompleteTime.split(':')
-  const [minute] = rest.split(' ')
-
-  const end_time = moment().set('hour', parseInt(hour)).set('minute', parseInt(minute))
-  
-  if(moment.min(moment(completedAt), end_time).isSame(moment(completedAt))) return false;
-  return true
-}
 
 class BasicTable extends React.Component {
   state = {
@@ -56,24 +41,20 @@ class BasicTable extends React.Component {
               save={trip => Data.trips.delete(trip)}
             />
             <div className="kt-portlet__body" style={{ minHeight: "500px" }}>
-                <TripDetails
-                  trip={trip}
-                  stats={{
-                    late: isLate(trip).toString(),
-                    complete: (!!trip.finishedAt).toString(),
-                    cancelled: (!!trip.isCancelled).toString(),
-                    students: students && students.length 
-                  }}
-                />
+              <TripDetails
+                trip={trip}
+                stats={{
+                  complete: (!!trip.completedAt).toString(),
+                  cancelled: (!!trip.isCancelled).toString(),
+                  students: students && students.length 
+                }}
+              />
+            </div>
+            <div className="kt-portlet__body" style={{ minHeight: "500px" }}>
               <div className="row">
                 <div className="col-md-12">
                   <Map locations={trip.locReports} />
                 </div>
-              </div>
-            </div>
-            <div className="kt-portlet__body" style={{ minHeight: "500px" }}>
-              <div className="row">
-                <Map locations={trip.locReports} />
               </div>
             </div>
           </div>
