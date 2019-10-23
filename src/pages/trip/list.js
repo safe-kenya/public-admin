@@ -17,11 +17,11 @@ class BasicTable extends React.Component {
   componentDidMount() {
     const trips = Data.trips.list();
     const trip = trips.find(t => t.id === this.props.id)
-    trip && this.setState({ trip:  { ...trip, name: trip.schedule.name, scheduledCompleteTime: trip.schedule.end_time } });
+    trip && trip.schedule && this.setState({ trip: { ...trip, name: trip.schedule.name, scheduledCompleteTime: trip.schedule.end_time } });
 
     Data.trips.subscribe(({ trips }) => {
       const trip = trips.find(trip => trip.id === this.props.id)
-      this.setState({ trip: { ...trip, name: trip.schedule.name } });
+      this.setState({ trip: { ...trip, name: trip.schedule ? trip.schedule.name : '' } });
     });
 
     /*const drivers = Data.drivers.list();
@@ -46,7 +46,7 @@ class BasicTable extends React.Component {
                 stats={{
                   complete: (!!trip.completedAt).toString(),
                   cancelled: (!!trip.isCancelled).toString(),
-                  students: students && students.length 
+                  students: students && students.length
                 }}
               />
             </div>

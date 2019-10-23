@@ -28,7 +28,8 @@ class Home extends React.Component {
       const students = trips
         .filter(trip => !trip.completedAt && !trip.isCancelled)
         .reduce((acc, trip) => {
-          return (acc += trip.schedule.route.students.length);
+          if (trip.schedule)
+            return (acc += trip.schedule.route.students.length);
         }, 0);
 
       this.setState(Object.assign({ trips }, { students }));

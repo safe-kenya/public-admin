@@ -12,10 +12,10 @@ const deleteModalInstance = new DeleteModal();
 class BasicTable extends React.Component {
   state = {
     trips: [],
-    filter:'all'
+    filter: 'all'
   };
 
-  static getDerivedStateFromProps(props, state){
+  static getDerivedStateFromProps(props, state) {
     return {
       ...state,
       filter: props.filter
@@ -24,28 +24,32 @@ class BasicTable extends React.Component {
 
   componentDidMount() {
     const trips = Data.trips.list();
-    this.setState({ trips:trips.map(trip => ({
-      ...trip,
-      name: trip.schedule.name,
-      startedAt: moment(trip.startedAt).format('MMMM Do YYYY, h:mm:ss a'),
-      completedAt: moment(trip.completedAt).format('MMMM Do YYYY, h:mm:ss a')
-    })) });
+    this.setState({
+      trips: trips.map(trip => ({
+        ...trip,
+        name: trip.schedule ? trip.schedule.name : '',
+        startedAt: moment(trip.startedAt).format('MMMM Do YYYY, h:mm:ss a'),
+        completedAt: moment(trip.completedAt).format('MMMM Do YYYY, h:mm:ss a')
+      }))
+    });
 
     Data.trips.subscribe(({ trips }) => {
-      this.setState({ trips: trips.map(trip => ({
-        ...trip,
-        name: trip.schedule.name,
-        startedAt: moment(trip.startedAt).format('MMMM Do YYYY, h:mm:ss a'),
-        completedAt: trip.completedAt? moment(trip.completedAt).format('MMMM Do YYYY, h:mm:ss a'): ''
-      })) });
+      this.setState({
+        trips: trips.map(trip => ({
+          ...trip,
+          name: trip.schedule ? trip.schedule.name : '',
+          startedAt: moment(trip.startedAt).format('MMMM Do YYYY, h:mm:ss a'),
+          completedAt: trip.completedAt ? moment(trip.completedAt).format('MMMM Do YYYY, h:mm:ss a') : ''
+        }))
+      });
     });
 
     /*const drivers = Data.drivers.list();
     this.setState({ drivers });*/
   }
 
-  onClickHandler(trip){
-    window.location= `#/trip/${trip.id}`
+  onClickHandler(trip) {
+    window.location = `#/trip/${trip.id}`
   }
 
   render() {
@@ -66,18 +70,18 @@ class BasicTable extends React.Component {
                   <div className="col-xl-8 order-2 order-xl-1">
                     <div className="row align-items-center">
                       <div className="col-md-4 kt-margin-b-20-tablet-and-mobile">
-                      <div class="dropdown dropdown-inline">
-							          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							            Filter
+                        <div class="dropdown dropdown-inline">
+                          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Filter
 							          </button>
-							          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								          <a class="dropdown-item" href="#/trips/all">All</a>
-								          <a class="dropdown-item" href="#/trips/running">Running</a>
-								          <a class="dropdown-item" href="#/schedules">Scheduled</a>
-                          <a class="dropdown-item" href="#/trips/complete">Completed</a>
-                          <a class="dropdown-item" href="#/trips/cancelled">Cancelled</a>
-							          </div>
-						          </div>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#/trips/all">All</a>
+                            <a class="dropdown-item" href="#/trips/running">Running</a>
+                            <a class="dropdown-item" href="#/schedules">Scheduled</a>
+                            <a class="dropdown-item" href="#/trips/complete">Completed</a>
+                            <a class="dropdown-item" href="#/trips/cancelled">Cancelled</a>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
