@@ -1,6 +1,5 @@
 import emitize from "./emitize";
 import { query, mutate } from "./requests";
-import log from "loglevel";
 
 const studentsData = [];
 
@@ -146,7 +145,8 @@ var Data = (function () {
           make
         }
         driver{
-          id
+          id,
+          username
         }
         locReports{
           id
