@@ -50,7 +50,11 @@ class Modal extends React.Component {
         event.preventDefault();
         try {
           _this.setState({ loading: true });
-          await _this.props.save(_this.state.edit);
+          const data = {}
+          Object.assign(data, _this.state.edit, {
+            students: undefined
+          })
+          await _this.props.save(data);
           _this.hide();
           _this.setState({ loading: false });
         } catch (error) {
@@ -129,7 +133,7 @@ class Modal extends React.Component {
                           className="form-control"
                           id="phone"
                           name="phone"
-                          minLength="12"
+                          minLength="10"
                           value={this.state.edit.phone}
                           onChange={(e) => this.setState(Object.assign(this.state.edit, {
                             phone: e.target.value

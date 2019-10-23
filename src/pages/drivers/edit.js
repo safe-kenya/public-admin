@@ -136,10 +136,25 @@ class Modal extends React.Component {
                           className="form-control"
                           id="phone"
                           name="phone"
-                          minLength="12"
+                          minLength="10"
                           value={this.state.edit.phone}
                           onChange={(e) => this.setState(Object.assign(this.state.edit, {
                             phone: e.target.value
+                          }))}
+                          required
+                        />
+                      </div>
+                      <div className="col-lg-4">
+                        <label>Password:</label>
+                        <input
+                          type="password"
+                          className="form-control"
+                          id="password"
+                          name="password"
+                          minLength="5"
+                          value={this.state.edit.password}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            password: e.target.value
                           }))}
                           required
                         />

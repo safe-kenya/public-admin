@@ -119,7 +119,7 @@ class Modal extends React.Component {
                           className="form-control"
                           id="phone"
                           name="phone"
-                          minLength="12"
+                          minLength="10"
                           value={this.state.phone}
                           onChange={(e) => this.setState({
                             phone: e.target.value
