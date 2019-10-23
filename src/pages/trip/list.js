@@ -1,5 +1,4 @@
 import React from "react";
-import moment from "moment";
 
 import Table from "./components/table";
 import Map from "./components/map"
