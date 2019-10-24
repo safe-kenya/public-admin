@@ -27,6 +27,7 @@ class Navbar extends React.Component {
           </Link>
         </div>
         {/* end:: Brand */}
+
         {/* begin: Header Menu */}
         <button
           className="kt-header-menu-wrapper-close"
@@ -49,101 +50,142 @@ class Navbar extends React.Component {
                 aria-haspopup="true"
               >
                 <Link to="/home" className="kt-menu__link">
-                  <span className="kt-menu__link-text">Home</span>
+                  <span className="kt-menu__link-text">Dashboard</span>
                 </Link>
               </li>
+
+
               <li
                 className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
                 data-ktmenu-submenu-toggle="click"
                 aria-haspopup="true"
               >
                 <Link to="/trips/all" className="kt-menu__link">
-                  <span className="kt-menu__link-text">Trip Reports</span>
-                </Link>
-              </li>
-              <li
-                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                data-ktmenu-submenu-toggle="click"
-                aria-haspopup="true"
-              >
-                <Link to="/students" className="kt-menu__link">
-                  <span className="kt-menu__link-text">Students</span>
-                </Link>
-              </li>
-              <li
-                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                data-ktmenu-submenu-toggle="click"
-                aria-haspopup="true"
-              >
-                <Link to="/parents" className="kt-menu__link">
-                  <span className="kt-menu__link-text">Parents</span>
-                </Link>
-              </li>
-              <li
-                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                data-ktmenu-submenu-toggle="click"
-                aria-haspopup="true"
-              >
-                <Link to="/drivers" className="kt-menu__link">
-                  <span className="kt-menu__link-text">Drivers</span>
-                </Link>
-              </li>
-              <li
-                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                data-ktmenu-submenu-toggle="click"
-                aria-haspopup="true"
-              >
-                <Link to="/busses" className="kt-menu__link">
-                  <span className="kt-menu__link-text">Busses</span>
-                </Link>
-              </li>
-              <li
-                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                data-ktmenu-submenu-toggle="click"
-                aria-haspopup="true"
-              >
-                <Link to="/routes" className="kt-menu__link">
-                  <span className="kt-menu__link-text">Routes</span>
+                  <span className="kt-menu__link-text">Reports</span>
                 </Link>
               </li>
 
-              <li
-                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                data-ktmenu-submenu-toggle="click"
-                aria-haspopup="true"
-              >
-                <Link to="/schedules" className="kt-menu__link">
-                  <span className="kt-menu__link-text">Schedules</span>
-                </Link>
+              <li className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a href="javascript:;" className="kt-menu__link kt-menu__toggle"><span className="kt-menu__link-text">Data</span><i className="kt-menu__hor-arrow la la-angle-down" /><i className="kt-menu__ver-arrow la la-angle-right" /></a>
+                <div className="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
+                  <ul className="kt-menu__subnav">
+
+                    <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
+                      <Link to="/students" className="kt-menu__link">
+                        <i className="kt-menu__link-bullet kt-menu__link-bullet--line">
+                          <span />
+                        </i>
+                        <span className="kt-menu__link-text">
+                          <span className="kt-menu__link-text">Students</span>
+                        </span>
+                        <i className="kt-menu__hor-arrow la la-angle-right" />
+                        <i className="kt-menu__ver-arrow la la-angle-right" />
+                      </Link>
+                    </li>
+                    <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
+                      <Link to="/parents" className="kt-menu__link">
+                        <i className="kt-menu__link-bullet kt-menu__link-bullet--line">
+                          <span />
+                        </i>
+                        <span className="kt-menu__link-text">
+                          <span className="kt-menu__link-text">Parents</span>
+                        </span>
+                        <i className="kt-menu__hor-arrow la la-angle-right" />
+                        <i className="kt-menu__ver-arrow la la-angle-right" />
+                      </Link>
+                    </li>
+                    <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
+                      <Link to="/drivers" className="kt-menu__link">
+                        <i className="kt-menu__link-bullet kt-menu__link-bullet--line">
+                          <span />
+                        </i>
+                        <span className="kt-menu__link-text">
+                          <span className="kt-menu__link-text">Drivers</span>
+                        </span>
+                        <i className="kt-menu__hor-arrow la la-angle-right" />
+                        <i className="kt-menu__ver-arrow la la-angle-right" />
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
               </li>
 
-              <li
-                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                data-ktmenu-submenu-toggle="click"
-                aria-haspopup="true"
-              >
-                <Link
-                  to="/messages"
-                  href="#"
-                  className="kt-menu__link"
-                >
-                  <span className="kt-menu__link-text">Recieved Messages</span>
-                </Link>
+
+              <li className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a href="javascript:;" className="kt-menu__link kt-menu__toggle"><span className="kt-menu__link-text">Configurations</span><i className="kt-menu__hor-arrow la la-angle-down" /><i className="kt-menu__ver-arrow la la-angle-right" /></a>
+                <div className="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
+                  <ul className="kt-menu__subnav">
+
+                    <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
+                      <Link to="/busses" className="kt-menu__link">
+                        <i className="kt-menu__link-bullet kt-menu__link-bullet--line">
+                          <span />
+                        </i>
+                        <span className="kt-menu__link-text">
+                          <span className="kt-menu__link-text">Buses</span>
+                        </span>
+                        <i className="kt-menu__hor-arrow la la-angle-right" />
+                        <i className="kt-menu__ver-arrow la la-angle-right" />
+                      </Link>
+                    </li>
+                    <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
+                      <Link to="/routes" className="kt-menu__link">
+                        <i className="kt-menu__link-bullet kt-menu__link-bullet--line">
+                          <span />
+                        </i>
+                        <span className="kt-menu__link-text">
+                          <span className="kt-menu__link-text">Routes</span>
+                        </span>
+                        <i className="kt-menu__hor-arrow la la-angle-right" />
+                        <i className="kt-menu__ver-arrow la la-angle-right" />
+                      </Link>
+                    </li>
+                    <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
+                      <Link to="/schedules" className="kt-menu__link">
+                        <i className="kt-menu__link-bullet kt-menu__link-bullet--line">
+                          <span />
+                        </i>
+                        <span className="kt-menu__link-text">
+                          <span className="kt-menu__link-text">Schedules</span>
+                        </span>
+                        <i className="kt-menu__hor-arrow la la-angle-right" />
+                        <i className="kt-menu__ver-arrow la la-angle-right" />
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
               </li>
 
-              <li
-                className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                data-ktmenu-submenu-toggle="click"
-                aria-haspopup="true"
-              >
-                <Link
-                  to="/comms"
-                  href="#"
-                  className="kt-menu__link"
-                >
-                  <span className="kt-menu__link-text">SMS & Email Communication</span>
-                </Link>
+              <li className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a href="javascript:;" className="kt-menu__link kt-menu__toggle"><span className="kt-menu__link-text">Communication</span><i className="kt-menu__hor-arrow la la-angle-down" /><i className="kt-menu__ver-arrow la la-angle-right" /></a>
+                <div className="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
+                  <ul className="kt-menu__subnav">
+
+                    <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
+                      <Link to="/messages" className="kt-menu__link">
+                        <i className="kt-menu__link-bullet kt-menu__link-bullet--line">
+                          <span />
+                        </i>
+                        <span className="kt-menu__link-text">
+                          <span className="kt-menu__link-text">Parent Feedback</span>
+                        </span>
+                        <i className="kt-menu__hor-arrow la la-angle-right" />
+                        <i className="kt-menu__ver-arrow la la-angle-right" />
+                      </Link>
+                    </li>
+                    <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
+                      <Link to="/comms" className="kt-menu__link">
+                        <i className="kt-menu__link-bullet kt-menu__link-bullet--line">
+                          <span />
+                        </i>
+                        <span className="kt-menu__link-text">
+                          <span className="kt-menu__link-text">SMS & Email</span>
+                        </span>
+                        <i className="kt-menu__hor-arrow la la-angle-right" />
+                        <i className="kt-menu__ver-arrow la la-angle-right" />
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
               </li>
+
             </ul>
           </div>
         </div>
