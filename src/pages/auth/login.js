@@ -47,7 +47,10 @@ class Login extends React.Component {
                         pathname: '/home'
                     })
                 } catch (err) {
-                    _this.setState({ error: err.message })
+                    if (!err.response.data)
+                        _this.setState({ error: err.message })
+
+                    _this.setState({ error: err.response.data.message })
                 }
             }
         });

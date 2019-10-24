@@ -6,13 +6,19 @@ import DeleteModal from "./delete";
 import Data from "../../utils/data";
 import filters from './filters'
 
+import Stat from "../home/components/stat";
+
 //const $ = window.$;
 const deleteModalInstance = new DeleteModal();
 
 class BasicTable extends React.Component {
   state = {
     trips: [],
-    filter: 'all'
+    filter: 'all',
+    trips: [],
+    schedules: [],
+    complaints: [],
+    students: 0
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -44,8 +50,16 @@ class BasicTable extends React.Component {
       });
     });
 
-    /*const drivers = Data.drivers.list();
-    this.setState({ drivers });*/
+    const complaints = Data.complaints.list();
+    this.setState({ complaints });
+
+
+    const schedules = Data.schedules.list();
+    this.setState({ schedules });
+
+    Data.schedules.subscribe(schedules => {
+      this.setState(schedules);
+    });
   }
 
   onClickHandler(trip) {
@@ -58,6 +72,46 @@ class BasicTable extends React.Component {
     return (
       <div className="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--left kt-aside--fixed kt-aside--offcanvas-default kt-page--loading">
         <div className="kt-grid kt-grid--hor kt-grid--root">
+          <div className="row">
+            <div className="col-lg-2 col-xl-2">
+              <Stat label="All trips" number={this.state.trips.length} />
+            </div>
+            <div className="col-lg-2 col-xl-2">
+              <Stat
+                label="Running Trips"
+                number={
+                  this.state.trips.filter(
+                    trip => !trip.completedAt && !trip.isCancelled
+                  ).length
+                }
+              />
+            </div>
+            <div className="col-lg-2 col-xl-2">
+              <Stat
+                label="Scheduled trips"
+                number={this.state.schedules.length}
+              />
+            </div>
+            <div className="col-lg-2 col-xl-2">
+              <Stat
+                label="Complete trips"
+                number={
+                  this.state.trips.filter(trip => trip.completedAt).length
+                }
+              />
+            </div>
+            <div className="col-lg-2 col-xl-2">
+              <Stat
+                label="Cancelled trips"
+                number={
+                  this.state.trips.filter(trip => trip.isCancelled).length
+                }
+              />
+            </div>
+            <div className="col-lg-2 col-xl-2">
+              <Stat label="Students In Bus" number={this.state.students} />
+            </div>
+          </div>
           <div className="kt-portlet kt-portlet--mobile">
             <DeleteModal
               remove={remove}
@@ -93,21 +147,45 @@ class BasicTable extends React.Component {
               <Table
                 headers={[
                   {
-                    label: "Trip Name",
-                    key: "name"
+                    label: "Trip / Route",
+                    component: (row) => (<td>
+                      {row.schedule ? row.schedule.route.name : ''}
+                      <br></br>
+                      {row.driver ? row.driver.username : ''}
+                    </td>)
                   },
                   {
-                    label: "Start Time",
-                    key: "startedAt"
+                    label: "Vehicle",
+                    component: (row) => (<td>
+                      {row.bus ? row.bus.make : ''}
+                    </td>)
                   },
                   {
-                    label: "End Time",
-                    key: "completedAt"
+                    label: "Start/End",
+                    component: (row) => (<td>
+                      {row.startedAt}
+                      <br></br>
+                      {row.completedAt}
+                    </td>)
                   },
                   {
-                    label: "Cancelled",
-                    key: "isCancelled"
-                  }
+                    label: "On-Board",
+                    component: (row) => (<td>
+                      2
+                    </td>)
+                  },
+                  {
+                    label: "Off-Board",
+                    component: (row) => (<td>
+                      3
+                    </td>)
+                  },
+                  {
+                    label: "In-Bus",
+                    component: (row) => (<td>
+                      5
+                    </td>)
+                  },
                 ]}
                 data={filteredTrips}
                 delete={trip => {

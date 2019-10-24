@@ -6,7 +6,7 @@ export default props => {
   return (
     <table
       className="table"
-      // width="100%"
+    // width="100%"
     >
       <thead>
         <tr>
@@ -20,7 +20,7 @@ export default props => {
           return (
             <tr key={Math.random().toString()}>
               {props.headers.map(header => {
-                return <td>{row[header.key]}</td>;
+                return header.component(row);
               })}
 
               <td
@@ -60,12 +60,12 @@ export default props => {
                     </button>
                   ) : null}
                   <button
-                      title="View"
-                      type="button"
-                      className="btn btn-sm btn-clean"
-                      onClick={() => props.onClick(row)}
-                    >
-                      View
+                    title="View"
+                    type="button"
+                    className="btn btn-sm btn-clean"
+                    onClick={() => props.onClick(row)}
+                  >
+                    View
                     </button>
                 </span>
               </td>

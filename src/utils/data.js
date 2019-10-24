@@ -2,19 +2,12 @@ import emitize from "./emitize";
 import { query, mutate } from "./requests";
 
 const studentsData = [];
-
 const parentsData = [];
-
 const bussesData = [];
-
 const driversData = [];
-
 const routesData = [];
-
 const complaintsData = []
-
 const tripsData = [];
-
 const schedulesData = [];
 
 var Data = (function () {
@@ -125,6 +118,10 @@ var Data = (function () {
       },
       trips {
         id
+        driver{
+          id
+          username
+        }
         schedule {
           name
           id
@@ -132,6 +129,7 @@ var Data = (function () {
           end_time,
           route{
             id,
+            name
             students{
               id
             }
