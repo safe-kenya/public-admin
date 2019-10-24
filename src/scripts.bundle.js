@@ -6930,14 +6930,14 @@ if (typeof module !== 'undefined') {
                         // page info update
                         $(pg.pager).find('.' + pfx + 'datatable__pager-info').find('.' + pfx + 'datatable__pager-detail').html(Plugin.dataPlaceholder(
                             Plugin.getOption('translate.toolbar.pagination.items.info'), {
-                                start: start,
-                                end: pg.meta.perpage === -1 ? pg.meta.total : end,
-                                pageSize: pg.meta.perpage === -1 ||
-                                    pg.meta.perpage >= pg.meta.total
-                                    ? pg.meta.total
-                                    : pg.meta.perpage,
-                                total: pg.meta.total,
-                            }));
+                            start: start,
+                            end: pg.meta.perpage === -1 ? pg.meta.total : end,
+                            pageSize: pg.meta.perpage === -1 ||
+                                pg.meta.perpage >= pg.meta.total
+                                ? pg.meta.total
+                                : pg.meta.perpage,
+                            total: pg.meta.total,
+                        }));
                     },
 
 					/**
@@ -9857,6 +9857,7 @@ if (typeof module !== 'undefined') {
 window.KTLayout = KTLayout
 window.KTUtil = KTUtil
 window.KTOffcanvasPanel = KTOffcanvasPanel
+window.KTOffcanvas = KTOffcanvas
 
 // Init on page load completed
 KTUtil.ready(function () {
