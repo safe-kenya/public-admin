@@ -29,12 +29,7 @@ class Navbar extends React.Component {
         {/* end:: Brand */}
 
         {/* begin: Header Menu */}
-        <button
-          className="kt-header-menu-wrapper-close"
-          id="kt_header_menu_mobile_close_btn"
-        >
-          <i className="la la-close" />
-        </button>
+
         <div
           className="kt-header-menu-wrapper kt-grid__item"
           id="kt_header_menu_wrapper"
@@ -53,7 +48,6 @@ class Navbar extends React.Component {
                   <span className="kt-menu__link-text">Dashboard</span>
                 </Link>
               </li>
-
 
               <li
                 className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
@@ -205,6 +199,23 @@ class Navbar extends React.Component {
           {/*end: User bar */}
         </div>
         {/* end:: Header Topbar */}
+
+
+        <div id="kt_header_mobile" className="kt-header-mobile  kt-header-mobile--fixed ">
+          <div className="kt-header-mobile__logo">
+            <Link to="/trips/all">
+              <img
+                alt="Logo"
+                style={{ width: 150, filter: 'invert(100 %)' }}
+                src="/assets/media/logos/logo-v4.png"
+              />
+            </Link>
+          </div>
+          <div className="kt-header-mobile__toolbar">
+            <button className="kt-header-mobile__toolbar-toggler" id="kt_header_mobile_toggler"><span /></button>
+            <button className="kt-header-mobile__toolbar-topbar-toggler" id="kt_header_mobile_topbar_toggler"><i className="flaticon-more" /></button>
+          </div>
+        </div>
       </div>
     );
   }
