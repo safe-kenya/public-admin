@@ -29,6 +29,7 @@ class BasicTable extends React.Component {
   }
 
   render() {
+
     const { remove, trip } = this.state;
     const events = trip.events ? trip.events.map(ev => ({ ...ev, name: ev.student.name })) : undefined
     const students = trip.schedule && trip.schedule.route && trip.schedule.route.students
@@ -54,8 +55,6 @@ class BasicTable extends React.Component {
                       students: students && students.length
                     }}
                   />
-                </div>
-                <div className="col-md-6">
                   <Table
                     headers={[
                       {
@@ -78,7 +77,10 @@ class BasicTable extends React.Component {
                       });
                     }}
                   />
-                  <Map locations={trip.locReports} />
+                </div>
+                <div className="col-md-6">
+
+                  {!trip.locReports ? null : <Map locations={trip.locReports} />}
                 </div>
               </div>
             </div>
