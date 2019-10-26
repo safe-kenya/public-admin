@@ -106,8 +106,6 @@ class Navbar extends React.Component {
                         <span className="kt-menu__link-text">
                           <span className="kt-menu__link-text">Students</span>
                         </span>
-                        <i className="kt-menu__hor-arrow la la-angle-right" />
-                        <i className="kt-menu__ver-arrow la la-angle-right" />
                       </Link>
                     </li>
                     <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
@@ -118,8 +116,6 @@ class Navbar extends React.Component {
                         <span className="kt-menu__link-text">
                           <span className="kt-menu__link-text">Parents</span>
                         </span>
-                        <i className="kt-menu__hor-arrow la la-angle-right" />
-                        <i className="kt-menu__ver-arrow la la-angle-right" />
                       </Link>
                     </li>
                     <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
@@ -130,8 +126,6 @@ class Navbar extends React.Component {
                         <span className="kt-menu__link-text">
                           <span className="kt-menu__link-text">Drivers</span>
                         </span>
-                        <i className="kt-menu__hor-arrow la la-angle-right" />
-                        <i className="kt-menu__ver-arrow la la-angle-right" />
                       </Link>
                     </li>
                   </ul>
@@ -151,8 +145,6 @@ class Navbar extends React.Component {
                         <span className="kt-menu__link-text">
                           <span className="kt-menu__link-text">Buses</span>
                         </span>
-                        <i className="kt-menu__hor-arrow la la-angle-right" />
-                        <i className="kt-menu__ver-arrow la la-angle-right" />
                       </Link>
                     </li>
                     <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
@@ -163,8 +155,6 @@ class Navbar extends React.Component {
                         <span className="kt-menu__link-text">
                           <span className="kt-menu__link-text">Routes</span>
                         </span>
-                        <i className="kt-menu__hor-arrow la la-angle-right" />
-                        <i className="kt-menu__ver-arrow la la-angle-right" />
                       </Link>
                     </li>
                     <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
@@ -175,8 +165,6 @@ class Navbar extends React.Component {
                         <span className="kt-menu__link-text">
                           <span className="kt-menu__link-text">Schedules</span>
                         </span>
-                        <i className="kt-menu__hor-arrow la la-angle-right" />
-                        <i className="kt-menu__ver-arrow la la-angle-right" />
                       </Link>
                     </li>
                   </ul>
@@ -195,8 +183,6 @@ class Navbar extends React.Component {
                         <span className="kt-menu__link-text">
                           <span className="kt-menu__link-text">Parent Feedback</span>
                         </span>
-                        <i className="kt-menu__hor-arrow la la-angle-right" />
-                        <i className="kt-menu__ver-arrow la la-angle-right" />
                       </Link>
                     </li>
                     <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
@@ -207,8 +193,6 @@ class Navbar extends React.Component {
                         <span className="kt-menu__link-text">
                           <span className="kt-menu__link-text">SMS & Email</span>
                         </span>
-                        <i className="kt-menu__hor-arrow la la-angle-right" />
-                        <i className="kt-menu__ver-arrow la la-angle-right" />
                       </Link>
                     </li>
                   </ul>

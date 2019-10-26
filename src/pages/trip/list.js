@@ -5,6 +5,7 @@ import Map from "./components/map"
 import TripDetails from "./components/trip-details";
 import DeleteModal from "./delete";
 import Data from "../../utils/data";
+import Stat from "../home/components/stat";
 
 //const $ = window.$;
 const deleteModalInstance = new DeleteModal();
@@ -55,20 +56,27 @@ class BasicTable extends React.Component {
                       students: students && students.length
                     }}
                   />
+
+                  <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                      <h3 class="kt-portlet__head-title">Trip Events</h3>
+                    </div>
+                  </div>
                   <Table
                     headers={[
                       {
-                        label: "Event Type",
+                        label: "Student",
+                        key: "name"
+                      },
+                      {
+                        label: "Event",
                         key: "type"
                       },
                       {
-                        label: "Event Time",
+                        label: "Time",
                         key: "time"
                       },
-                      {
-                        label: "Student",
-                        key: "name"
-                      }
+
                     ]}
                     data={events}
                     delete={trip => {
@@ -79,8 +87,36 @@ class BasicTable extends React.Component {
                   />
                 </div>
                 <div className="col-md-6">
+                  <div className="row">
+                    <div className="col-lg-6 col-xl-6">
+                      <Stat
+                        label="On Boarded"
+                        number={2}
+                      />
+                    </div>
+                    <div className="col-lg-6 col-xl-6">
+                      <Stat
+                        label="Off Boarded"
+                        number={2}
+                      />
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-lg-6 col-xl-6">
+                      <Stat
+                        label="In Bus"
+                        number={2}
+                      />
+                    </div>
+                    <div className="col-lg-6 col-xl-6">
+                      <Stat
+                        label="Absent/On Leave"
+                        number={2}
+                      />
+                    </div>
+                  </div>
 
-                  {!trip.locReports ? null : <Map locations={trip.locReports} />}
+                  {trip.locReports && trip.locReports[0] ? <Map locations={trip.locReports} /> : null}
                 </div>
               </div>
             </div>

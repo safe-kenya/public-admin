@@ -20,23 +20,6 @@ export default props => (
             alt="bg"
           />
         </div>
-        {!props.bars ? null : <div className="kt-widget-19__data">
-          {/*Doc: For the chart bars you can use state helper classes: kt-bg-success, kt-bg-info, kt-bg-danger. Refer: components/custom/colors.html */}
-          <div className="kt-widget-19__chart">
-            {props.bars.map(bar => (
-              <div className="kt-widget-19__bar">
-                <div
-                  className={"kt-widget-19__bar-" + bar}
-                  data-toggle="kt-tooltip"
-                  data-skin="brand"
-                  data-placement="top"
-                  title
-                  data-original-title={bar}
-                />
-              </div>
-            ))}
-          </div>
-        </div>}
       </div>
     </div>
   </div>

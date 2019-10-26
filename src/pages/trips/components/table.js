@@ -35,7 +35,7 @@ export default props => {
                     width: "110px"
                   }}
                 >
-                  {options.editable === true ? (
+                  {/* {options.editable === true ? (
                     <button
                       title="Edit details"
                       type="button"
@@ -58,14 +58,14 @@ export default props => {
                     >
                       <i className="la la-trash" />
                     </button>
-                  ) : null}
+                  ) : null} */}
                   <button
                     title="View"
                     type="button"
                     className="btn btn-sm btn-clean"
                     onClick={() => props.onClick(row)}
                   >
-                    View
+                    View More
                     </button>
                 </span>
               </td>

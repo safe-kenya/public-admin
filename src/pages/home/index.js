@@ -22,6 +22,13 @@ class Home extends React.Component {
     const trips = Data.trips.list();
     this.setState({ trips });
 
+    // map points
+    const locations = [];
+    this.state.trips.map(trip => {
+      trip.locReports.map(report => locations.push(report))
+    })
+    this.setState({ locations })
+
     const complaints = Data.complaints.list();
     this.setState({ complaints });
 
@@ -35,6 +42,7 @@ class Home extends React.Component {
 
       this.setState(Object.assign({ trips }, { students }));
 
+      // map points
       const locations = [];
       this.state.trips.map(trip => {
         trip.locReports.map(report => locations.push(report))
