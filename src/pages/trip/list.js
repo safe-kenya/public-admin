@@ -40,47 +40,48 @@ class BasicTable extends React.Component {
               remove={remove}
               save={trip => Data.trips.delete(trip)}
             />
-            <div className="kt-portlet__body" style={{ minHeight: "500px" }}>
-              <TripDetails
-                trip={trip}
-                stats={{
-                  complete: (!!trip.completedAt).toString(),
-                  cancelled: (!!trip.isCancelled).toString(),
-                  students: students && students.length
-                }}
-              />
+            <div className="kt-portlet__body">
+
             </div>
             <div className="kt-portlet__body" style={{ minHeight: "500px" }}>
               <div className="row">
-                <div className="col-md-12">
+                <div className="col-md-6">
+                  <TripDetails
+                    trip={trip}
+                    stats={{
+                      complete: (!!trip.completedAt).toString(),
+                      cancelled: (!!trip.isCancelled).toString(),
+                      students: students && students.length
+                    }}
+                  />
+                </div>
+                <div className="col-md-6">
+                  <Table
+                    headers={[
+                      {
+                        label: "Event Type",
+                        key: "type"
+                      },
+                      {
+                        label: "Event Time",
+                        key: "time"
+                      },
+                      {
+                        label: "Student",
+                        key: "name"
+                      }
+                    ]}
+                    data={events}
+                    delete={trip => {
+                      this.setState({ remove: trip }, () => {
+                        deleteModalInstance.show();
+                      });
+                    }}
+                  />
                   <Map locations={trip.locReports} />
                 </div>
               </div>
             </div>
-          </div>
-          <div className="kt-portlet__body" style={{ minHeight: "500px" }}>
-            <Table
-              headers={[
-                {
-                  label: "Event Type",
-                  key: "type"
-                },
-                {
-                  label: "Event Time",
-                  key: "time"
-                },
-                {
-                  label: "Student",
-                  key: "name"
-                }
-              ]}
-              data={events}
-              delete={trip => {
-                this.setState({ remove: trip }, () => {
-                  deleteModalInstance.show();
-                });
-              }}
-            />
           </div>
         </div>
       </div>
