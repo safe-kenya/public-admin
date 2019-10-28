@@ -60,8 +60,8 @@ class Modal extends React.Component {
 
           data.time = $('#timepicker_start').data("timepicker").getTime()
           data.end_time = $('#timepicker_end').data("timepicker").getTime()
-          data.route = data.route.id
-          data.bus = data.bus.id
+          data.route = data.route ? data.route.id : null
+          data.bus = data.bus ? data.bus.id : null
           data.route_name = undefined
           data.bus_make = undefined
           // data.id = undefined
