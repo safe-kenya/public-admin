@@ -653,7 +653,8 @@ var Data = (function () {
             {
               route: {
                 id: data.id,
-                name: data.name
+                name: data.name,
+                description: data.description
               }
             }
           );
