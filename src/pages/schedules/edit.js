@@ -62,9 +62,6 @@ class Modal extends React.Component {
           const data = {}
           Object.assign(data, _this.state.edit)
 
-          data.time = $('#timepicker_start').data("timepicker").getTime()
-          data.end_time = $('#timepicker_end').data("timepicker").getTime()
-
           if (data.route) {
             data.route_name = data.route.name
           }
@@ -77,7 +74,6 @@ class Modal extends React.Component {
           // data.bus_make = undefined
           // data.id = undefined
           data.days = data.days.join(",")
-
           await _this.props.save(data);
 
           _this.hide();
@@ -128,6 +124,7 @@ class Modal extends React.Component {
     const {
       edit: { names, route = {}, bus = {}, gender } = {}
     } = this.state;
+
     return (
       <div>
         <div
@@ -163,8 +160,8 @@ class Modal extends React.Component {
                         <input
                           type="text"
                           className="form-control"
-                          id="busmake"
-                          name="busmake"
+                          id="tripname"
+                          name="tripname"
                           minLength="2"
                           required
                           value={this.state.edit.name}
