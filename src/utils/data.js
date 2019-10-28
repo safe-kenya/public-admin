@@ -143,7 +143,8 @@ var Data = (function () {
         completedAt
         bus{
           id,
-          make
+          make,
+          plate
         }
         driver{
           id,

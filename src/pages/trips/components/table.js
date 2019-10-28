@@ -46,7 +46,7 @@ export default props => {
                     >
                       <i className="la la-edit" />
                     </button>
-                  ) : null}
+                  ) : null} */}
                   {options.deleteable === true ? (
                     <button
                       title="Delete"
@@ -58,7 +58,7 @@ export default props => {
                     >
                       <i className="la la-trash" />
                     </button>
-                  ) : null} */}
+                  ) : null}
                   <button
                     title="View"
                     type="button"

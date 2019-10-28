@@ -132,7 +132,7 @@ class Home extends React.Component {
                     </div>
                     <div className="col-lg-12 col-xl-12 order-lg-1 order-xl-1">
                       <Stat
-                        label="Parent Complains this week"
+                        label="Parent Feedback this week"
                         number={this.state.complaints.filter(complaint => {
                           var now = moment();
                           var input = moment(complaint.time);

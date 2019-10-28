@@ -31,28 +31,35 @@ class BasicTable extends React.Component {
   componentDidMount() {
     const trips = Data.trips.list();
     this.setState({
-      trips: trips.map(trip => ({
-        ...trip,
-        name: trip.schedule ? trip.schedule.name : '',
-        startedAt: moment(trip.startedAt).format('MMMM Do YYYY, h:mm:ss a'),
-        completedAt: moment(trip.completedAt).format('MMMM Do YYYY, h:mm:ss a')
-      }))
+      trips: trips.map(trip => {
+        return {
+          ...trip,
+          inBus: trip.events.filter(event => event.type === 'CHECKEDON').length || 0,
+          offBus: trip.events.filter(event => event.type === 'CHECKEDOFF').length || 0,
+          name: trip.schedule ? trip.schedule.name : '',
+          startedAt: moment(trip.startedAt).format('MMMM Do YYYY, h:mm:ss a'),
+          completedAt: moment(trip.completedAt).format('MMMM Do YYYY, h:mm:ss a')
+        }
+      })
     });
 
     Data.trips.subscribe(({ trips }) => {
       this.setState({
-        trips: trips.map(trip => ({
-          ...trip,
-          name: trip.schedule ? trip.schedule.name : '',
-          startedAt: moment(trip.startedAt).format('MMMM Do YYYY, h:mm:ss a'),
-          completedAt: trip.completedAt ? moment(trip.completedAt).format('MMMM Do YYYY, h:mm:ss a') : ''
-        }))
+        trips: trips.map(trip => {
+          return {
+            ...trip,
+            inBus: trip.events.filter(event => event.type === 'CHECKEDON').length || 0,
+            offBus: trip.events.filter(event => event.type === 'CHECKEDOFF').length || 0,
+            name: trip.schedule ? trip.schedule.name : '',
+            startedAt: moment(trip.startedAt).format('MMMM Do YYYY, h:mm:ss a'),
+            completedAt: trip.completedAt ? moment(trip.completedAt).format('MMMM Do YYYY, h:mm:ss a') : ''
+          }
+        })
       });
     });
 
     const complaints = Data.complaints.list();
     this.setState({ complaints });
-
 
     const schedules = Data.schedules.list();
     this.setState({ schedules });
@@ -158,6 +165,8 @@ class BasicTable extends React.Component {
                     label: "Vehicle",
                     component: (row) => (<td>
                       {row.bus ? row.bus.make : ''}
+                      <br></br>
+                      ({row.bus ? row.bus.plate : ''})
                     </td>)
                   },
                   {
@@ -171,19 +180,19 @@ class BasicTable extends React.Component {
                   {
                     label: "On-Board",
                     component: (row) => (<td style={{ 'font-size': "23px", color: "red" }}>
-                      <i class="fas fa-level-up-alt"></i> 2
+                      <i class="fas fa-level-up-alt"></i> {row.inBus}
                     </td>)
                   },
                   {
                     label: "Off-Board",
                     component: (row) => (<td style={{ 'font-size': "23px", color: "blue" }}>
-                      <i class="fas fa-level-down-alt"></i> 3
+                      <i class="fas fa-level-down-alt"></i> {row.offBus}
                     </td>)
                   },
                   {
                     label: "In-Bus",
                     component: (row) => (<td style={{ 'font-size': "23px", color: "red" }}>
-                      <i class="fas fa-bus-alt"></i> 5
+                      <i class="fas fa-bus-alt"></i> {row.schedule.route.students.length}
                     </td>)
                   },
                 ]}
