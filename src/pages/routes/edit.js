@@ -13,6 +13,7 @@ class Modal extends React.Component {
     loading: false,
     edit: {
       name: "",
+      description: ""
     }
   };
 
@@ -126,7 +127,7 @@ class Modal extends React.Component {
                           minLength="2"
                           rows="6"
                           required
-                          value={this.state.description}
+                          value={this.state.edit.description}
                           onChange={(e) => this.setState({
                             edit: Object.assign(this.state.edit, {
                               description: e.target.value
