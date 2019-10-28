@@ -262,17 +262,15 @@ class Modal extends React.Component {
                                 onChange={() => {
                                   if (this.state.edit.days.includes(day)) {
                                     return this.setState({
-                                      edit: {
-                                        ...this.state.edit,
-                                        days: this.state.edit.days.filter(eday => eday !== day)
-                                      }
+                                      edit: Object.assign(this.state.edit, {
+                                        days: this.state.edit.days.filter(eday => eday != day)
+                                      })
                                     })
                                   }
                                   this.setState({
-                                    edit: {
-                                      ...this.state.edit,
+                                    edit: Object.assign(this.state.edit, {
                                       days: [...this.state.edit.days, day]
-                                    }
+                                    })
                                   })
                                 }}
                               /> {day}

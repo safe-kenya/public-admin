@@ -742,7 +742,6 @@ var Data = (function () {
         }),
       update: schedule =>
         new Promise(async (resolve, reject) => {
-
           await mutate(
             `
           mutation ($Uschedule: Uschedule!) {
@@ -760,7 +759,6 @@ var Data = (function () {
                 busses: undefined,
                 routes: undefined,
                 selectedDays: undefined,
-                days: undefined,
                 bus: schedule.bus.id,
                 route: schedule.route.id
               })
@@ -770,6 +768,7 @@ var Data = (function () {
           const subtract = schedules.filter(({ id }) => id !== schedule.id);
           schedule.bus_make = schedule.bus.make
           schedule.route_name = schedule.route.name
+          schedule.days = schedule.days.split(',')
 
           schedules = [schedule, ...subtract];
           subs.schedules({ schedules });
