@@ -32,44 +32,44 @@ class TableRow extends React.Component {
             );
           })}
           <td
-                data-field="Actions"
-                data-autohide-disabled="false"
-                className="kt-datatable__cell"
-                style={{ width: "110px" }}
-              >
-                <span
-                  style={{
-                    overflow: "visible",
-                    position: "relative",
-                    width: "110px"
+            data-field="Actions"
+            data-autohide-disabled="false"
+            className="kt-datatable__cell"
+            style={{ width: "110px" }}
+          >
+            <span
+              style={{
+                overflow: "visible",
+                position: "relative",
+                width: "110px"
+              }}
+            >
+              {this.props.options.editable === true ? (
+                <button
+                  title="Edit details"
+                  type="button"
+                  className="btn btn-sm btn-clean btn-icon btn-icon-md"
+                  onClick={() => {
+                    this.props.edit(this.props.data);
                   }}
                 >
-                  {this.props.options.editable === true ? (
-                    <button
-                      title="Edit details"
-                      type="button"
-                      className="btn btn-sm btn-clean btn-icon btn-icon-md"
-                      onClick={() => {
-                        this.props.edit(this.props.data);
-                      }}
-                    >
-                      <i className="la la-edit" />
-                    </button>
-                  ) : null}
-                  {this.props.options.deleteable === true ? (
-                    <button
-                      title="Delete"
-                      type="button"
-                      className="btn btn-sm btn-clean btn-icon btn-icon-md"
-                      onClick={() => {
-                        this.props.delete(this.props.data);
-                      }}
-                    >
-                      <i className="la la-trash" />
-                    </button>
-                  ) : null}
-                </span>
-              </td>
+                  <i className="la la-edit" />
+                </button>
+              ) : null}
+              {this.props.options.deleteable === true ? (
+                <button
+                  title="Delete"
+                  type="button"
+                  className="btn btn-sm btn-clean btn-icon btn-icon-md"
+                  onClick={() => {
+                    this.props.delete(this.props.data);
+                  }}
+                >
+                  <i className="la la-trash" />
+                </button>
+              ) : null}
+            </span>
+          </td>
         </tr>
 
         {this.state.direction === "right" ? null : (
@@ -109,7 +109,7 @@ class TableRow extends React.Component {
                     className="kt-datatable__body ps ps--active-y"
                     style={{ "max-height": "246px;" }}
                   >
-                    {this.props.data.students.map(student => {
+                    {!this.props.data.students ? null : this.props.data.students.map(student => {
                       return (
                         <tr data-row="0" className="kt-datatable__row">
                           <td
