@@ -417,7 +417,7 @@ var Data = (function () {
     drivers: {
       create: data =>
         new Promise(async (resolve, reject) => {
-          const { id } = await mutate(
+          const res = await mutate(
             `
             mutation ($Idriver: Idriver!) {
               drivers {
@@ -431,6 +431,7 @@ var Data = (function () {
             }
           );
 
+          const { id } = res.drivers.create
           data.id = id;
 
           drivers = [...drivers, data];
