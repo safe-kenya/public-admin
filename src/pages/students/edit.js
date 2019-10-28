@@ -145,9 +145,10 @@ class Modal extends React.Component {
                           name="route"
                           class="form-control"
                           required
-                          value={this.state.edit.route}
+                          value={this.state.edit.route_name}
                           onChange={(e) => this.setState(Object.assign(this.state.edit, {
-                            route: e.target.value
+                            route: this.props.routes.filter(route => route.name == e.target.value)[0],
+                            route_name: e.target.value
                           }))}
                         >
                           <option value="">Select route</option>
@@ -182,9 +183,10 @@ class Modal extends React.Component {
                           name="parent"
                           class="form-control"
                           required
-                          value={this.state.edit.parent}
+                          value={this.state.edit.parent_name}
                           onChange={(e) => this.setState(Object.assign(this.state.edit, {
-                            parent: e.target.value
+                            parent: this.props.parents.filter(parent => parent.name == e.target.value)[0],
+                            parent_name: e.target.value
                           }))}
                         >
                           <option value="">Select parent</option>
@@ -199,9 +201,10 @@ class Modal extends React.Component {
                           name="parent2"
                           class="form-control"
                           required
-                          value={this.state.edit.parent2}
+                          value={this.state.edit.parent2_name}
                           onChange={(e) => this.setState(Object.assign(this.state.edit, {
-                            parent2: e.target.value
+                            parent2: this.props.parents.filter(parent => parent.name == e.target.value)[0],
+                            parent2_name: e.target.value
                           }))}
                         >
                           <option value="">Select parent</option>

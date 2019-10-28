@@ -57,12 +57,15 @@ var Data = (function () {
         gender
         registration
         route {
+          id,
           name
         }
         parent {
+          id,
           name
         }
         parent2 {
+          id,
           name
         }
       }
@@ -165,13 +168,22 @@ var Data = (function () {
     }`).then(response => {
       // let { students } = response
       students = response.students.map(student => {
-        if (student.route) student.route = student.route.name;
 
-        if (student.parent) student.parent = student.parent.name;
-        if (student.parent2) student.parent2 = student.parent2.name;
+        if (student.parent) {
+          student.parent_name = student.parent.name;
+        }
+
+        if (student.parent2) {
+          student.parent2_name = student.parent2.name;
+        }
+
+        if (student.route) {
+          student.route_name = student.route.name;
+        }
 
         return student;
       });
+
       subs.students({ students });
 
       busses = response.buses;
@@ -266,7 +278,7 @@ var Data = (function () {
         }),
       update: data =>
         new Promise(async (resolve, reject) => {
-          const { id } = await mutate(
+          await mutate(
             `
           mutation ($student: Ustudent!) {
             students {
@@ -276,11 +288,16 @@ var Data = (function () {
             }
           } `,
             {
-              student: data
+              student: Object.assign({}, data, {
+                parent_name: undefined,
+                parent2_name: undefined,
+                parent: data.parent.id,
+                parent2: data.parent2.id,
+                route_name: undefined,
+                route: data.route.id
+              })
             }
           );
-
-          data.id = id;
 
           const subtract = students.filter(({ id }) => id !== data.id);
           students = [data, ...subtract];
