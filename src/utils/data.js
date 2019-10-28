@@ -186,7 +186,15 @@ var Data = (function () {
       drivers = response.drivers;
       subs.drivers({ drivers });
 
-      schedules = response.schedules;
+      schedules = response.schedules.map(schedule => {
+        if (schedule.bus)
+          schedule.bus_make = schedule.bus.make
+
+        if (schedule.route)
+          schedule.route_name = schedule.route.name
+
+        return schedule
+      });
       subs.schedules({ schedules });
 
       trips = response.trips;
@@ -692,6 +700,14 @@ var Data = (function () {
         new Promise(async (resolve, reject) => {
           schedule.days = schedule.days.join(",");
 
+          if (schedule.route) {
+            schedule.route_name = undefined
+          }
+
+          if (schedule.bus) {
+            schedule.bus_make = undefined
+          }
+
           const res = await mutate(
             `
           mutation ($schedule: Ischedule!) {
@@ -711,16 +727,22 @@ var Data = (function () {
 
           schedule.id = id;
           schedule.days = schedule.days.split(",");
+
           schedule.route = routes.filter(
             route => route.id === schedule.route
           )[0];
+
           schedule.bus = busses.filter(bus => bus.id === schedule.bus)[0];
+          schedule.bus_make = schedule.bus.make
+
+
           schedules = [...schedules, schedule];
           subs.schedules({ schedules });
           resolve();
         }),
-      update: data =>
+      update: schedule =>
         new Promise(async (resolve, reject) => {
+
           await mutate(
             `
           mutation ($Uschedule: Uschedule!) {
@@ -732,12 +754,24 @@ var Data = (function () {
           }            
         `,
             {
-              Uschedule: data
+              Uschedule: Object.assign({}, schedule, {
+                bus_make: undefined,
+                route_name: undefined,
+                busses: undefined,
+                routes: undefined,
+                selectedDays: undefined,
+                days: undefined,
+                bus: schedule.bus.id,
+                route: schedule.route.id
+              })
             }
           );
 
-          const subtract = schedules.filter(({ id }) => id !== data.id);
-          schedules = [data, ...subtract];
+          const subtract = schedules.filter(({ id }) => id !== schedule.id);
+          schedule.bus_make = schedule.bus.make
+          schedule.route_name = schedule.route.name
+
+          schedules = [schedule, ...subtract];
           subs.schedules({ schedules });
           resolve();
         }),

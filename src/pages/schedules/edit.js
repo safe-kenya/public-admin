@@ -1,5 +1,7 @@
 import React from "react";
 import ErrorMessage from "./components/error-toast";
+import deepEqual from 'deep-equal'
+
 const IErrorMessage = new ErrorMessage();
 
 const $ = window.$;
@@ -21,6 +23,8 @@ class Modal extends React.Component {
       "SUNDAY"
     ],
     edit: {
+      routes: [],
+      busses: [],
       route: "",
       days: [],
       selectedDays: []
@@ -60,18 +64,22 @@ class Modal extends React.Component {
 
           data.time = $('#timepicker_start').data("timepicker").getTime()
           data.end_time = $('#timepicker_end').data("timepicker").getTime()
-          if (data.route)
-            data.route = data.route.id
 
-          if (data.bus)
-            data.bus = data.bus.id
+          if (data.route) {
+            data.route_name = data.route.name
+          }
 
-          data.route_name = undefined
-          data.bus_make = undefined
+          if (data.bus) {
+            data.bus_make = data.bus.make
+          }
+
+          // data.route_name = undefined
+          // data.bus_make = undefined
           // data.id = undefined
           data.days = data.days.join(",")
 
           await _this.props.save(data);
+
           _this.hide();
           _this.setState({ loading: false });
         } catch (error) {
@@ -106,7 +114,7 @@ class Modal extends React.Component {
   }
   static getDerivedStateFromProps(props, state) {
     if (props.edit) {
-      if (props.edit.id !== state.edit.id) {
+      if (!deepEqual(props.edit, state.edit)) {
         console.log("updating", props.edit.id, state.edit.id, props.edit.id !== state.edit.id)
         return {
           edit: props.edit
@@ -120,7 +128,6 @@ class Modal extends React.Component {
     const {
       edit: { names, route = {}, bus = {}, gender } = {}
     } = this.state;
-    console.log(this.state)
     return (
       <div>
         <div
@@ -211,6 +218,7 @@ class Modal extends React.Component {
                           value={this.state.edit.route_name}
                           onChange={(e) => this.setState({
                             edit: Object.assign(this.state.edit, {
+                              route: this.props.routes.filter(r => r.name == e.target.value)[0],
                               route_name: e.target.value
                             })
                           })}
@@ -232,6 +240,7 @@ class Modal extends React.Component {
                           value={this.state.edit.bus_make}
                           onChange={(e) => this.setState({
                             edit: Object.assign(this.state.edit, {
+                              bus: this.props.busses.filter(r => r.make == e.target.value)[0],
                               bus_make: e.target.value
                             })
                           })}
