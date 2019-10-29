@@ -16,18 +16,18 @@ class Home extends React.Component {
     locations: [],
     schedules: [],
     complaints: [],
-    students: 0
+    students: 0,
+    C : null
   };
   componentDidMount() {
     const trips = Data.trips.list();
     this.setState({ trips });
 
     // map points
-    const locations = [];
-    this.state.trips.map(trip => {
-      trip.locReports.map(report => locations.push(report))
-    })
-    this.setState({ locations })
+    this.setState({ locations : trips.reduce((locations, trip) => {
+      trip.locReports.forEach(report => locations.push(report))
+      return locations
+    }, []) })
 
     const complaints = Data.complaints.list();
     this.setState({ complaints });
@@ -57,8 +57,16 @@ class Home extends React.Component {
       this.setState(schedules);
     });
 
+    this.setState({ C : Map })
+
+  }
+
+  componentWillUnmount(){
+    this.setState({ C : null, locations: null })
   }
   render() {
+
+    const { C } = this.state;
 
     return (
       <div className="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
@@ -150,7 +158,7 @@ class Home extends React.Component {
                       className="col-lg-12 col-xl-12 order-lg-1 order-xl-1"
                       style={{ height: "460px" }}
                     >
-                      {this.state.locations[0] ? <Map locations={this.state.locations} height={'420px'} /> : null}
+                      {this.state.locations[0] ? <C locations={this.state.locations} height={'420px'} /> : null}
                       {/* <Map /> */}
                     </div>
                     {/* <div className="col-lg-6 col-xl-6 order-lg-1 order-xl-1">

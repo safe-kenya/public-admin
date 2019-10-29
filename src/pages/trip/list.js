@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React from "react";
 
 import Table from "./components/table";
@@ -14,11 +15,13 @@ class BasicTable extends React.Component {
   state = {
     trip: {},
     events: [],
-    students: []
+    students: [],
+    C: null
   };
 
   componentDidMount() {
     const students = Data.students.list();
+    this.setState({ students })
     Data.students.subscribe(({ students }) => {
       this.setState({ students });
     });
@@ -47,15 +50,21 @@ class BasicTable extends React.Component {
       });
     });
 
+    this.setState({ C : Map })
+
 
 
     /*const drivers = Data.drivers.list();
     this.setState({ drivers });*/
   }
 
+  componentWillUnmount(){
+    this.setState({ C : null })
+  }
+
   render() {
 
-    const { remove, trip } = this.state;
+    const { remove, trip, C } = this.state;
     const events = trip.events ? trip.events.map(ev => ({ ...ev, name: ev.student.name })) : undefined
     const students = trip.schedule && trip.schedule.route && trip.schedule.route.students
 
@@ -105,7 +114,7 @@ class BasicTable extends React.Component {
 
                         return (<label className="kt-checkbox">
                           <input
-                            checked
+                            checked={checked}
                             disabled
                             type="checkbox" /> {student.names}
                           <span />
@@ -173,7 +182,7 @@ class BasicTable extends React.Component {
                     </div>
                   </div>
 
-                  {trip.locReports && trip.locReports[0] ? <Map locations={trip.locReports} /> : null}
+                  {trip.locReports && trip.locReports[0] ? <C locations={trip.locReports} /> : null}
                 </div>
               </div>
             </div>
