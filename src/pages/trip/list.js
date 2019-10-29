@@ -148,13 +148,13 @@ class BasicTable extends React.Component {
                     <div className="col-lg-6 col-xl-6">
                       <Stat
                         label="On Boarded"
-                        number={trip.inBus}
+                        number={trip.offBus}
                       />
                     </div>
                     <div className="col-lg-6 col-xl-6">
                       <Stat
                         label="Off Boarded"
-                        number={trip.offBus}
+                        number={trip.inBus}
                       />
                     </div>
                   </div>

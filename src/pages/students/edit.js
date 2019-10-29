@@ -200,7 +200,6 @@ class Modal extends React.Component {
                         <select
                           name="parent2"
                           class="form-control"
-                          required
                           value={this.state.edit.parent2_name}
                           onChange={(e) => this.setState(Object.assign(this.state.edit, {
                             parent2: this.props.parents.filter(parent => parent.name == e.target.value)[0],

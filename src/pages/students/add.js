@@ -14,7 +14,7 @@ class Modal extends React.Component {
     names: "",
     route: "",
     gender: "",
-    registration:"",
+    registration: "",
     parent: "",
     parent2: "",
     parents: [],
@@ -51,7 +51,7 @@ class Modal extends React.Component {
 
           // cleanup
           _this.state.loading = undefined;
-          
+
           // reassign
           _this.state.parents = undefined;
           _this.state.routes = undefined;
@@ -188,7 +188,6 @@ class Modal extends React.Component {
                         <select
                           name="parent2"
                           class="form-control"
-                          required
                           value={this.state.parent2}
                           onChange={(e) => this.setState({
                             parent2: e.target.value
