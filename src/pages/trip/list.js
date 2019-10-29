@@ -56,7 +56,7 @@ class BasicTable extends React.Component {
   render() {
 
     const { remove, trip } = this.state;
-    const events = trip.events ? trip.events.map(ev => ({ ...ev, name: ev.student.name })) : undefined
+    const events = trip.events ? trip.events.map(ev => ({ ...ev, name: ev.student.name })) : []
     const students = trip.schedule && trip.schedule.route && trip.schedule.route.students
 
     return (
@@ -73,9 +73,6 @@ class BasicTable extends React.Component {
             <div className="kt-portlet__body" style={{ minHeight: "500px" }}>
               <div className="row">
                 <div className="col-md-6">
-
-
-
                   <TripDetails
                     trip={trip}
                     stats={{
@@ -96,18 +93,21 @@ class BasicTable extends React.Component {
                   <div className="kt-checkbox-list">
                     {
                       this.state.students.map(student => {
+                        console.log(student, events)
                         let checked = false;
-                        let studentInfo = this.state.events.filter(event => event.student.id == student.id)[0]
+                        let studentInfo = events.filter(event => event.student.id == student.id)[0]
 
                         if (studentInfo && studentInfo.type && studentInfo.type === 'CHECKEDON') {
                           checked = true
                         }
 
+                        console.log(studentInfo)
+
                         return (<label className="kt-checkbox">
                           <input
-                            checked
+                            checked={checked}
                             disabled
-                            type="checkbox" /> {student.names}
+                            type="checkbox" /> {student.names} {studentInfo ? `at ${studentInfo.time}` : ''}
                           <span />
                         </label>)
                       })
@@ -115,7 +115,7 @@ class BasicTable extends React.Component {
 
                   </div>
 
-                  <Table
+                  {/* <Table
                     headers={[
                       {
                         label: "Student",
@@ -141,7 +141,7 @@ class BasicTable extends React.Component {
                         deleteModalInstance.show();
                       });
                     }}
-                  />
+                  /> */}
                 </div>
                 <div className="col-md-6">
                   <div className="row">
