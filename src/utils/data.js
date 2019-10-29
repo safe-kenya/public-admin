@@ -277,8 +277,6 @@ var Data = (function () {
           data.route = routes.filter(p => p.id == data.route)[0];
           data.route_name = data.route.name
 
-          console.log({ data }, students)
-
           students = [...students, data];
           subs.students({ students });
           resolve();

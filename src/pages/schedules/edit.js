@@ -111,7 +111,6 @@ class Modal extends React.Component {
   static getDerivedStateFromProps(props, state) {
     if (props.edit) {
       if (!deepEqual(props.edit, state.edit)) {
-        console.log("updating", props.edit.id, state.edit.id, props.edit.id !== state.edit.id)
         return {
           edit: props.edit
         };
