@@ -3,11 +3,11 @@ import moment from 'moment';
 
 import Stat from "./stat";
 
-export default ({ trip = { driver: {} }, stats }) => {
+export default ({ trip, stats }) => {
+  let { driver = {}, bus = {}, schedule = { route: {} }, completedAt, startedAt } = trip
 
-  if (!trip.driver) {
-    return null;
-  }
+  if (!driver)
+    driver = {}
 
   return (
     <>
@@ -20,20 +20,20 @@ export default ({ trip = { driver: {} }, stats }) => {
         <tbody>
           <tr>
             <th noWrap={true} scope="row"><i class="fas fa-wave-square"></i></th>
-            <td noWrap={true}>{trip.schedule.route.name}</td>
+            <td noWrap={true}>{schedule.route.name}</td>
             <td rowSpan={5} style={{ width: '300px' }}>Note: Trip completed successfully. Every student offboarded on time</td>
           </tr>
           <tr>
             <th scope="row"><i class="fas fa-address-card"></i> </th>
-            <td >{trip.driver.username}</td>
+            <td >{driver.username}</td>
           </tr>
           <tr>
             <th scope="row"><i class="fas fa-bus-alt"></i> </th>
-            <td>{trip.bus.make}</td>
+            <td>{bus.make}</td>
           </tr>
           <tr>
             <th scope="row"><i class="fas fa-tachometer-alt"></i></th>
-            <td>{trip.completedAt != "" ? "Completed" : "Not Completed"}</td>
+            <td>{completedAt != "" ? "Completed" : "Not Completed"}</td>
           </tr>
           {/* <tr>
             <th scope="row"><i class="fas fa-business-time"></i></th>
@@ -54,14 +54,14 @@ export default ({ trip = { driver: {} }, stats }) => {
         <tbody>
           <tr>
             <th scope="row">Start</th>
-            <td>{new Date(trip.schedule.time).toLocaleTimeString()}</td>
-            <td>{trip.startedAt != "" ? new Date(trip.startedAt).toLocaleTimeString() : "~"}</td>
+            <td>{new Date(schedule.time).toLocaleTimeString()}</td>
+            <td>{startedAt != "" ? new Date(startedAt).toLocaleTimeString() : "~"}</td>
             {/* <td>{trip.startedAt ? '~' : moment.utc(moment(new Date(trip.startedAt).toLocaleTimeString(), "DD/MM/YYYY HH:mm:ss").diff(moment(new Date(trip.schedule.time).toLocaleTimeString(), "DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss")}</td> */}
           </tr>
           <tr>
             <th scope="row">End</th>
-            <td>{new Date(trip.schedule.end_time).toLocaleTimeString()}</td>
-            <td>{trip.completedAt != "" ? new Date(trip.completedAt).toLocaleTimeString() : "~"}</td>
+            <td>{new Date(schedule.end_time).toLocaleTimeString()}</td>
+            <td>{completedAt != "" ? new Date(completedAt).toLocaleTimeString() : "~"}</td>
             {/* <td>{trip.completedAt ? '~' : moment.utc(moment(new Date(trip.completedAt).toLocaleTimeString(), "DD/MM/YYYY HH:mm:ss").diff(moment(new Date(trip.schedule.end_time).toLocaleTimeString(), "DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss")}</td> */}
           </tr>
           <tr>
