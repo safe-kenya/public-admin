@@ -162,7 +162,8 @@ var Data = (function () {
           time,
           type,
           student{
-            id
+            id,
+            names
           }
         }
       }

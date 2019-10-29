@@ -12,10 +12,17 @@ const deleteModalInstance = new DeleteModal();
 
 class BasicTable extends React.Component {
   state = {
-    trip: {}
+    trip: {},
+    events: [],
+    students: []
   };
 
   componentDidMount() {
+    const students = Data.students.list();
+    Data.students.subscribe(({ students }) => {
+      this.setState({ students });
+    });
+
     const trips = Data.trips.list();
     const trip = trips.find(t => t.id === this.props.id)
     trip && trip.schedule && this.setState({
@@ -52,8 +59,6 @@ class BasicTable extends React.Component {
     const events = trip.events ? trip.events.map(ev => ({ ...ev, name: ev.student.name })) : undefined
     const students = trip.schedule && trip.schedule.route && trip.schedule.route.students
 
-    console.log(trip)
-
     return (
       <div className="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--left kt-aside--fixed kt-aside--offcanvas-default kt-page--loading">
         <div className="kt-grid kt-grid--hor kt-grid--root">
@@ -68,6 +73,9 @@ class BasicTable extends React.Component {
             <div className="kt-portlet__body" style={{ minHeight: "500px" }}>
               <div className="row">
                 <div className="col-md-6">
+
+
+
                   <TripDetails
                     trip={trip}
                     stats={{
@@ -79,22 +87,51 @@ class BasicTable extends React.Component {
 
                   <div class="kt-portlet__head">
                     <div class="kt-portlet__head-label">
-                      <h3 class="kt-portlet__head-title">Trip Events</h3>
+                      <h3 class="kt-portlet__head-title">Student CheckList</h3>
                     </div>
                   </div>
+
+                  <br></br>
+
+                  <div className="kt-checkbox-list">
+                    {
+                      this.state.students.map(student => {
+                        let checked = false;
+                        let studentInfo = this.state.events.filter(event => event.student.id == student.id)[0]
+
+                        if (studentInfo && studentInfo.type && studentInfo.type === 'CHECKEDON') {
+                          checked = true
+                        }
+
+                        return (<label className="kt-checkbox">
+                          <input
+                            checked
+                            disabled
+                            type="checkbox" /> {student.names}
+                          <span />
+                        </label>)
+                      })
+                    }
+
+                  </div>
+
                   <Table
                     headers={[
                       {
                         label: "Student",
-                        key: "names"
+                        view: (row) => {
+                          return row.student.names
+                        }
                       },
                       {
                         label: "Event",
-                        key: "type"
+                        view: (row) => {
+                          return row.type
+                        }
                       },
                       {
                         label: "Time",
-                        key: "time"
+                        view: (row) => row.time
                       },
 
                     ]}
