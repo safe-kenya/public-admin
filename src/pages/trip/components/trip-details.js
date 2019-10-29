@@ -3,15 +3,14 @@ import moment from 'moment';
 
 import Stat from "./stat";
 
-export default ({ trip, stats }) => {
+export default ({ trip = { driver: {} }, stats }) => {
+
+  if (!trip.driver) {
+    return null;
+  }
+
   return (
     <>
-      {/* {trip.name}
-      <div className="row">
-        {trip.driver && trip.driver.username}
-        {moment(trip.startedAt).format('MMMM Do YYYY, h:mm:ss a')}
-        {trip.completedAt ? moment(trip.completedAt).format('MMMM Do YYYY, h:mm:ss a') : 'Not complete'}
-      </div> */}
       <div class="kt-portlet__head">
         <div class="kt-portlet__head-label">
           <h3 class="kt-portlet__head-title">Trip Information</h3>
@@ -21,25 +20,25 @@ export default ({ trip, stats }) => {
         <tbody>
           <tr>
             <th noWrap={true} scope="row"><i class="fas fa-wave-square"></i></th>
-            <td noWrap={true}>route 1</td>
+            <td noWrap={true}>{trip.schedule.route.name}</td>
             <td rowSpan={5} style={{ width: '300px' }}>Note: Trip completed successfully. Every student offboarded on time</td>
           </tr>
           <tr>
             <th scope="row"><i class="fas fa-address-card"></i> </th>
-            <td >driver 1</td>
+            <td >{trip.driver.username}</td>
           </tr>
           <tr>
             <th scope="row"><i class="fas fa-bus-alt"></i> </th>
-            <td>Bus 1</td>
+            <td>{trip.bus.make}</td>
           </tr>
           <tr>
             <th scope="row"><i class="fas fa-tachometer-alt"></i></th>
-            <td>Completed</td>
+            <td>{trip.completedAt != "" ? "Completed" : "Not Completed"}</td>
           </tr>
-          <tr>
+          {/* <tr>
             <th scope="row"><i class="fas fa-business-time"></i></th>
             <td>0.57m delayed</td>
-          </tr>
+          </tr> */}
         </tbody>
       </table>
 
@@ -49,27 +48,27 @@ export default ({ trip, stats }) => {
             <th></th>
             <th>Expected</th>
             <th>Actual</th>
-            <th>Summary</th>
+            {/* <th>Summary</th> */}
           </tr>
         </thead>
         <tbody>
           <tr>
             <th scope="row">Start</th>
-            <td>5.30 am</td>
-            <td>5.30 am</td>
-            <td>5.30 am</td>
+            <td>{new Date(trip.schedule.time).toLocaleTimeString()}</td>
+            <td>{trip.startedAt != "" ? new Date(trip.startedAt).toLocaleTimeString() : "~"}</td>
+            {/* <td>{trip.startedAt ? '~' : moment.utc(moment(new Date(trip.startedAt).toLocaleTimeString(), "DD/MM/YYYY HH:mm:ss").diff(moment(new Date(trip.schedule.time).toLocaleTimeString(), "DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss")}</td> */}
           </tr>
           <tr>
             <th scope="row">End</th>
-            <td>6.27 am</td>
-            <td>6.27 am</td>
-            <td>6.27 am</td>
+            <td>{new Date(trip.schedule.end_time).toLocaleTimeString()}</td>
+            <td>{trip.completedAt != "" ? new Date(trip.completedAt).toLocaleTimeString() : "~"}</td>
+            {/* <td>{trip.completedAt ? '~' : moment.utc(moment(new Date(trip.completedAt).toLocaleTimeString(), "DD/MM/YYYY HH:mm:ss").diff(moment(new Date(trip.schedule.end_time).toLocaleTimeString(), "DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss")}</td> */}
           </tr>
           <tr>
             <th scope="row">Trip Time</th>
-            <td>0.57m delayed</td>
-            <td>0.57m delayed</td>
-            <td>0.57m delayed</td>
+            <td>2h 3m</td>
+            <td>1h 2m</td>
+            {/* <td>0h 32m less</td> */}
           </tr>
         </tbody>
       </table>

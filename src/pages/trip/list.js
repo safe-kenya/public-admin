@@ -18,12 +18,29 @@ class BasicTable extends React.Component {
   componentDidMount() {
     const trips = Data.trips.list();
     const trip = trips.find(t => t.id === this.props.id)
-    trip && trip.schedule && this.setState({ trip: { ...trip, name: trip.schedule.name, scheduledCompleteTime: trip.schedule.end_time } });
+    trip && trip.schedule && this.setState({
+      trip: {
+        ...trip,
+        name: trip.schedule.name,
+        scheduledCompleteTime: trip.schedule.end_time,
+        inBus: trip.events.filter(event => event.type === 'CHECKEDON').length || 0,
+        offBus: trip.events.filter(event => event.type === 'CHECKEDOFF').length || 0,
+      }
+    });
 
     Data.trips.subscribe(({ trips }) => {
       const trip = trips.find(trip => trip.id === this.props.id)
-      this.setState({ trip: { ...trip, name: trip.schedule ? trip.schedule.name : '' } });
+      this.setState({
+        trip: {
+          ...trip,
+          name: trip.schedule ? trip.schedule.name : '',
+          inBus: trip.events.filter(event => event.type === 'CHECKEDON').length || 0,
+          offBus: trip.events.filter(event => event.type === 'CHECKEDOFF').length || 0,
+        }
+      });
     });
+
+
 
     /*const drivers = Data.drivers.list();
     this.setState({ drivers });*/
@@ -34,6 +51,9 @@ class BasicTable extends React.Component {
     const { remove, trip } = this.state;
     const events = trip.events ? trip.events.map(ev => ({ ...ev, name: ev.student.name })) : undefined
     const students = trip.schedule && trip.schedule.route && trip.schedule.route.students
+
+    console.log(trip)
+
     return (
       <div className="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--left kt-aside--fixed kt-aside--offcanvas-default kt-page--loading">
         <div className="kt-grid kt-grid--hor kt-grid--root">
@@ -66,7 +86,7 @@ class BasicTable extends React.Component {
                     headers={[
                       {
                         label: "Student",
-                        key: "name"
+                        key: "names"
                       },
                       {
                         label: "Event",
@@ -91,13 +111,13 @@ class BasicTable extends React.Component {
                     <div className="col-lg-6 col-xl-6">
                       <Stat
                         label="On Boarded"
-                        number={2}
+                        number={trip.inBus}
                       />
                     </div>
                     <div className="col-lg-6 col-xl-6">
                       <Stat
                         label="Off Boarded"
-                        number={2}
+                        number={trip.offBus}
                       />
                     </div>
                   </div>
@@ -105,13 +125,13 @@ class BasicTable extends React.Component {
                     <div className="col-lg-6 col-xl-6">
                       <Stat
                         label="In Bus"
-                        number={2}
+                        number={students ? students.length : '~'}
                       />
                     </div>
                     <div className="col-lg-6 col-xl-6">
                       <Stat
                         label="Absent/On Leave"
-                        number={2}
+                        number={'~'}
                       />
                     </div>
                   </div>
