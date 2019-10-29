@@ -22,11 +22,13 @@ class Home extends React.Component {
     const trips = Data.trips.list();
     this.setState({ trips });
 
+    // console.log(trips)
     // map points
     const locations = [];
-    this.state.trips.map(trip => {
+    trips.map(trip => {
       trip.locReports.map(report => locations.push(report))
     })
+
     this.setState({ locations })
 
     const complaints = Data.complaints.list();
@@ -150,7 +152,7 @@ class Home extends React.Component {
                       className="col-lg-12 col-xl-12 order-lg-1 order-xl-1"
                       style={{ height: "460px" }}
                     >
-                      {this.state.locations[0] ? <Map locations={this.state.locations} height={'420px'} /> : null}
+                      {this.state.locations[0] ? <Map locations={this.state.locations} height={'420px'} /> : "no locations registered yet"}
                       {/* <Map /> */}
                     </div>
                     {/* <div className="col-lg-6 col-xl-6 order-lg-1 order-xl-1">

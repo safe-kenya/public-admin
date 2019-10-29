@@ -231,7 +231,7 @@ class Navbar extends React.Component {
             </Link>
           </div>
           <div className="kt-header-mobile__toolbar">
-            <button onClick className="kt-header-mobile__toolbar-toggler" id="kt_header_mobile_toggler"><span /></button>
+            <button className="kt-header-mobile__toolbar-toggler" id="kt_header_mobile_toggler"><span /></button>
             <button className="kt-header-mobile__toolbar-topbar-toggler" id="kt_header_mobile_topbar_toggler"><i className="flaticon-more" /></button>
           </div>
         </div>
