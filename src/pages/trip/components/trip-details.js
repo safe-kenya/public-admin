@@ -21,7 +21,7 @@ export default ({ trip, stats }) => {
           <tr>
             <th noWrap={true} scope="row"><i class="fas fa-wave-square"></i></th>
             <td noWrap={true}>{schedule.route.name}</td>
-            <td rowSpan={5} style={{ width: '300px' }}>Note: Trip completed successfully. Every student offboarded on time</td>
+            <td rowSpan={5} style={{ width: '300px' }}>Note: </td>
           </tr>
           <tr>
             <th scope="row"><i class="fas fa-address-card"></i> </th>
