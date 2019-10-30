@@ -271,8 +271,11 @@ var Data = (function () {
 
           data.id = id;
 
-          data.parent = parents.filter(p => p.id === data.parent)[0].name;
-          data.route = routes.filter(p => p.id === data.route)[0].name;
+          data.parent = parents.filter(p => p.id == data.parent)[0];
+          data.parent_name = data.parent.name
+
+          data.route = routes.filter(p => p.id == data.route)[0];
+          data.route_name = data.route.name
 
           students = [...students, data];
           subs.students({ students });

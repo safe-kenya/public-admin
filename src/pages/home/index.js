@@ -23,6 +23,7 @@ class Home extends React.Component {
     const trips = Data.trips.list();
     this.setState({ trips });
 
+    // console.log(trips)
     // map points
     this.setState({ locations : trips.reduce((locations, trip) => {
       trip.locReports.forEach(report => locations.push(report))

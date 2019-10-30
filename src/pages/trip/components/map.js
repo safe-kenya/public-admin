@@ -8,7 +8,6 @@ export default class GoogleMap extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
     const googleScript = document.createElement('script')
     googleScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}&libraries=places`
     window.document.body.appendChild(googleScript)
