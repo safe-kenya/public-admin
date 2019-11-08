@@ -1,5 +1,7 @@
 import React from "react";
 import ErrorMessage from "./components/error-toast";
+import deepEqual from 'deep-equal'
+
 const IErrorMessage = new ErrorMessage();
 
 const $ = window.$;
@@ -21,6 +23,8 @@ class Modal extends React.Component {
       "SUNDAY"
     ],
     edit: {
+      routes: [],
+      busses: [],
       route: "",
       days: [],
       selectedDays: []
@@ -58,16 +62,20 @@ class Modal extends React.Component {
           const data = {}
           Object.assign(data, _this.state.edit)
 
-          data.time = $('#timepicker_start').data("timepicker").getTime()
-          data.end_time = $('#timepicker_end').data("timepicker").getTime()
-          data.route = data.route.id
-          data.bus = data.bus.id
-          data.route_name = undefined
-          data.bus_make = undefined
+          if (data.route) {
+            data.route_name = data.route.name
+          }
+
+          if (data.bus) {
+            data.bus_make = data.bus.make
+          }
+
+          // data.route_name = undefined
+          // data.bus_make = undefined
           // data.id = undefined
           data.days = data.days.join(",")
-
           await _this.props.save(data);
+
           _this.hide();
           _this.setState({ loading: false });
         } catch (error) {
@@ -102,8 +110,7 @@ class Modal extends React.Component {
   }
   static getDerivedStateFromProps(props, state) {
     if (props.edit) {
-      if (props.edit.id !== state.edit.id) {
-        console.log("updating", props.edit.id, state.edit.id, props.edit.id !== state.edit.id)
+      if (!deepEqual(props.edit, state.edit)) {
         return {
           edit: props.edit
         };
@@ -116,7 +123,7 @@ class Modal extends React.Component {
     const {
       edit: { names, route = {}, bus = {}, gender } = {}
     } = this.state;
-    console.log(this.state)
+
     return (
       <div>
         <div
@@ -152,8 +159,8 @@ class Modal extends React.Component {
                         <input
                           type="text"
                           className="form-control"
-                          id="busmake"
-                          name="busmake"
+                          id="tripname"
+                          name="tripname"
                           minLength="2"
                           required
                           value={this.state.edit.name}
@@ -207,6 +214,7 @@ class Modal extends React.Component {
                           value={this.state.edit.route_name}
                           onChange={(e) => this.setState({
                             edit: Object.assign(this.state.edit, {
+                              route: this.props.routes.filter(r => r.name == e.target.value)[0],
                               route_name: e.target.value
                             })
                           })}
@@ -228,6 +236,7 @@ class Modal extends React.Component {
                           value={this.state.edit.bus_make}
                           onChange={(e) => this.setState({
                             edit: Object.assign(this.state.edit, {
+                              bus: this.props.busses.filter(r => r.make == e.target.value)[0],
                               bus_make: e.target.value
                             })
                           })}
@@ -252,17 +261,15 @@ class Modal extends React.Component {
                                 onChange={() => {
                                   if (this.state.edit.days.includes(day)) {
                                     return this.setState({
-                                      edit: {
-                                        ...this.state.edit,
-                                        days: this.state.edit.days.filter(eday => eday !== day)
-                                      }
+                                      edit: Object.assign(this.state.edit, {
+                                        days: this.state.edit.days.filter(eday => eday != day)
+                                      })
                                     })
                                   }
                                   this.setState({
-                                    edit: {
-                                      ...this.state.edit,
+                                    edit: Object.assign(this.state.edit, {
                                       days: [...this.state.edit.days, day]
-                                    }
+                                    })
                                   })
                                 }}
                               /> {day}

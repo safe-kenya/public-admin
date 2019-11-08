@@ -108,9 +108,11 @@ class Modal extends React.Component {
                           name="fullname"
                           minLength="2"
                           value={this.state.edit.username}
-                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
-                            username: e.target.value
-                          }))}
+                          onChange={(e) => this.setState({
+                            edit: Object.assign(this.state.edit, {
+                              username: e.target.value
+                            })
+                          })}
                           required
                         />
                       </div>
@@ -123,9 +125,11 @@ class Modal extends React.Component {
                           name="fullname"
                           minLength="2"
                           value={this.state.edit.email}
-                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
-                            email: e.target.value
-                          }))}
+                          onChange={(e) => this.setState({
+                            edit: Object.assign(this.state.edit, {
+                              email: e.target.value
+                            })
+                          })}
                           required
                         />
                       </div>
@@ -138,9 +142,11 @@ class Modal extends React.Component {
                           name="phone"
                           minLength="10"
                           value={this.state.edit.phone}
-                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
-                            phone: e.target.value
-                          }))}
+                          onChange={(e) => this.setState({
+                            edit: Object.assign(this.state.edit, {
+                              phone: e.target.value
+                            })
+                          })}
                           required
                         />
                       </div>
@@ -153,9 +159,11 @@ class Modal extends React.Component {
                           name="password"
                           minLength="5"
                           value={this.state.edit.password}
-                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
-                            password: e.target.value
-                          }))}
+                          onChange={(e) => this.setState({
+                            edit: Object.assign(this.state.edit, {
+                              password: e.target.value
+                            })
+                          })}
                           required
                         />
                       </div>

@@ -57,12 +57,15 @@ var Data = (function () {
         gender
         registration
         route {
+          id,
           name
         }
         parent {
+          id,
           name
         }
         parent2 {
+          id,
           name
         }
       }
@@ -140,7 +143,8 @@ var Data = (function () {
         completedAt
         bus{
           id,
-          make
+          make,
+          plate
         }
         driver{
           id,
@@ -158,20 +162,30 @@ var Data = (function () {
           time,
           type,
           student{
-            id
+            id,
+            names
           }
         }
       }
     }`).then(response => {
       // let { students } = response
       students = response.students.map(student => {
-        if (student.route) student.route = student.route.name;
 
-        if (student.parent) student.parent = student.parent.name;
-        if (student.parent2) student.parent2 = student.parent2.name;
+        if (student.parent) {
+          student.parent_name = student.parent.name;
+        }
+
+        if (student.parent2) {
+          student.parent2_name = student.parent2.name;
+        }
+
+        if (student.route) {
+          student.route_name = student.route.name;
+        }
 
         return student;
       });
+
       subs.students({ students });
 
       busses = response.buses;
@@ -186,7 +200,15 @@ var Data = (function () {
       drivers = response.drivers;
       subs.drivers({ drivers });
 
-      schedules = response.schedules;
+      schedules = response.schedules.map(schedule => {
+        if (schedule.bus)
+          schedule.bus_make = schedule.bus.make
+
+        if (schedule.route)
+          schedule.route_name = schedule.route.name
+
+        return schedule
+      });
       subs.schedules({ schedules });
 
       trips = response.trips;
@@ -249,8 +271,11 @@ var Data = (function () {
 
           data.id = id;
 
-          data.parent = parents.filter(p => p.id === data.parent)[0].name;
-          data.route = routes.filter(p => p.id === data.route)[0].name;
+          data.parent = parents.filter(p => p.id == data.parent)[0];
+          data.parent_name = data.parent.name
+
+          data.route = routes.filter(p => p.id == data.route)[0];
+          data.route_name = data.route.name
 
           students = [...students, data];
           subs.students({ students });
@@ -258,7 +283,7 @@ var Data = (function () {
         }),
       update: data =>
         new Promise(async (resolve, reject) => {
-          const { id } = await mutate(
+          await mutate(
             `
           mutation ($student: Ustudent!) {
             students {
@@ -268,11 +293,16 @@ var Data = (function () {
             }
           } `,
             {
-              student: data
+              student: Object.assign({}, data, {
+                parent_name: undefined,
+                parent2_name: undefined,
+                parent: data.parent.id,
+                parent2: data.parent2.id,
+                route_name: undefined,
+                route: data.route.id
+              })
             }
           );
-
-          data.id = id;
 
           const subtract = students.filter(({ id }) => id !== data.id);
           students = [data, ...subtract];
@@ -392,7 +422,7 @@ var Data = (function () {
     drivers: {
       create: data =>
         new Promise(async (resolve, reject) => {
-          const { id } = await mutate(
+          const res = await mutate(
             `
             mutation ($Idriver: Idriver!) {
               drivers {
@@ -406,6 +436,7 @@ var Data = (function () {
             }
           );
 
+          const { id } = res.drivers.create
           data.id = id;
 
           drivers = [...drivers, data];
@@ -645,7 +676,8 @@ var Data = (function () {
             {
               route: {
                 id: data.id,
-                name: data.name
+                name: data.name,
+                description: data.description
               }
             }
           );
@@ -692,6 +724,14 @@ var Data = (function () {
         new Promise(async (resolve, reject) => {
           schedule.days = schedule.days.join(",");
 
+          if (schedule.route) {
+            schedule.route_name = undefined
+          }
+
+          if (schedule.bus) {
+            schedule.bus_make = undefined
+          }
+
           const res = await mutate(
             `
           mutation ($schedule: Ischedule!) {
@@ -711,15 +751,20 @@ var Data = (function () {
 
           schedule.id = id;
           schedule.days = schedule.days.split(",");
+
           schedule.route = routes.filter(
             route => route.id === schedule.route
           )[0];
+
           schedule.bus = busses.filter(bus => bus.id === schedule.bus)[0];
+          schedule.bus_make = schedule.bus.make
+
+
           schedules = [...schedules, schedule];
           subs.schedules({ schedules });
           resolve();
         }),
-      update: data =>
+      update: schedule =>
         new Promise(async (resolve, reject) => {
           await mutate(
             `
@@ -732,12 +777,24 @@ var Data = (function () {
           }            
         `,
             {
-              Uschedule: data
+              Uschedule: Object.assign({}, schedule, {
+                bus_make: undefined,
+                route_name: undefined,
+                busses: undefined,
+                routes: undefined,
+                selectedDays: undefined,
+                bus: schedule.bus.id,
+                route: schedule.route.id
+              })
             }
           );
 
-          const subtract = schedules.filter(({ id }) => id !== data.id);
-          schedules = [data, ...subtract];
+          const subtract = schedules.filter(({ id }) => id !== schedule.id);
+          schedule.bus_make = schedule.bus.make
+          schedule.route_name = schedule.route.name
+          schedule.days = schedule.days.split(',')
+
+          schedules = [schedule, ...subtract];
           subs.schedules({ schedules });
           resolve();
         }),

@@ -13,6 +13,7 @@ import Data from "../../utils/data";
 class Home extends React.Component {
   state = {
     trips: [],
+    locations: [],
     schedules: [],
     complaints: [],
     students: 0
@@ -20,6 +21,15 @@ class Home extends React.Component {
   componentDidMount() {
     const trips = Data.trips.list();
     this.setState({ trips });
+
+    // console.log(trips)
+    // map points
+    const locations = [];
+    trips.map(trip => {
+      trip.locReports.map(report => locations.push(report))
+    })
+
+    this.setState({ locations })
 
     const complaints = Data.complaints.list();
     this.setState({ complaints });
@@ -33,6 +43,13 @@ class Home extends React.Component {
         }, 0);
 
       this.setState(Object.assign({ trips }, { students }));
+
+      // map points
+      const locations = [];
+      this.state.trips.map(trip => {
+        trip.locReports.map(report => locations.push(report))
+      })
+      this.setState({ locations })
     });
 
     const schedules = Data.schedules.list();
@@ -41,8 +58,10 @@ class Home extends React.Component {
     Data.schedules.subscribe(schedules => {
       this.setState(schedules);
     });
+
   }
   render() {
+
     return (
       <div className="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
         <div
@@ -115,7 +134,7 @@ class Home extends React.Component {
                     </div>
                     <div className="col-lg-12 col-xl-12 order-lg-1 order-xl-1">
                       <Stat
-                        label="Parent Complains this week"
+                        label="Parent Feedback this week"
                         number={this.state.complaints.filter(complaint => {
                           var now = moment();
                           var input = moment(complaint.time);
@@ -127,22 +146,23 @@ class Home extends React.Component {
                     </div>
                   </div>
                 </div>
-                {/* <div className="col-lg-6 col-xl-8 order-lg-1 order-xl-1">
+                <div className="col-lg-6 col-xl-8 order-lg-1 order-xl-1">
                   <div className="row">
                     <div
                       className="col-lg-12 col-xl-12 order-lg-1 order-xl-1"
                       style={{ height: "460px" }}
                     >
-                      <Map />
+                      {this.state.locations[0] ? <Map locations={this.state.locations} height={'420px'} /> : "no locations registered yet"}
+                      {/* <Map /> */}
                     </div>
-                    <div className="col-lg-6 col-xl-6 order-lg-1 order-xl-1">
+                    {/* <div className="col-lg-6 col-xl-6 order-lg-1 order-xl-1">
                       <Tutorials />
                     </div>
                     <div className="col-lg-6 col-xl-6 order-lg-1 order-xl-1">
                       <Questions />
-                    </div>
+                    </div> */}
                   </div>
-                </div> */}
+                </div>
               </div>
             </div>
           </div>

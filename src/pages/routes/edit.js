@@ -13,6 +13,7 @@ class Modal extends React.Component {
     loading: false,
     edit: {
       name: "",
+      description: ""
     }
   };
 
@@ -106,10 +107,32 @@ class Modal extends React.Component {
                           name="fullname"
                           minLength="2"
                           value={this.state.edit.name}
-                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
-                            name: e.target.value
-                          }))}
+                          onChange={(e) => this.setState({
+                            edit: Object.assign(this.state.edit, {
+                              name: e.target.value
+                            })
+                          })}
                           required
+                        />
+                      </div>
+                    </div>
+                    <div className="form-group row">
+                      <div className="col-lg-6">
+                        <label>Description:</label>
+                        <textarea
+                          type="text"
+                          className="form-control"
+                          id="description"
+                          name="description"
+                          minLength="2"
+                          rows="6"
+                          required
+                          value={this.state.edit.description}
+                          onChange={(e) => this.setState({
+                            edit: Object.assign(this.state.edit, {
+                              description: e.target.value
+                            })
+                          })}
                         />
                       </div>
                     </div>
