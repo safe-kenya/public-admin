@@ -58,7 +58,7 @@ class BasicTable extends React.Component {
   render() {
 
     const { remove, trip } = this.state;
-    const events = trip.events ? trip.events.map(ev => ({ ...ev, name: ev.student.name })) : []
+    const events = trip.events ? trip.events.map(ev => ({ ...ev, name: ev.student ? ev.student.name : '' })) : []
     const students = trip.schedule && trip.schedule.route && trip.schedule.route.students
 
     return (
@@ -97,7 +97,7 @@ class BasicTable extends React.Component {
                       this.state.students.map(student => {
                         console.log(student, events)
                         let checked = false;
-                        let studentInfo = events.filter(event => event.student.id == student.id)[0]
+                        let studentInfo = events.filter(event => !event.student ? null : event.student.id == student.id)[0]
 
                         if (studentInfo && studentInfo.type && studentInfo.type === 'CHECKEDON') {
                           checked = true
