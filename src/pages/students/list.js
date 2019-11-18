@@ -2,6 +2,7 @@ import React from "react";
 
 import Table from "./components/table";
 import AddModal from "./add";
+import AddParentModal from "./add_parent"
 import UploadModal from "./upload";
 import EditModal from "./edit";
 import DeleteModal from "./delete";
@@ -42,6 +43,7 @@ class BasicTable extends React.Component {
         <div className="kt-grid kt-grid--hor kt-grid--root">
           <div className="kt-portlet kt-portlet--mobile">
             <AddModal routes={this.state.routes} parents={this.state.parents} save={student => Data.students.create(student)} />
+            <AddParentModal save={parent => Data.parents.create(parent)} />
             <UploadModal save={student => Data.students.create(student)} />
             <DeleteModal
               remove={remove}
