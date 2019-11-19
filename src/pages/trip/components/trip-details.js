@@ -54,13 +54,13 @@ export default ({ trip, stats }) => {
         <tbody>
           <tr>
             <th scope="row">Start</th>
-            <td>{new Date(schedule.time).toLocaleTimeString()}</td>
+            <td>{schedule.time}</td>
             <td>{startedAt != "" ? new Date(startedAt).toLocaleTimeString() : "~"}</td>
             {/* <td>{trip.startedAt ? '~' : moment.utc(moment(new Date(trip.startedAt).toLocaleTimeString(), "DD/MM/YYYY HH:mm:ss").diff(moment(new Date(trip.schedule.time).toLocaleTimeString(), "DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss")}</td> */}
           </tr>
           <tr>
             <th scope="row">End</th>
-            <td>{new Date(schedule.end_time).toLocaleTimeString()}</td>
+            <td>{schedule.end_time}</td>
             <td>{completedAt != "" ? new Date(completedAt).toLocaleTimeString() : "~"}</td>
             {/* <td>{trip.completedAt ? '~' : moment.utc(moment(new Date(trip.completedAt).toLocaleTimeString(), "DD/MM/YYYY HH:mm:ss").diff(moment(new Date(trip.schedule.end_time).toLocaleTimeString(), "DD/MM/YYYY HH:mm:ss"))).format("HH:mm:ss")}</td> */}
           </tr>
