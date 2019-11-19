@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { calculateTripDuration } from "../../../utils/time"
+import { calculateTripDuration, calculateScheduleDuration } from "../../../utils/time"
 
 import Stat from "./stat";
 
@@ -67,7 +67,7 @@ export default ({ trip, stats }) => {
           </tr>
           <tr>
             <th scope="row">Trip Time</th>
-            <td>1h 2m</td>
+            <td>{calculateScheduleDuration({ start: schedule.time, end: schedule.end_time })}</td>
             <td>{calculateTripDuration({start: startedAt, end: completedAt})}</td>
             {/* <td>0h 32m less</td> */}
           </tr>

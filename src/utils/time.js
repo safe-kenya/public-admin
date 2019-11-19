@@ -1,17 +1,14 @@
 import moment from "moment"
 
 const calculateScheduleDuration = ({ start, end }) => {
-  const startTime = moment(start)
-  const year = startTime.get("year")
-  const month = startTime.get("month")
-  const date = startTime.get("date")
-  let [hour, rest] = end.split(":")
-  const [minute, amOrpm] = rest.split(" ")
+  const tempDate = moment().format("YYYY-MM-DD")
+  const startTime = moment(`${tempDate} ${start}`)
+  const endTime = moment(`${tempDate} ${end}`)
 
-  if(amOrpm === "PM") hour = parseInt(hour) + 12
-  const endTime = moment({ year, month, date, hour, minute})
-  
-  console.log(endTime)
+  const diff = endTime.diff(startTime)
+  const duration = moment.duration(diff)
+
+  return `${duration.hours()}h ${duration.minutes()}m ${duration.seconds()}s`
 }
 
 const calculateTripDuration = ({ start, end }) => {
@@ -20,7 +17,7 @@ const calculateTripDuration = ({ start, end }) => {
   
   const diff = endTime.diff(startTime)
   const duration = moment.duration(diff)
-  // console.log({start, end, startTime, endTime, diff, duration})
+  
   return `${duration.hours()}h ${duration.minutes()}m ${duration.seconds()}s`
 }
 
