@@ -104,7 +104,7 @@ class Modal extends React.Component {
                   <div className="kt-portlet__body">
                     <div className="form-group row">
                       <div className="col-lg-3">
-                        <button type="button" className="btn btn-outline-brand" onClick={addParentModalInstance.show}>Add Parent</button>
+                        
                       </div>
                     </div>
                     <div className="form-group row">
@@ -173,7 +173,7 @@ class Modal extends React.Component {
                           })}
                         </select>
                       </div>
-                      <div className="col-lg-6">
+                      <div className="col-lg-4">
                         <label for="exampleSelect1">Parent:</label>
                         <select
                           name="parent"
@@ -190,7 +190,7 @@ class Modal extends React.Component {
                           ))}
                         </select>
                       </div>
-                      <div className="col-lg-6">
+                      <div className="col-lg-4">
                         <label for="exampleSelect1">Alternative Parent:</label>
                         <select
                           name="parent2"
@@ -205,6 +205,9 @@ class Modal extends React.Component {
                             <option value={parent.id}>{parent.name}</option>
                           ))}
                         </select>
+                      </div>
+                      <div className="col-lg-4">
+                        <button type="button" className="btn btn-outline-brand mt-4" onClick={addParentModalInstance.show}>Add Parent</button>
                       </div>
                     </div>
                   </div>
