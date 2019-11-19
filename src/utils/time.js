@@ -12,6 +12,7 @@ const calculateScheduleDuration = ({ start, end }) => {
 }
 
 const calculateTripDuration = ({ start, end }) => {
+  if (end === "") return "~"
   const startTime = moment(start)
   const endTime = moment(end)
   
