@@ -82,6 +82,7 @@ class Modal extends React.Component {
               <form
                 id={modalNumber + "form"}
                 className="kt-form kt-form--label-right"
+                style={{minHeight:"450px"}}
               >
                 <div className="modal-header">
                   <h5 className="modal-title">Create Parent</h5>
