@@ -131,6 +131,7 @@ class Modal extends React.Component {
                           className="form-control"
                           id="plate"
                           name="plate"
+                          min="14"
                           required
                           value={this.state.size}
                           onChange={(e) => this.setState({
