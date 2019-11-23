@@ -258,7 +258,7 @@ var Data = (function () {
     students: {
       create: data =>
         new Promise(async (resolve, reject) => {
-          const { id } = await mutate(
+          const { students : { create : { id }}} = await mutate(
             `
           mutation ($Istudent: Istudent!) {
             students {
@@ -276,6 +276,9 @@ var Data = (function () {
 
           data.parent = parents.filter(p => p.id == data.parent)[0];
           data.parent_name = data.parent.name
+
+          data.parent2 = parents.filter(p => p.id == data.parent2)[0];
+          data.parent2_name = data.parent2 ? data.parent2.name : ""
 
           data.route = routes.filter(p => p.id == data.route)[0];
           data.route_name = data.route.name
