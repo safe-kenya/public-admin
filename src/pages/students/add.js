@@ -191,7 +191,7 @@ class Modal extends React.Component {
                         </select>
                       </div>
                       <div className="col-lg-4">
-                        <label for="exampleSelect1">Alternative Parent:</label>
+                        <label for="exampleSelect1">Second Parent:</label>
                         <select
                           name="parent2"
                           class="form-control"
