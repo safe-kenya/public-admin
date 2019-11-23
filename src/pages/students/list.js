@@ -24,10 +24,10 @@ class BasicTable extends React.Component {
     const students = Data.students.list();
     const routes = Data.routes.list();
     const parents = Data.parents.list();
-    this.setState({ students, routes, parents });
+    this.setState({ students, filteredStudents: students, routes, parents });
 
     Data.students.subscribe(({ students }) => {
-      this.setState({ students });
+      this.setState({ students, filteredStudents: students });
     });
     Data.routes.subscribe(({ routes }) => {
       this.setState({ routes });
@@ -36,6 +36,13 @@ class BasicTable extends React.Component {
       this.setState({ parents });
     });
   }
+
+  onSearch = e => {
+    const { students } = this.state
+    const filteredStudents = students.filter(student => student.name.toLowerCase().match(e.target.value.toLowerCase()))
+    this.setState({ filteredStudents })
+  }
+
   render() {
     const { edit, remove } = this.state;
     return (
@@ -131,7 +138,7 @@ class BasicTable extends React.Component {
                     key: "parent2_name"
                   }
                 ]}
-                data={this.state.students}
+                data={this.state.filteredStudents}
                 edit={student => {
                   this.setState({ edit: student }, () => {
                     editModalInstance.show();
