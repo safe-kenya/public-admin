@@ -15,16 +15,24 @@ const deleteModalInstance = new DeleteModal();
 
 class BasicTable extends React.Component {
   state = {
-    drivers: []
+    drivers: [],
+    filteredDrivers:[]
   };
   componentDidMount() {
     const drivers = Data.drivers.list();
-    this.setState({ drivers });
+    this.setState({ drivers, filteredDrivers: drivers });
 
-    Data.drivers.subscribe(drivers => {
-      this.setState(drivers);
+    Data.drivers.subscribe(({ drivers }) => {
+      this.setState({ drivers, filteredDrivers: drivers });
     });
   }
+
+  onSearch = e => {
+    const { drivers } = this.state
+    const filteredDrivers = drivers.filter(driver => driver.username.toLowerCase().match(e.target.value.toLowerCase()))
+    this.setState({ filteredDrivers })
+  }
+
   render() {
     const { edit, remove } = this.state;
     return (
@@ -53,6 +61,7 @@ class BasicTable extends React.Component {
                             type="text"
                             className="form-control"
                             placeholder="Search..."
+                            onChange={this.onSearch}
                             id="generalSearch"
                           />
                           <span className="kt-input-icon__icon kt-input-icon__icon--left">
@@ -100,7 +109,7 @@ class BasicTable extends React.Component {
                     key: "phone"
                   }
                 ]}
-                data={this.state.drivers}
+                data={this.state.filteredDrivers}
                 edit={driver => {
                   this.setState({ edit: driver }, () => {
                     editModalInstance.show();
