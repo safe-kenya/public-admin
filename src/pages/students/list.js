@@ -39,7 +39,7 @@ class BasicTable extends React.Component {
 
   onSearch = e => {
     const { students } = this.state
-    const filteredStudents = students.filter(student => student.name.toLowerCase().match(e.target.value.toLowerCase()))
+    const filteredStudents = students.filter(student => student.names.toLowerCase().match(e.target.value.toLowerCase()))
     this.setState({ filteredStudents })
   }
 
@@ -79,6 +79,7 @@ class BasicTable extends React.Component {
                             type="text"
                             className="form-control"
                             placeholder="Search..."
+                            onChange={this.onSearch}
                             id="generalSearch"
                           />
                           <span className="kt-input-icon__icon kt-input-icon__icon--left">
@@ -134,7 +135,7 @@ class BasicTable extends React.Component {
                     key: "parent_name"
                   },
                   {
-                    label: "Alt Parent",
+                    label: "Second Parent",
                     key: "parent2_name"
                   }
                 ]}
