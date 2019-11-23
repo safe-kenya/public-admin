@@ -16,14 +16,15 @@ const deleteModalInstance = new DeleteModal();
 class BasicTable extends React.Component {
   state = {
     buses: [],
+    filteredBuses:[],
     drivers: []
   };
   componentDidMount() {
     const buses = Data.buses.list();
-    this.setState({ buses });
+    this.setState({ buses, filteredBuses: buses });
 
-    Data.buses.subscribe(bus => {
-      this.setState(bus);
+    Data.buses.subscribe(({ buses }) => {
+      this.setState({ buses, filteredBuses: buses });
     });
 
     const drivers = Data.drivers.list();
@@ -33,6 +34,13 @@ class BasicTable extends React.Component {
       this.setState(driver);
     });
   }
+
+  onSearch = e => {
+    const { buses } = this.state
+    const filteredBuses = buses.filter(bus => bus.plate.toLowerCase().match(e.target.value.toLowerCase()))
+    this.setState({ filteredBuses })
+  }
+
   render() {
     const { edit, remove, drivers } = this.state;
     return (
@@ -62,6 +70,7 @@ class BasicTable extends React.Component {
                             type="text"
                             className="form-control"
                             placeholder="Search..."
+                            onChange={this.onSearch}
                             id="generalSearch"
                           />
                           <span className="kt-input-icon__icon kt-input-icon__icon--left">
@@ -113,7 +122,7 @@ class BasicTable extends React.Component {
                     key: "plate"
                   }
                 ]}
-                data={this.state.buses}
+                data={this.state.filteredBuses}
                 edit={bus => {
                   this.setState({ edit: bus }, () => {
                     editModalInstance.show();
