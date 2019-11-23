@@ -19,12 +19,19 @@ class BasicTable extends React.Component {
   };
   componentDidMount() {
     const routes = Data.routes.list();
-    this.setState({ routes });
+    this.setState({ routes, filteredRoutes: routes });
 
-    Data.routes.subscribe(routes => {
-      this.setState(routes);
+    Data.routes.subscribe(({ routes }) => {
+      this.setState({ routes, filteredRoutes: routes });
     });
   }
+
+  onSearch = e => {
+    const { routes } = this.state
+    const filteredRoutes = routes.filter(route => route.name.toLowerCase().match(e.target.value.toLowerCase()))
+    this.setState({ filteredRoutes })
+  }
+
   render() {
     const { edit, remove } = this.state;
     return (
@@ -53,6 +60,7 @@ class BasicTable extends React.Component {
                             type="text"
                             className="form-control"
                             placeholder="Search..."
+                            onChange={this.onSearch}
                             id="generalSearch"
                           />
                           <span className="kt-input-icon__icon kt-input-icon__icon--left">
@@ -96,7 +104,7 @@ class BasicTable extends React.Component {
                     key: "description"
                   }
                 ]}
-                data={this.state.routes}
+                data={this.state.filteredRoutes}
                 edit={route => {
                   this.setState({ edit: route }, () => {
                     editModalInstance.show();
