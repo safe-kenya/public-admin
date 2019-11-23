@@ -25,10 +25,10 @@ class BasicTable extends React.Component {
     const routes = Data.routes.list();
     const buses = Data.buses.list();
     const drivers = Data.drivers.list();
-    this.setState({ schedules, routes, buses, drivers });
+    this.setState({ schedules, filteredSchedules: schedules, routes, buses, drivers });
 
-    Data.schedules.subscribe(schedule => {
-      this.setState(schedule);
+    Data.schedules.subscribe(({ schedules }) => {
+      this.setState({ schedules, filteredSchedules: schedules });
     });
 
     Data.routes.subscribe(routes => {
@@ -43,6 +43,13 @@ class BasicTable extends React.Component {
       this.setState(drivers);
     });
   }
+
+  onSearch = e => {
+    const { schedules } = this.state
+    const filteredSchedules = schedules.filter(schedule => schedule.name.toLowerCase().match(e.target.value.toLowerCase()))
+    this.setState({ filteredSchedules })
+  }
+
   render() {
     const { edit, remove, routes, buses, drivers } = this.state;
     return (
@@ -79,6 +86,7 @@ class BasicTable extends React.Component {
                             type="text"
                             className="form-control"
                             placeholder="Search..."
+                            onChange={this.onSearch}
                             id="generalSearch"
                           />
                           <span className="kt-input-icon__icon kt-input-icon__icon--left">
@@ -138,7 +146,7 @@ class BasicTable extends React.Component {
                     key: "days"
                   }
                 ]}
-                data={this.state.schedules.map(schedule => {
+                data={this.state.filteredSchedules.map(schedule => {
                   const { route = {}, bus = {}, days = [] } = schedule;
                   return Object.assign({}, schedule, {
                     route_name: route ? route.name : "",
