@@ -15,7 +15,7 @@ class Modal extends React.Component {
     loading: false,
     days: [
       "MONDAY",
-      "TEUSDAY",
+      "TUESDAY",
       "WEDNESDAY",
       "THURSDAY",
       "FRIDAY",
@@ -277,6 +277,25 @@ class Modal extends React.Component {
                             </label>)
                           })}
                         </div>
+                      </div>
+                      <div className="col-lg-3">
+                        <label for="exampleSelect1">Driver:</label>
+                        <select
+                          name="seats"
+                          type="text"
+                          class="form-control"
+                          value={this.state.driver}
+                          onChange={(e) => this.setState({
+                            driver: e.target.value
+                          })}
+                        >
+                          <option value="">Select driver</option>
+                          {this.props.drivers.map(
+                            driver => (
+                              <option key={driver.id} value={driver.id}>{driver.username}</option>
+                            )
+                          )}
+                        </select>
                       </div>
                     </div>
                   </div>
