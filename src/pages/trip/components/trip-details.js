@@ -30,7 +30,7 @@ export default ({ trip, stats }) => {
           </tr>
           <tr>
             <th scope="row"><i class="fas fa-bus-alt"></i> </th>
-            <td>{bus.make}</td>
+            <td>{bus.plate}</td>
           </tr>
           <tr>
             <th scope="row"><i class="fas fa-tachometer-alt"></i></th>
