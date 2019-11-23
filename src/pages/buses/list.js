@@ -15,14 +15,14 @@ const deleteModalInstance = new DeleteModal();
 
 class BasicTable extends React.Component {
   state = {
-    busses: [],
+    buses: [],
     drivers: []
   };
   componentDidMount() {
-    const busses = Data.busses.list();
-    this.setState({ busses });
+    const buses = Data.buses.list();
+    this.setState({ buses });
 
-    Data.busses.subscribe(buss => {
+    Data.buses.subscribe(buss => {
       this.setState(buss);
     });
 
@@ -39,15 +39,16 @@ class BasicTable extends React.Component {
       <div className="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--left kt-aside--fixed kt-aside--offcanvas-default kt-page--loading">
         <div className="kt-grid kt-grid--hor kt-grid--root">
           <div className="kt-portlet kt-portlet--mobile">
-            <AddModal drivers={drivers} save={buss => Data.busses.create(buss)} />
-            <UploadModal save={buss => Data.busses.create(buss)} />
+            <AddModal drivers={drivers} save={bus => Data.buses.create(bus)} />
+            <UploadModal save={bus => Data.buses.create(bus)} />
             <DeleteModal
               remove={remove}
-              save={bus => Data.busses.delete(bus)}
+              save={bus => Data.buses.delete(bus)}
             />
             <EditModal
               edit={edit}
-              save={bus => Data.busses.update(bus)}
+              drivers={drivers}
+              save={bus => Data.buses.update(bus)}
             />
             <div className="kt-portlet__body">
               {/*begin: Search Form */}
@@ -96,19 +97,23 @@ class BasicTable extends React.Component {
               <Table
                 headers={[
                   {
-                    label: "Bus Names",
+                    label: "Bus Make",
                     key: "make"
                   },
                   {
-                    label: "Size",
+                    label: "Capacity",
                     key: "size"
+                  },
+                  {
+                    label: "Driver",
+                    key: "driver"
                   },
                   {
                     label: "Plate",
                     key: "plate"
                   }
                 ]}
-                data={this.state.busses}
+                data={this.state.buses}
                 edit={bus => {
                   this.setState({ edit: bus }, () => {
                     editModalInstance.show();

@@ -3,7 +3,7 @@ import { query, mutate } from "./requests";
 
 const studentsData = [];
 const parentsData = [];
-const bussesData = [];
+const busesData = [];
 const driversData = [];
 const routesData = [];
 const complaintsData = []
@@ -17,7 +17,7 @@ var Data = (function () {
   var students = studentsData;
   var parents = parentsData;
   var drivers = driversData;
-  var busses = bussesData;
+  var buses = busesData;
   var routes = routesData;
   var schedules = schedulesData;
   var trips = tripsData;
@@ -28,7 +28,7 @@ var Data = (function () {
   emitize(subs, "students");
   emitize(subs, "parents");
   emitize(subs, "drivers");
-  emitize(subs, "busses");
+  emitize(subs, "buses");
   emitize(subs, "routes");
   emitize(subs, "schedules");
   emitize(subs, "trips");
@@ -74,6 +74,9 @@ var Data = (function () {
         plate
         make
         size
+        driver{
+          username
+        }
       }
       drivers {
         id
@@ -188,8 +191,8 @@ var Data = (function () {
 
       subs.students({ students });
 
-      busses = response.buses;
-      subs.busses({ busses });
+      buses = response.buses.map(bus => ({ ...bus, driver: bus.driver ? bus.driver.username : "" }));
+      subs.buses({ buses });
 
       parents = response.parents;
       subs.parents({ parents });
@@ -499,7 +502,7 @@ var Data = (function () {
       },
       getOne(id) { }
     },
-    busses: {
+    buses: {
       create: bus =>
         new Promise(async (resolve, reject) => {
           const { id } = await mutate(
@@ -516,8 +519,8 @@ var Data = (function () {
           );
 
           bus.id = id;
-          busses = [...busses, bus];
-          subs.busses({ busses });
+          buses = [...buses, bus];
+          subs.buses({ buses });
           resolve();
         }),
       update: data =>
@@ -535,9 +538,9 @@ var Data = (function () {
             }
           );
 
-          const subtract = busses.filter(({ id }) => id !== data.id);
-          busses = [data, ...subtract];
-          subs.busses({ busses });
+          const subtract = buses.filter(({ id }) => id !== data.id);
+          buses = [data, ...subtract];
+          subs.buses({ buses });
           resolve();
         }),
       delete: bus =>
@@ -557,18 +560,18 @@ var Data = (function () {
             }
           );
 
-          const subtract = busses.filter(({ id }) => id !== bus.id);
-          busses = [...subtract];
-          subs.busses({ busses });
+          const subtract = buses.filter(({ id }) => id !== bus.id);
+          buses = [...subtract];
+          subs.buses({ buses });
           resolve();
         }),
       list() {
-        return busses;
+        return buses;
       },
       subscribe(cb) {
         // listen for even change on the students observables
-        subs.busses = cb;
-        return busses;
+        subs.buses = cb;
+        return buses;
       },
       getOne(id) { }
     },
@@ -756,7 +759,7 @@ var Data = (function () {
             route => route.id === schedule.route
           )[0];
 
-          schedule.bus = busses.filter(bus => bus.id === schedule.bus)[0];
+          schedule.bus = buses.filter(bus => bus.id === schedule.bus)[0];
           schedule.bus_make = schedule.bus.make
 
 
@@ -780,7 +783,7 @@ var Data = (function () {
               Uschedule: Object.assign({}, schedule, {
                 bus_make: undefined,
                 route_name: undefined,
-                busses: undefined,
+                buses: undefined,
                 routes: undefined,
                 selectedDays: undefined,
                 bus: schedule.bus.id,

@@ -14,7 +14,8 @@ class Modal extends React.Component {
     edit: {
       make: "",
       size: "",
-      plate: ""
+      plate: "",
+      driver:""
     }
   };
 
@@ -131,7 +132,7 @@ class Modal extends React.Component {
                       />
                     </div>
                     <div className="col-lg-3">
-                      <label for="exampleSelect1">Size:</label>
+                      <label for="exampleSelect1">Capacity:</label>
                       <select
                         name="seats"
                         class="form-control"
@@ -149,6 +150,26 @@ class Modal extends React.Component {
                         )}
                       </select>
                     </div>
+                    <div className="col-lg-3">
+                        <label for="exampleSelect1">Drivers:</label>
+                        <select
+                          name="seats"
+                          type="text"
+                          class="form-control"
+                          required
+                          value={this.state.driver}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            driver: e.target.value
+                          }))}
+                        >
+                          <option value="">Select driver</option>
+                          {this.props.drivers.map(
+                            driver => (
+                              <option key={driver.id} value={driver.id}>{driver.username}</option>
+                            )
+                          )}
+                        </select>
+                      </div>
                   </div>
                 </div>
                 <div className="modal-footer">

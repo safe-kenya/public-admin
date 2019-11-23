@@ -125,7 +125,7 @@ class Modal extends React.Component {
                         />
                       </div>
                       <div className="col-lg-3">
-                        <label>Size:</label>
+                        <label>Capacity:</label>
                         <input
                           type="number"
                           className="form-control"

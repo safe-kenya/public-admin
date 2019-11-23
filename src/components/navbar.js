@@ -138,7 +138,7 @@ class Navbar extends React.Component {
                   <ul className="kt-menu__subnav">
 
                     <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
-                      <Link to="/busses" className="kt-menu__link">
+                      <Link to="/buses" className="kt-menu__link">
                         <i className="kt-menu__link-bullet kt-menu__link-bullet--line">
                           <span />
                         </i>
