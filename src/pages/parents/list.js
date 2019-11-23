@@ -15,16 +15,24 @@ const deleteModalInstance = new DeleteModal();
 
 class BasicTable extends React.Component {
   state = {
-    parents: []
+    parents: [],
+    filteredParents:[]
   };
   componentDidMount() {
     const parents = Data.parents.list();
-    this.setState({ parents });
+    this.setState({ parents, filteredParents: parents });
 
-    Data.parents.subscribe(parents => {
-      this.setState(parents);
+    Data.parents.subscribe(({ parents }) => {
+      this.setState({ parents, filteredParents: parents });
     });
   }
+
+  onSearch = e => {
+    const { parents } = this.state
+    const filteredParents = parents.filter(parent => parent.name.toLowerCase().match(e.target.value.toLowerCase()))
+    this.setState({ filteredParents })
+  }
+
   render() {
     const { edit, remove } = this.state;
     return (
@@ -53,6 +61,7 @@ class BasicTable extends React.Component {
                             type="text"
                             className="form-control"
                             placeholder="Search..."
+                            onChange={this.onSearch}
                             id="generalSearch"
                           />
                           <span className="kt-input-icon__icon kt-input-icon__icon--left">
@@ -104,7 +113,7 @@ class BasicTable extends React.Component {
                     key: "phone"
                   }
                 ]}
-                data={this.state.parents}
+                data={this.state.filteredParents}
                 edit={parent => {
                   this.setState({ edit: parent }, () => {
                     editModalInstance.show();
