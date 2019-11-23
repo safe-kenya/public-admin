@@ -24,7 +24,7 @@ class Modal extends React.Component {
     ],
     edit: {
       routes: [],
-      busses: [],
+      buses: [],
       route: "",
       days: [],
       selectedDays: []
@@ -236,13 +236,13 @@ class Modal extends React.Component {
                           value={this.state.edit.bus_make}
                           onChange={(e) => this.setState({
                             edit: Object.assign(this.state.edit, {
-                              bus: this.props.busses.filter(r => r.make == e.target.value)[0],
+                              bus: this.props.buses.filter(r => r.make == e.target.value)[0],
                               bus_make: e.target.value
                             })
                           })}
                         >
                           <option value="">Select Bus</option>
-                          {this.props.busses.map(
+                          {this.props.buses.map(
                             bus => (
                               <option key={bus.make} value={bus.make}>{bus.make}</option>
                             )

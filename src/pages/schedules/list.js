@@ -17,13 +17,13 @@ class BasicTable extends React.Component {
   state = {
     schedules: [],
     routes: [],
-    busses: []
+    buses: []
   };
   componentDidMount() {
     const schedules = Data.schedules.list();
     const routes = Data.routes.list();
-    const busses = Data.busses.list();
-    this.setState({ schedules, routes, busses });
+    const buses = Data.buses.list();
+    this.setState({ schedules, routes, buses });
 
     Data.schedules.subscribe(schedule => {
       this.setState(schedule);
@@ -33,19 +33,19 @@ class BasicTable extends React.Component {
       this.setState(routes);
     });
 
-    Data.busses.subscribe(busses => {
-      this.setState(busses);
+    Data.buses.subscribe(buses => {
+      this.setState(buses);
     });
   }
   render() {
-    const { edit, remove, routes, busses } = this.state;
+    const { edit, remove, routes, buses } = this.state;
     return (
       <div className="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--left kt-aside--fixed kt-aside--offcanvas-default kt-page--loading">
         <div className="kt-grid kt-grid--hor kt-grid--root">
           <div className="kt-portlet kt-portlet--mobile">
             <AddModal
               routes={routes}
-              busses={busses}
+              buses={buses}
               save={schedule => Data.schedules.create(schedule)}
             />
             <UploadModal save={schedule => Data.schedules.create(schedule)} />
@@ -56,7 +56,7 @@ class BasicTable extends React.Component {
             <EditModal
               edit={edit}
               routes={routes}
-              busses={busses}
+              buses={buses}
               save={schedule => Data.schedules.update(schedule)}
             />
             <div className="kt-portlet__body">

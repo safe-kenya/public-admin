@@ -43,7 +43,7 @@ class Navbar extends React.Component {
   }
   state = {
     profileShowing: false,
-    busses: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    buses: [1, 2, 3, 4, 5, 6, 7, 8, 9]
   };
   render() {
     return (

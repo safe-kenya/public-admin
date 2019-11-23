@@ -89,7 +89,7 @@ class Modal extends React.Component {
                 className="kt-form kt-form--label-right"
               >
                 <div className="modal-header">
-                  <h5 className="modal-title">Upload buss</h5>
+                  <h5 className="modal-title">Upload bus</h5>
                   <button
                     type="button"
                     className="close"
@@ -131,7 +131,7 @@ class Modal extends React.Component {
                     <Table
                       headers={[
                         {
-                          label: "buss Names",
+                          label: "bus Names",
                           key: "names"
                         },
                         {
@@ -160,7 +160,7 @@ class Modal extends React.Component {
                         });
 
                         // rm from state to not send to server
-                        // this.setState(buss:[...buss])
+                        // this.setState(bus:[...bus])
                       }}
                     />
                   </div>

@@ -22,8 +22,8 @@ class BasicTable extends React.Component {
     const buses = Data.buses.list();
     this.setState({ buses });
 
-    Data.buses.subscribe(buss => {
-      this.setState(buss);
+    Data.buses.subscribe(bus => {
+      this.setState(bus);
     });
 
     const drivers = Data.drivers.list();

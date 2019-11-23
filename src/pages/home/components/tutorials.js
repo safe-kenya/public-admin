@@ -15,7 +15,7 @@ export default props => (
             <i className="flaticon2-chronometer k-font-success" />
           </span>
           <span className="kt-list__text">
-            Configuring students, busses and drivers
+            Configuring students, buses and drivers
           </span>
         </a>
         <a href="#" className="kt-list__item">
