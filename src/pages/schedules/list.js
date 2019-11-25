@@ -16,6 +16,7 @@ const deleteModalInstance = new DeleteModal();
 class BasicTable extends React.Component {
   state = {
     schedules: [],
+    filteredSchedules:[],
     routes: [],
     buses: [],
     drivers:[]
