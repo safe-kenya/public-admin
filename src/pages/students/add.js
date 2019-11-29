@@ -218,6 +218,7 @@ class Modal extends React.Component {
                           onChange={this.onParentChange}
                         >
                           <option value="">Select parent</option>
+                          <option value={this.state.parent}>{this.state.parents.find(p => p.id === this.state.parent)?.name}</option>
                           {this.state.parents.map(parent => (
                             !this.state.selectedParents.includes(parent.id) && <option value={parent.id}>{parent.name}</option>
                           ))}
@@ -235,6 +236,7 @@ class Modal extends React.Component {
                           onChange={this.onParentChange}
                         >
                           <option value="">Select parent</option>
+                          <option value={this.state.parent2}>{this.state.parents.find(p => p.id === this.state.parent2)?.name}</option>
                           {this.state.parents.map(parent => (
                             !this.state.selectedParents.includes(parent.id) && <option value={parent.id}>{parent.name}</option>
                           ))}
