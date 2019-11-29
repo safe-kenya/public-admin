@@ -2,7 +2,6 @@ import React from "react";
 
 import Table from "./components/table";
 import AddModal from "./add";
-import AddParentModal from "./add_parent"
 import UploadModal from "./upload";
 import EditModal from "./edit";
 import DeleteModal from "./delete";
