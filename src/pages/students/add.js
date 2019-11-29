@@ -24,6 +24,8 @@ class Modal extends React.Component {
     parent: "",
     parent2: "",
     parents: [],
+    selectedParents: [],
+    filteredParents: [],
     routes: []
   };
 
@@ -37,11 +39,19 @@ class Modal extends React.Component {
   hide() {
     $("#" + modalNumber).modal("hide");
   }
+
+  onParentChange = e => {
+    this.setState({
+      selectedParents: Object.assign(this.state.selectedParents, [e.target.value]),
+      [e.target.name]: e.target.value
+    })
+  }
+
   async componentDidMount() {
     const parents = await Data.parents.list()
-    this.setState({ parents })
+    this.setState({ parents, filteredParents: parents })
 
-    Data.parents.subscribe(({ parents }) => this.setState({ parents }))
+    Data.parents.subscribe(({ parents }) => this.setState({ parents, filteredParents: parents }))
 
     const _this = this;
     this.validator = $("#" + modalNumber + "form").validate({
@@ -205,13 +215,11 @@ class Modal extends React.Component {
                           class="form-control"
                           required
                           value={this.state.parent}
-                          onChange={(e) => this.setState({
-                            parent: e.target.value
-                          })}
+                          onChange={this.onParentChange}
                         >
                           <option value="">Select parent</option>
                           {this.state.parents.map(parent => (
-                            <option value={parent.id}>{parent.name}</option>
+                            !this.state.selectedParents.includes(parent.id) && <option value={parent.id}>{parent.name}</option>
                           ))}
                         </select>
                       </div>
@@ -224,13 +232,11 @@ class Modal extends React.Component {
                           name="parent2"
                           class="form-control"
                           value={this.state.parent2}
-                          onChange={(e) => this.setState({
-                            parent2: e.target.value
-                          })}
+                          onChange={this.onParentChange}
                         >
                           <option value="">Select parent</option>
                           {this.state.parents.map(parent => (
-                            <option value={parent.id}>{parent.name}</option>
+                            !this.state.selectedParents.includes(parent.id) && <option value={parent.id}>{parent.name}</option>
                           ))}
                         </select>
                       </div>
