@@ -101,6 +101,10 @@ class BasicTable extends React.Component {
                     key: "name"
                   },
                   {
+                    label: "ID Number",
+                    key: "national_id"
+                  },
+                  {
                     label: "Gender",
                     key: "gender"
                   },
