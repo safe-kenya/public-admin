@@ -94,6 +94,54 @@ class Navbar extends React.Component {
                 </Link>
               </li>
 
+              <li className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a href="javascript:;" className="kt-menu__link kt-menu__toggle"><span className="kt-menu__link-text">Configurations</span><i className="kt-menu__hor-arrow la la-angle-down" /><i className="kt-menu__ver-arrow la la-angle-right" /></a>
+                <div className="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
+                  <ul className="kt-menu__subnav">
+
+                    <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
+                      <Link to="/buses" className="kt-menu__link">
+                        <i className="kt-menu__link-bullet kt-menu__link-bullet--line">
+                          <span />
+                        </i>
+                        <span className="kt-menu__link-text">
+                          <span className="kt-menu__link-text">Buses</span>
+                        </span>
+                      </Link>
+                    </li>
+                    <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
+                      <Link to="/drivers" className="kt-menu__link">
+                        <i className="kt-menu__link-bullet kt-menu__link-bullet--line">
+                          <span />
+                        </i>
+                        <span className="kt-menu__link-text">
+                          <span className="kt-menu__link-text">Drivers</span>
+                        </span>
+                      </Link>
+                    </li>
+                    <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
+                      <Link to="/routes" className="kt-menu__link">
+                        <i className="kt-menu__link-bullet kt-menu__link-bullet--line">
+                          <span />
+                        </i>
+                        <span className="kt-menu__link-text">
+                          <span className="kt-menu__link-text">Routes</span>
+                        </span>
+                      </Link>
+                    </li>
+                    <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
+                      <Link to="/schedules" className="kt-menu__link">
+                        <i className="kt-menu__link-bullet kt-menu__link-bullet--line">
+                          <span />
+                        </i>
+                        <span className="kt-menu__link-text">
+                          <span className="kt-menu__link-text">Schedules</span>
+                        </span>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
               <li className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a href="javascript:;" className="kt-menu__link kt-menu__toggle"><span className="kt-menu__link-text">Data</span><i className="kt-menu__hor-arrow la la-angle-down" /><i className="kt-menu__ver-arrow la la-angle-right" /></a>
                 <div className="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
                   <ul className="kt-menu__subnav">
@@ -115,55 +163,6 @@ class Navbar extends React.Component {
                         </i>
                         <span className="kt-menu__link-text">
                           <span className="kt-menu__link-text">Parents</span>
-                        </span>
-                      </Link>
-                    </li>
-                    <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
-                      <Link to="/drivers" className="kt-menu__link">
-                        <i className="kt-menu__link-bullet kt-menu__link-bullet--line">
-                          <span />
-                        </i>
-                        <span className="kt-menu__link-text">
-                          <span className="kt-menu__link-text">Drivers</span>
-                        </span>
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-
-
-              <li className="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel" data-ktmenu-submenu-toggle="click" aria-haspopup="true"><a href="javascript:;" className="kt-menu__link kt-menu__toggle"><span className="kt-menu__link-text">Configurations</span><i className="kt-menu__hor-arrow la la-angle-down" /><i className="kt-menu__ver-arrow la la-angle-right" /></a>
-                <div className="kt-menu__submenu kt-menu__submenu--classic kt-menu__submenu--left">
-                  <ul className="kt-menu__subnav">
-
-                    <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
-                      <Link to="/buses" className="kt-menu__link">
-                        <i className="kt-menu__link-bullet kt-menu__link-bullet--line">
-                          <span />
-                        </i>
-                        <span className="kt-menu__link-text">
-                          <span className="kt-menu__link-text">Buses</span>
-                        </span>
-                      </Link>
-                    </li>
-                    <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
-                      <Link to="/routes" className="kt-menu__link">
-                        <i className="kt-menu__link-bullet kt-menu__link-bullet--line">
-                          <span />
-                        </i>
-                        <span className="kt-menu__link-text">
-                          <span className="kt-menu__link-text">Routes</span>
-                        </span>
-                      </Link>
-                    </li>
-                    <li className="kt-menu__item  kt-menu__item--submenu" data-ktmenu-submenu-toggle="hover" aria-haspopup="true">
-                      <Link to="/schedules" className="kt-menu__link">
-                        <i className="kt-menu__link-bullet kt-menu__link-bullet--line">
-                          <span />
-                        </i>
-                        <span className="kt-menu__link-text">
-                          <span className="kt-menu__link-text">Schedules</span>
                         </span>
                       </Link>
                     </li>
