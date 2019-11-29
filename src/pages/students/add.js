@@ -1,12 +1,14 @@
 import React from "react";
 import ErrorMessage from "./components/error-toast";
 import AddParentModal from "./add_parent";
+import AddSecondParentModal from "./add_parent";
 
 import Data from "../../utils/data"
 const IErrorMessage = new ErrorMessage();
 
 const $ = window.$;
 const addParentModalInstance = new AddParentModal();
+const addSecondParentModalInstance = new AddSecondParentModal();
 
 const modalNumber = Math.random()
   .toString()
@@ -35,7 +37,12 @@ class Modal extends React.Component {
   hide() {
     $("#" + modalNumber).modal("hide");
   }
-  componentDidMount() {
+  async componentDidMount() {
+    const parents = await Data.parents.list()
+    this.setState({ parents })
+
+    Data.parents.subscribe(({ parents }) => this.setState({ parents }))
+
     const _this = this;
     this.validator = $("#" + modalNumber + "form").validate({
       errorClass: "invalid-feedback",
@@ -85,7 +92,22 @@ class Modal extends React.Component {
           aria-labelledby="myLargeModalLabel"
           aria-hidden="true"
         >
-          <AddParentModal save={parent => Data.parents.create(parent)} />
+          <AddParentModal save={async parent => {
+            Data.parents.create(parent)
+            const parents = Data.parents.list()
+            console.log(parents)
+            const { id } = parents[parents.length - 1]
+
+            this.setState({ parents, parent: id })
+          }} />
+          <AddSecondParentModal save={async parent => {
+            Data.parents.create(parent)
+            const parents = Data.parents.list()
+            console.log(parents)
+            const { id } = parents[parents.length - 1]
+
+            this.setState({ parents, parent2: id })
+          }} />
           <div className="modal-dialog modal-xl">
             <div className="modal-content">
               <form
@@ -188,10 +210,13 @@ class Modal extends React.Component {
                           })}
                         >
                           <option value="">Select parent</option>
-                          {this.props.parents.map(parent => (
+                          {this.state.parents.map(parent => (
                             <option value={parent.id}>{parent.name}</option>
                           ))}
                         </select>
+                      </div>
+                      <div className="col-lg-2">
+                        <button type="button" className="btn btn-outline-brand mt-4" onClick={addParentModalInstance.show}>Add Parent</button>
                       </div>
                       <div className="col-lg-4">
                         <label for="exampleSelect1">Second Parent:</label>
@@ -204,13 +229,13 @@ class Modal extends React.Component {
                           })}
                         >
                           <option value="">Select parent</option>
-                          {this.props.parents.map(parent => (
+                          {this.state.parents.map(parent => (
                             <option value={parent.id}>{parent.name}</option>
                           ))}
                         </select>
                       </div>
-                      <div className="col-lg-4">
-                        <button type="button" className="btn btn-outline-brand mt-4" onClick={addParentModalInstance.show}>Add Parent</button>
+                      <div className="col-lg-2">
+                        <button type="button" className="btn btn-outline-brand mt-4" onClick={addSecondParentModalInstance.show}>Add Second Parent</button>
                       </div>
                     </div>
                   </div>
