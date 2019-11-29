@@ -1,6 +1,8 @@
 import React from "react";
 import ErrorMessage from "./components/error-toast";
 import AddParentModal from "./add_parent";
+
+import Data from "../../utils/data"
 const IErrorMessage = new ErrorMessage();
 
 const $ = window.$;
@@ -83,6 +85,7 @@ class Modal extends React.Component {
           aria-labelledby="myLargeModalLabel"
           aria-hidden="true"
         >
+          <AddParentModal save={parent => Data.parents.create(parent)} />
           <div className="modal-dialog modal-xl">
             <div className="modal-content">
               <form

@@ -55,7 +55,6 @@ class BasicTable extends React.Component {
 
               this.setState({ students })
             }} />
-            <AddParentModal save={parent => Data.parents.create(parent)} />
             <UploadModal save={student => Data.students.create(student)} />
             <DeleteModal
               remove={remove}
