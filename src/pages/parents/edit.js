@@ -13,6 +13,7 @@ class Modal extends React.Component {
     loading: false,
     edit: {
       names: "",
+      national_id:"",
       route: {
         name: ""
       },
@@ -111,6 +112,21 @@ class Modal extends React.Component {
                 <div className="modal-body">
                   <div className="kt-portlet__body">
                     <div className="form-group row">
+                    <div className="col-lg-3">
+                        <label>ID Number:</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="fullname"
+                          name="fullname"
+                          minLength="2"
+                          value={this.state.edit.national_id}
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
+                            national_id: e.target.value
+                          }))}
+                          required
+                        />
+                      </div>
                       <div className="col-lg-6">
                         <label>Full Name:</label>
                         <input
