@@ -76,6 +76,7 @@ class Modal extends React.Component {
           // reassign
           _this.state.parents = undefined;
           _this.state.routes = undefined;
+          _this.state.filteredParents = undefined
 
           await _this.props.save(_this.state);
           _this.hide();
