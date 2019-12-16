@@ -335,6 +335,8 @@ var Data = (function () {
               student: Object.assign({}, data, {
                 parent_name: undefined,
                 parent2_name: undefined,
+                class: data.class.id,
+                class_name: undefined,
                 parent: data.parent.id,
                 parent2: data.parent2.id,
                 route_name: undefined,

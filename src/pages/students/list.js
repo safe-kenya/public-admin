@@ -17,20 +17,29 @@ class BasicTable extends React.Component {
   state = {
     students: [],
     routes: [],
-    parents: []
+    parents: [],
+    classes: []
   };
+
   componentDidMount() {
     const students = Data.students.list();
     const routes = Data.routes.list();
     const parents = Data.parents.list();
-    this.setState({ students, filteredStudents: students, routes, parents });
+    const classes = Data.classes.list();
+    this.setState({ students, filteredStudents: students, routes, parents, classes });
 
     Data.students.subscribe(({ students }) => {
       this.setState({ students, filteredStudents: students });
     });
+
+    Data.classes.subscribe(({ classes }) => {
+      this.setState({ classes });
+    });
+
     Data.routes.subscribe(({ routes }) => {
       this.setState({ routes });
     });
+
     Data.parents.subscribe(({ parents }) => {
       this.setState({ parents });
     });
@@ -66,6 +75,7 @@ class BasicTable extends React.Component {
             <EditModal
               routes={this.state.routes}
               parents={this.state.parents}
+              classes={this.state.classes}
               edit={edit}
               save={student => Data.students.update(student)}
             />

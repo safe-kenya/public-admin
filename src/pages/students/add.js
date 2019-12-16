@@ -154,7 +154,7 @@ class Modal extends React.Component {
                       </div>
                     </div>
                     <div className="form-group row">
-                      <div className="col-lg-3">
+                      <div className="col-lg-4">
                         <label>Full Name:</label>
                         <input
                           type="text"
@@ -169,7 +169,7 @@ class Modal extends React.Component {
                           })}
                         />
                       </div>
-                      <div className="col-lg-3">
+                      <div className="col-lg-4">
                         <label>Registration Number:</label>
                         <input
                           type="text"
@@ -184,7 +184,7 @@ class Modal extends React.Component {
                           })}
                         />
                       </div>
-                      <div className="col-lg-3">
+                      <div className="col-lg-4">
                         <label for="exampleSelect1">Class:</label>
                         <select
                           name="class"
@@ -201,7 +201,7 @@ class Modal extends React.Component {
                           ))}
                         </select>
                       </div>
-                      <div className="col-lg-3">
+                      <div className="col-lg-6">
                         <label for="exampleSelect1">Route:</label>
                         <select
                           name="route"
@@ -218,7 +218,7 @@ class Modal extends React.Component {
                           ))}
                         </select>
                       </div>
-                      <div className="col-lg-3">
+                      <div className="col-lg-6">
                         <label for="exampleSelect1">Gender:</label>
                         <select
                           name="gender"
@@ -236,7 +236,7 @@ class Modal extends React.Component {
                           })}
                         </select>
                       </div>
-                      <div className="col-lg-4">
+                      <div className="col-lg-8">
                         <label for="exampleSelect1">Parent:</label>
                         <select
                           name="parent"
@@ -251,10 +251,10 @@ class Modal extends React.Component {
                           ))}
                         </select>
                       </div>
-                      <div className="col-lg-2">
+                      <div className="col-lg-3">
                         <button type="button" className="btn btn-outline-brand mt-4" onClick={addParentModalInstance.show}>Add Parent</button>
                       </div>
-                      <div className="col-lg-4">
+                      <div className="col-lg-8">
                         <label for="exampleSelect1">Second Parent:</label>
                         <select
                           name="parent2"
@@ -269,7 +269,7 @@ class Modal extends React.Component {
                           ))}
                         </select>
                       </div>
-                      <div className="col-lg-2">
+                      <div className="col-lg-3">
                         <button type="button" className="btn btn-outline-brand mt-4" onClick={addSecondParentModalInstance.show}>Add Second Parent</button>
                       </div>
                     </div>

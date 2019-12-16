@@ -15,6 +15,8 @@ class Modal extends React.Component {
       names: "",
       route: "",
       gender: "",
+      class:"",
+      class_name:"",
       reg: "",
       parent: "",
       parents: [],
@@ -109,7 +111,7 @@ class Modal extends React.Component {
                 <div className="modal-body">
                   <div className="kt-portlet__body">
                     <div className="form-group row">
-                      <div className="col-lg-3">
+                      <div className="col-lg-4">
                         <label>Full Name:</label>
                         <input
                           type="text"
@@ -124,7 +126,7 @@ class Modal extends React.Component {
                           }))}
                         />
                       </div>
-                      <div className="col-lg-3">
+                      <div className="col-lg-4">
                         <label>Registration Number:</label>
                         <input
                           type="text"
@@ -134,12 +136,32 @@ class Modal extends React.Component {
                           minLength="2"
                           required
                           value={this.state.edit.registration}
-                          onChange={(e) => this.setState({
+                          onChange={(e) => this.setState(Object.assign(this.state.edit, {
                             registration: e.target.value
-                          })}
+                          }))}
                         />
                       </div>
-                      <div className="col-lg-3">
+                      <div className="col-lg-4">
+                        <label>Class:</label>
+                        <select
+                          type="text"
+                          className="form-control"
+                          id="class"
+                          name="class"
+                          required
+                          value={this.state.edit.class.name}
+                          onChange={(e) => this.setState({ edit : Object.assign(this.state.edit, {
+                            class: this.props.classes.filter(Iclass => Iclass.name == e.target.value)[0],
+                            class_name: e.target.value
+                          }) })}
+                        >
+                          <option value="">Select class</option>
+                          {this.props.classes.map(Iclass => (
+                            <option value={Iclass.name}>{Iclass.name}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="col-lg-6">
                         <label for="exampleSelect1">Route:</label>
                         <select
                           name="route"
@@ -157,7 +179,7 @@ class Modal extends React.Component {
                           ))}
                         </select>
                       </div>
-                      <div className="col-lg-3">
+                      <div className="col-lg-6">
                         <label for="exampleSelect1">Gender:</label>
                         <select
                           name="gender"
