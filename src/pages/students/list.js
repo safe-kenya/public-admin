@@ -42,6 +42,10 @@ class BasicTable extends React.Component {
     this.setState({ filteredStudents })
   }
 
+  onClickHandler(student) {
+    window.location = `#/student/${student.id}`
+  }
+
   render() {
     const { edit, remove } = this.state;
     return (
@@ -148,6 +152,7 @@ class BasicTable extends React.Component {
                     deleteModalInstance.show();
                   });
                 }}
+                onClick={this.onClickHandler}
               />
             </div>
           </div>

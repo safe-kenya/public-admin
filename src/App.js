@@ -3,6 +3,7 @@ import { Route, HashRouter, Redirect } from "react-router-dom";
 
 import home from "./pages/home";
 import students from "./pages/students";
+import student from "./pages/student";
 import parents from "./pages/parents";
 import drivers from "./pages/drivers";
 import buses from "./pages/buses"
@@ -31,6 +32,7 @@ function App() {
       <Route exact path="/" component={login} />
       <PrivateRoute exact path="/home" component={home} />
       <PrivateRoute path="/students" component={students} />
+      <PrivateRoute path="/student/:id" component={student} />
       <PrivateRoute path="/schedules" component={schedules} />
       <PrivateRoute path="/parents" component={parents} />
       <PrivateRoute path="/drivers" component={drivers} />

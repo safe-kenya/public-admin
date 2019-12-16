@@ -62,10 +62,12 @@ var Data = (function () {
         }
         parent {
           id,
+          national_id,
           name
         }
         parent2 {
           id,
+          national_id,
           name
         }
       }

@@ -2,11 +2,11 @@ import React from "react";
 
 export default props => {
   if (!props.headers || !props.data) return null;
-  const { options = { deleteable: true, editable: true } } = props;
-  return (
+  const { options = { deleteable: false, editable: false } } = props;
+  return (props.data && props.data.length > 0 &&
     <table
       className="table"
-      // width="100%"
+    // width="100%"
     >
       <thead>
         <tr>
@@ -16,11 +16,11 @@ export default props => {
         </tr>
       </thead>
       <tbody>
-        {props.data.map(row => {
+        {props.data && props.data.map(row => {
           return (
             <tr key={Math.random().toString()}>
               {props.headers.map(header => {
-                return <td>{row[header.key]}</td>;
+                return <td>{header.view(row)}</td>;
               })}
 
               <td
@@ -59,14 +59,6 @@ export default props => {
                       <i className="la la-trash" />
                     </button>
                   ) : null}
-                  <button
-                      title="Delete"
-                      type="button"
-                      className="btn btn-sm btn-clean"
-                      onClick={() => props.onClick(row)}
-                    >
-                      View
-                    </button>
                 </span>
               </td>
             </tr>
