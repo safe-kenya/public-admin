@@ -9,6 +9,7 @@ const routesData = [];
 const complaintsData = []
 const tripsData = [];
 const schedulesData = [];
+const classesData = [];
 
 var Data = (function () {
   var instance;
@@ -22,6 +23,7 @@ var Data = (function () {
   var schedules = schedulesData;
   var trips = tripsData;
   var complaints = complaintsData;
+  var classes = classesData;
 
   // subscriptions for every entity to keep track of everyone subscribing to any data
   var subs = {};
@@ -33,6 +35,7 @@ var Data = (function () {
   emitize(subs, "schedules");
   emitize(subs, "trips");
   emitize(subs, "complaints");
+  emitize(subs, "classes");
 
   // subs.students = log; //subscribe to events (named 'x') with cb (log)
   // //another subscription won't override the previous one
@@ -99,6 +102,17 @@ var Data = (function () {
         gender
         email
         phone
+        students {
+          names
+          gender
+          route {
+            name
+          }
+        }
+      }
+      classes {
+        id
+        name
         students {
           names
           gender
@@ -209,6 +223,9 @@ var Data = (function () {
 
       parents = response.parents;
       subs.parents({ parents });
+
+      classes = response.classes;
+      subs.classes({ classes });
 
       routes = response.routes;
       subs.routes({ routes });
@@ -435,6 +452,83 @@ var Data = (function () {
         // listen for even change on the students observables
         subs.parents = cb;
         return parents;
+      },
+      getOne(id) { }
+    },
+    classes: {
+      create: data =>
+        new Promise(async (resolve, reject) => {
+          const { id } = await mutate(
+            `
+          mutation ($Iclass: IClass!) {
+            classes {
+              create(class: $Iclass) {
+                id
+              }
+            }
+          }`,
+            {
+              Iclass: data
+            }
+          );
+
+          data.id = id;
+
+          classes = [...classes, data];
+          subs.classes({ classes });
+          resolve();
+        }),
+      update: data =>
+        new Promise(async (resolve, reject) => {
+          await mutate(
+            `
+          mutation ($Iclass: UClass!) {
+            classes {
+              update(class: $Iclass) {
+                id
+              }
+            }
+          }`,
+            {
+              Iclass: data
+            }
+          );
+
+          const subtract = classes.filter(({ id }) => id !== data.id);
+          classes = [data, ...subtract];
+          subs.classes({ classes });
+          resolve();
+        }),
+      delete: data =>
+        new Promise(async (resolve, reject) => {
+          mutate(
+            `
+          mutation ($Iclass: UClass!) {
+            classes {
+              archive(class: $Iclass) {
+                id
+              }
+            }
+          } `,
+            {
+              Iclass: {
+                id: data.id
+              }
+            }
+          );
+
+          const subtract = classes.filter(({ id }) => id !== data.id);
+          classes = [...subtract];
+          subs.classes({ classes });
+          resolve();
+        }),
+      list() {
+        return classes;
+      },
+      subscribe(cb) {
+        // listen for even change on the students observables
+        subs.classes = cb;
+        return classes;
       },
       getOne(id) { }
     },
