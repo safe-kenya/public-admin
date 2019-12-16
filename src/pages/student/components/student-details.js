@@ -25,6 +25,10 @@ export default ({ student }) => {
             <th scope="row"><i class="fas fa-venus-mars"></i> </th>
             <td>{student.gender}</td>
           </tr>
+          <tr>
+            <th scope="row"><i class="fas fa-chalkboard-teacher"></i> </th>
+            <td>{student.class_name}</td>
+          </tr>
           {route && <tr>
             <th scope="row"><i class="fas fa-route"></i></th>
             <td>{route.name}</td>

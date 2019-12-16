@@ -18,7 +18,7 @@ class BasicTable extends React.Component {
   componentDidMount() {
     const students = Data.students.list();
     const student = students.find(s => s.id === this.props.id)
-    student && this.setState({ student })
+    student && this.setState({ student: { ...student, parents: [ student.parent, student.parent2 ]} })
 
     Data.students.subscribe(({ students }) => {
       const student = students.find(s => s.id === this.props.id)
@@ -36,54 +36,40 @@ class BasicTable extends React.Component {
           <div className="kt-portlet kt-portlet--mobile">
             <DeleteModal
               remove={remove}
-              save={student => Data.trips.delete(student)}
+              save={student => Data.student.delete(student)}
             />
             <div className="kt-portlet__body">
 
             </div>
             <div className="kt-portlet__body" style={{ minHeight: "500px" }}>
               <div className="row">
-                <div className="col-md-6">
-                  <StudentDetails
-                    student={student}
-                  />
-
-                  <div class="kt-portlet__head">
-                    <div class="kt-portlet__head-label">
-                      <h3 class="kt-portlet__head-title">Student Details</h3>
-                    </div>
+                <StudentDetails
+                  student={student}
+                />
+                <div class="kt-portlet__head">
+                  <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">Parent Details</h3>
                   </div>
-
-                  <br></br>
-
-                  {/* <Table
-                    headers={[
-                      {
-                        label: "Student",
-                        view: (row) => {
-                          return row.student.names
-                        }
-                      },
-                      {
-                        label: "Event",
-                        view: (row) => {
-                          return row.type
-                        }
-                      },
-                      {
-                        label: "Time",
-                        view: (row) => row.time
-                      },
-
-                    ]}
-                    data={events}
-                    delete={trip => {
-                      this.setState({ remove: trip }, () => {
-                        deleteModalInstance.show();
-                      });
-                    }}
-                  /> */}
                 </div>
+                <br></br>
+                <Table
+                  headers={[
+                    {
+                      label: "Name",
+                      view: row => row?.name
+                    },
+                    {
+                      label: "National ID",
+                      view: row => row?.national_id
+                    }
+                  ]}
+                  data={[this.state.student.parent, this.state.student.parent2]}
+                  delete={student => {
+                    this.setState({ remove: student }, () => {
+                      deleteModalInstance.show();
+                    });
+                  }}
+                />
               </div>
             </div>
           </div>
