@@ -21,6 +21,7 @@ class Modal extends React.Component {
     route: "",
     gender: "",
     registration: "",
+    class: "",
     parent: "",
     parent2: "",
     parents: [],
@@ -71,14 +72,17 @@ class Modal extends React.Component {
           _this.setState({ loading: true });
 
           // cleanup
-          _this.state.loading = undefined;
+          // _this.state.loading = undefined;
 
           // reassign
-          _this.state.parents = undefined;
-          _this.state.routes = undefined;
-          _this.state.filteredParents = undefined
+          // _this.state.parents = undefined;
+          // _this.state.routes = undefined;
+          // _this.state.filteredParents = undefined
+          // _this.state.selectedParents = undefined
 
-          await _this.props.save(_this.state);
+          const { names, route, gender, registration, class: className, parent, parent2 } = _this.state
+
+          await _this.props.save({ names, route, gender, registration, class: className, parent, parent2 });
           _this.hide();
           _this.setState({ loading: false });
         } catch (error) {
@@ -164,13 +168,28 @@ class Modal extends React.Component {
                         <input
                           type="text"
                           className="form-control"
-                          id="fullname"
-                          name="fullname"
+                          id="reg-no"
+                          name="registration"
                           minLength="2"
                           required
                           value={this.state.registration}
                           onChange={(e) => this.setState({
                             registration: e.target.value
+                          })}
+                        />
+                      </div>
+                      <div className="col-lg-3">
+                        <label>Class :</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="class"
+                          name="class"
+                          minLength="2"
+                          required
+                          value={this.state.class}
+                          onChange={(e) => this.setState({
+                            class: e.target.value
                           })}
                         />
                       </div>
@@ -219,7 +238,6 @@ class Modal extends React.Component {
                           onChange={this.onParentChange}
                         >
                           <option value="">Select parent</option>
-                          <option value={this.state.parent}>{this.state.parents.find(p => p.id === this.state.parent)?.name}</option>
                           {this.state.parents.map(parent => (
                             !this.state.selectedParents.includes(parent.id) && <option value={parent.id}>{parent.name}</option>
                           ))}
