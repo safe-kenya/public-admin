@@ -313,6 +313,9 @@ var Data = (function () {
           data.route = routes.filter(p => p.id == data.route)[0];
           data.route_name = data.route.name
 
+          data.class = classes.filter(p => p.id == data.class)[0];
+          data.class_name = data.class.name
+
           students = [...students, data];
           subs.students({ students });
           resolve();

@@ -25,6 +25,7 @@ class Modal extends React.Component {
     parent: "",
     parent2: "",
     parents: [],
+    classes: [],
     selectedParents: [],
     filteredParents: [],
     routes: []
@@ -52,7 +53,12 @@ class Modal extends React.Component {
     const parents = await Data.parents.list()
     this.setState({ parents, filteredParents: parents })
 
+    const classes = await Data.classes.list()
+    this.setState({ classes })
+
+    
     Data.parents.subscribe(({ parents }) => this.setState({ parents, filteredParents: parents }))
+    Data.classes.subscribe(({ classes }) => this.setState({ classes }))
 
     const _this = this;
     this.validator = $("#" + modalNumber + "form").validate({
@@ -179,19 +185,21 @@ class Modal extends React.Component {
                         />
                       </div>
                       <div className="col-lg-3">
-                        <label>Class :</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="class"
+                        <label for="exampleSelect1">Class:</label>
+                        <select
                           name="class"
-                          minLength="2"
+                          class="form-control"
                           required
                           value={this.state.class}
                           onChange={(e) => this.setState({
                             class: e.target.value
                           })}
-                        />
+                        >
+                          <option value="">Select class</option>
+                          {this.state.classes.map(Iclass => (
+                            <option value={Iclass.id}>{Iclass.name}</option>
+                          ))}
+                        </select>
                       </div>
                       <div className="col-lg-3">
                         <label for="exampleSelect1">Route:</label>
