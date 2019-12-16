@@ -56,6 +56,9 @@ var Data = (function () {
         names
         gender
         registration
+        class{
+          name
+        }
         route {
           id,
           name
@@ -190,6 +193,10 @@ var Data = (function () {
 
         if (student.route) {
           student.route_name = student.route.name;
+        }
+
+        if (student.class) {
+          student.class_name = student.class.name;
         }
 
         return student;

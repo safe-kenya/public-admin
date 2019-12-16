@@ -125,6 +125,10 @@ class BasicTable extends React.Component {
                     key: "registration"
                   },
                   {
+                    label: "Class",
+                    key: "class_name"
+                  },
+                  {
                     label: "Route",
                     key: "route_name"
                   },
