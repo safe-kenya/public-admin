@@ -14,7 +14,10 @@ class Modal extends React.Component {
     edit: {
       username: "",
       email: "",
-      phone: ""
+      phone: "",
+      licence_number: "",
+      license_expiry: "",
+      home: ""
     }
   };
 
@@ -145,6 +148,57 @@ class Modal extends React.Component {
                           onChange={(e) => this.setState({
                             edit: Object.assign(this.state.edit, {
                               phone: e.target.value
+                            })
+                          })}
+                          required
+                        />
+                      </div>
+                      <div className="col-lg-4">
+                        <label>Licence Number:</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="fullname"
+                          name="fullname"
+                          minLength="2"
+                          value={this.state.edit.licence_number}
+                          onChange={(e) => this.setState({
+                            edit: Object.assign(this.state.edit, {
+                              licence_number: e.target.value
+                            })
+                          })}
+                          required
+                        />
+                      </div>
+                      <div className="col-lg-4">
+                        <label>Licence Expiry Date:</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="fullname"
+                          name="fullname"
+                          minLength="2"
+                          value={this.state.edit.license_expiry}
+                          onChange={(e) => this.setState({
+                            edit: Object.assign(this.state.edit, {
+                              license_expiry: e.target.value
+                            })
+                          })}
+                          required
+                        />
+                      </div>
+                      <div className="col-lg-4">
+                        <label>Home Area:</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="fullname"
+                          name="fullname"
+                          minLength="2"
+                          value={this.state.edit.home}
+                          onChange={(e) => this.setState({
+                            edit: Object.assign(this.state.edit, {
+                              home: e.target.value
                             })
                           })}
                           required

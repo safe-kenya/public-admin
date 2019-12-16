@@ -107,6 +107,18 @@ class BasicTable extends React.Component {
                   {
                     label: "Phone",
                     key: "phone"
+                  },
+                  {
+                    label: "Licence No.",
+                    key: "licence_number"
+                  },
+                  {
+                    label: "Licence Expiry",
+                    key: "license_expiry"
+                  },
+                  {
+                    label: "Home Area",
+                    key: "home"
                   }
                 ]}
                 data={this.state.filteredDrivers}

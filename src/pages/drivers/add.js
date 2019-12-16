@@ -14,7 +14,11 @@ class Modal extends React.Component {
     username: "",
     password: "",
     phone: "",
-    email: ""
+    photo: "https://via.placeholder.com/150",
+    email: "",
+    license_expiry: "",
+    licence_number: "",
+    home: "",
   };
 
   show() {
@@ -136,6 +140,51 @@ class Modal extends React.Component {
                           value={this.state.phone}
                           onChange={(e) => this.setState({
                             phone: e.target.value
+                          })}
+                          required
+                        />
+                      </div>
+                      <div className="col-lg-4">
+                        <label>Licence Number:</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="fullname"
+                          name="fullname"
+                          minLength="2"
+                          value={this.state.licence_number}
+                          onChange={(e) => this.setState({
+                            licence_number: e.target.value
+                          })}
+                          required
+                        />
+                      </div>
+                      <div className="col-lg-4">
+                        <label>Licence Expiry Date:</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="fullname"
+                          name="fullname"
+                          minLength="2"
+                          value={this.state.license_expiry}
+                          onChange={(e) => this.setState({
+                            license_expiry: e.target.value
+                          })}
+                          required
+                        />
+                      </div>
+                      <div className="col-lg-4">
+                        <label>Home Area:</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="fullname"
+                          name="fullname"
+                          minLength="2"
+                          value={this.state.home}
+                          onChange={(e) => this.setState({
+                            home: e.target.value
                           })}
                           required
                         />

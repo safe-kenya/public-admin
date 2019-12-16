@@ -85,6 +85,9 @@ var Data = (function () {
         username
         email
         phone
+        license_expiry
+        licence_number
+        home
       }
       parents {
         id
