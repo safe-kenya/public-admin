@@ -224,7 +224,7 @@ var Data = (function () {
       parents = response.parents;
       subs.parents({ parents });
 
-      classes = response.classes;
+      classes = response.classes.map(Iclass => ({ ...Iclass, student_num : Iclass.students.length || 0 }));
       subs.classes({ classes });
 
       routes = response.routes;
@@ -490,7 +490,7 @@ var Data = (function () {
             }
           }`,
             {
-              Iclass: data
+              Iclass: Object.assign({}, { id: data.id, name: data.name })
             }
           );
 
