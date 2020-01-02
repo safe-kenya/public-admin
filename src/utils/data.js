@@ -245,7 +245,7 @@ var Data = (function () {
       parents = response.parents;
       subs.parents({ parents });
 
-      teachers = response.teachers.map(teacher => ({ ...teacher, classes : teacher.classes.map(Iclass => Iclass.name)}));
+      teachers = response.teachers
       subs.teachers({ teachers });
 
       classes = response.classes.map(Iclass => ({ ...Iclass, student_num : Iclass.students.length || 0 }));

@@ -89,19 +89,7 @@ class TableRow extends React.Component {
                         data-field="OrderID"
                         className="kt-datatable__cell kt-datatable__cell--sort"
                       >
-                        <span style={{ width: " 165px;" }}>Student name</span>
-                      </th>
-                      <th
-                        data-field="OrderID"
-                        className="kt-datatable__cell kt-datatable__cell--sort"
-                      >
-                        <span style={{ width: " 165px;" }}>Gender</span>
-                      </th>
-                      <th
-                        data-field="OrderID"
-                        className="kt-datatable__cell kt-datatable__cell--sort"
-                      >
-                        <span style={{ width: " 165px;" }}>Route</span>
+                        <span style={{ width: " 165px;" }}>Class Name</span>
                       </th>
                     </tr>
                   </thead>
@@ -109,7 +97,7 @@ class TableRow extends React.Component {
                     className="kt-datatable__body ps ps--active-y"
                     style={{ "max-height": "246px;" }}
                   >
-                    {!this.props.data.students ? null : this.props.data.students.map(student => {
+                    {!this.props.data.classes ? null : this.props.data.classes.map(Iclass => {
                       return (
                         <tr data-row="0" className="kt-datatable__row">
                           <td
@@ -117,23 +105,7 @@ class TableRow extends React.Component {
                             className="kt-datatable__cell"
                           >
                             <span>
-                              <span>{student.names}</span>
-                            </span>
-                          </td>
-                          <td
-                            data-field="OrderID"
-                            className="kt-datatable__cell"
-                          >
-                            <span>
-                              <span>{student.gender}</span>
-                            </span>
-                          </td>
-                          <td
-                            data-field="OrderID"
-                            className="kt-datatable__cell"
-                          >
-                            <span>
-                              <span>{student.route.name}</span>
+                              <span>{Iclass.name}</span>
                             </span>
                           </td>
                         </tr>

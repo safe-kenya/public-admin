@@ -6,6 +6,7 @@ import students from "./pages/students";
 import student from "./pages/student";
 import parents from "./pages/parents";
 import classes from "./pages/classes";
+import teachers from "./pages/teachers";
 import drivers from "./pages/drivers";
 import buses from "./pages/buses"
 import routes from "./pages/routes"
@@ -41,6 +42,7 @@ function App() {
       <PrivateRoute path="/routes" component={routes} />
       <PrivateRoute path="/messages" component={complaints} />
       <PrivateRoute path="/classes" component={classes} />
+      <PrivateRoute path="/teachers" component={teachers} />
       <PrivateRoute path="/comms" component={communications} />
       <PrivateRoute path="/reports/bus/:id" component={students} />
       <PrivateRoute path="/trips/:filter" component={trips} />
