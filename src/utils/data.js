@@ -490,7 +490,7 @@ var Data = (function () {
           const { id } = await mutate(
             `
           mutation ($Iteacher: Iteacher!) {
-            teacher {
+            teachers {
               create(teacher: $Iteacher) {
                 id
               }
