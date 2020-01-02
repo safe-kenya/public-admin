@@ -103,6 +103,10 @@ class BasicTable extends React.Component {
                   {
                     label: "Number of Students",
                     key: "student_num"
+                  },
+                  {
+                    label: "Teacher",
+                    key: "teacher_name"
                   }
                 ]}
                 data={this.state.filteredClasses}
