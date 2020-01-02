@@ -16,14 +16,22 @@ const deleteModalInstance = new DeleteModal();
 class BasicTable extends React.Component {
   state = {
     classes: [],
+    teachers:[],
     filteredClasses:[]
   };
   componentDidMount() {
     const classes = Data.classes.list();
     this.setState({ classes, filteredClasses: classes });
 
+    const teachers = Data.teachers.list();
+    this.setState({ teachers });
+
     Data.classes.subscribe(({ classes }) => {
       this.setState({ classes, filteredClasses: classes });
+    });
+
+    Data.teachers.subscribe(({ teachers }) => {
+      this.setState({ teachers });
     });
   }
 
@@ -39,13 +47,14 @@ class BasicTable extends React.Component {
       <div className="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--left kt-aside--fixed kt-aside--offcanvas-default kt-page--loading">
         <div className="kt-grid kt-grid--hor kt-grid--root">
           <div className="kt-portlet kt-portlet--mobile">
-            <AddModal save={Iclass => Data.classes.create(Iclass)} />
+            <AddModal teachers={this.state.teachers} save={Iclass => Data.classes.create(Iclass)} />
             <UploadModal save={Iclass => Data.classes.create(Iclass)} />
             <DeleteModal
               remove={remove}
               save={Iclass => Data.classes.delete(Iclass)}
             />
             <EditModal
+              teachers={this.state.teachers}
               edit={edit}
               save={Iclass => Data.classes.update(Iclass)}
             />

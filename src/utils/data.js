@@ -579,6 +579,8 @@ var Data = (function () {
           );
 
           data.id = id;
+          data.teacher_name = teachers.find(t => t.id === data.teacher).name
+          data.student_num = 0
 
           classes = [...classes, data];
           subs.classes({ classes });

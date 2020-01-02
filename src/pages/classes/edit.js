@@ -13,6 +13,7 @@ class Modal extends React.Component {
     loading: false,
     edit: {
       name: "",
+      teacher:""
     }
   };
 
@@ -111,6 +112,24 @@ class Modal extends React.Component {
                           }))}
                           required
                         />
+                      </div>
+                      <div className="col-lg-6">
+                        <label for="exampleSelect1">Teacher:</label>
+                        <select
+                          name="gender"
+                          class="form-control"
+                          id="exampleSelect1"
+                          required
+                          value={this.state.teacher}
+                          onChange={(e) => this.setState({
+                            teacher: e.target.value
+                          })}
+                        >
+                          <option value="">Select teacher</option>
+                          {this.props.teachers.map(teacher => {
+                            return <option value={teacher.id}>{teacher.name}</option>
+                          })}
+                        </select>
                       </div>
                     </div>
                   </div>
