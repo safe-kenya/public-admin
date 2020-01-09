@@ -37,7 +37,7 @@ export default class MessageList extends Component {
 
   selectAll = () => {
     const { allSelected } = this.state
-    allSelected ? this.setState({ selected: [], allSelected: false })  : this.setState({ selected: this.state.parents.map(p => p.id), allSelected:true })
+    allSelected ? this.setState({ selected: [], allSelected: false }) : this.setState({ selected: this.state.parents.map(p => p.id), allSelected: true })
   }
 
   onSelect = (parent) => {
@@ -51,10 +51,11 @@ export default class MessageList extends Component {
   render() {
     const { parents, selected, allSelected } = this.state
     return (
-      <div class="kt-portlet kt-portlet--height-fluid">
-        <div class="kt-portlet__body kt-portlet__body--fluid">
-          <ul class="list-group list-group-flush col-md-4 col-sm-6">
-            <button style={{ marginBottom: "20px" }} className={`btn btn-${allSelected? "danger" : "secondary"} btn-pill`} onClick={this.selectAll}>{allSelected ? 'Unselect All Parents' : 'Select All Parents'}</button>
+      <div className="row">
+
+        <div className="col-md-4 col-lg-4 col-sm-12">
+          <ul class="list-group list-group-flush">
+            <button style={{ marginBottom: "20px" }} className={`btn btn-${allSelected ? "danger" : "secondary"} btn-pill`} onClick={this.selectAll}>{allSelected ? 'Unselect All Parents' : 'Select All Parents'}</button>
             {parents.map(parent => {
               return <li
                 className="list-group-item"
@@ -64,11 +65,15 @@ export default class MessageList extends Component {
                 </label>
               </li>
             })}
+            }
           </ul>
-          <div className="col-md-8">
-            <MessageView type={this.state.type} onClickSwitch={this.onClickSwitch} onClickSend={this.onClickSend} onChange={this.onChangeHandler} />
-          </div>
         </div>
-      </div>)
+
+        <div className="col-md-8 col-lg-8 col-sm-12">
+          <MessageView type={this.state.type} onClickSwitch={this.onClickSwitch} onClickSend={this.onClickSend} onChange={this.onChangeHandler} />
+        </div>
+        
+      </div>
+    )
   }
 }
