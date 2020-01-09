@@ -191,9 +191,16 @@ class BasicTable extends React.Component {
                   },
                   {
                     label: "In-Bus",
-                    component: (row) => (<td style={{ 'font-size': "23px", color: "red" }}>
-                      <i class="fas fa-bus-alt"></i> {row.schedule.route.students.length}
-                    </td>)
+                    component: (row) => {
+                      if (!row.schedule)
+                        return (<td style={{ 'font-size': "23px", color: "red" }}>
+                          <i class="fas fa-bus-alt"></i> {0}
+                        </td>)
+
+                      return (<td style={{ 'font-size': "23px", color: "red" }}>
+                        <i class="fas fa-bus-alt"></i> {row.schedule.route.students.length}
+                      </td>)
+                    }
                   },
                 ]}
                 data={filteredTrips}
