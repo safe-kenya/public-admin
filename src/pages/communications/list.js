@@ -27,8 +27,8 @@ export default class MessageList extends Component {
 
   onClickSend = async () => {
     const { type, selected, message } = this.state
-    const ok = await Data.comms.send({ type, message, parents: selected })
-    this.setState({ ok })
+    const ok = await Data.communication[type].create({ message, parents: selected })
+    this.setState({ ok, message:"" })
   }
 
   onChangeHandler = e => {

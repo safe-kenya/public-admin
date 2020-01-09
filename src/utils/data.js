@@ -1085,9 +1085,19 @@ var Data = (function () {
     },
     communication: {
       sms: {
-        create(id) {
-          return {};
-        },
+        create: sms => new Promise(async (resolve, reject) => {
+          const res = await mutate(`
+          mutation($sms : Isms!){
+            sms{
+              send(sms: $sms)
+            }
+          }
+          `, {
+            sms
+          })
+
+          resolve(res)
+        }),
         update(id, data) {
           return;
         },
