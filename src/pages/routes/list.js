@@ -39,7 +39,7 @@ class BasicTable extends React.Component {
         <div className="kt-grid kt-grid--hor kt-grid--root">
           <div className="kt-portlet kt-portlet--mobile">
             <AddModal save={routes => Data.routes.create(routes)} />
-            <UploadModal save={routes => Data.routes.create(routes)} />
+            <UploadModal save={routes =>routes.forEach(route => Data.routes.create(route))} />
             <DeleteModal
               remove={remove}
               save={route => Data.routes.delete(route)}
