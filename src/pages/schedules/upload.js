@@ -1,5 +1,6 @@
 import React from "react";
 import DeleteModal from "./deleteUploadRow";
+import readXlsx from "read-excel-file"
 
 // import "jquery-validation";
 // import $ from "jquery";
@@ -18,14 +19,7 @@ const modalNumber = Math.random()
 class Modal extends React.Component {
   state = {
     loading: false,
-    names: "Alice A mwali",
-    route: {
-      name: "mwali route"
-    },
-    gender: "Male",
-    bus: {
-      name: "Madam Essue"
-    }
+    schedules:[]
   };
 
   show() {
@@ -55,7 +49,7 @@ class Modal extends React.Component {
         event.preventDefault();
         try {
           _this.setState({ loading: true });
-          await _this.props.save(_this.state);
+          await _this.props.save(_this.state.schedules);
           _this.hide();
           _this.setState({ loading: false });
         } catch (err) {
@@ -65,6 +59,19 @@ class Modal extends React.Component {
       }
     });
   }
+
+  onChange = e => {
+    readXlsx(e.target.files[0]).then(rows => {
+      const schedules = rows.map(([
+        name, time, end_time, days, route, bus
+      ]) => ({
+        name, time, end_time, days: days.split(' '), route, bus
+      }))
+
+      this.setState({ schedules })
+    })
+  }
+
   render() {
     return (
       <div>
@@ -112,7 +119,7 @@ class Modal extends React.Component {
                         Please upload an Excell sheet with the following
                         collumns in the following order
                         {/* <br/> */}
-                        <code>bus_names, bus_phone, etc</code>
+                        <code>schedule_name, schedule_start_time, schedule_end_time, schedule_days, schedule_route(if exists), bus(if exists) etc</code>
                       </div>
                     </div>
                     <div className="form-group row">
@@ -124,6 +131,7 @@ class Modal extends React.Component {
                           name="excell-file"
                           type="file"
                           required
+                          onChange={this.onChange}
                         />
                       </div>
                     </div>
@@ -131,29 +139,35 @@ class Modal extends React.Component {
                     <Table
                       headers={[
                         {
-                          label: "bus Names",
-                          key: "names"
+                          label: "Schedule Names",
+                          key: "name"
                         },
                         {
-                          label: "Gender",
-                          key: "gender"
+                          label: "Start Time",
+                          key: "time"
                         },
                         {
-                          label: "Phone",
-                          key: "phone"
+                          label: "End Time",
+                          key: "end_time"
+                        },
+                        {
+                          label: "Days",
+                          key: "days"
+                        },
+                        {
+                          label: "Route",
+                          key: "route"
+                        },
+                        {
+                          label: "Bus",
+                          key: "bus"
                         }
                       ]}
                       options={{
                         deleteable: true,
                         editable: false
                       }}
-                      data={[
-                        {
-                          id: "testId",
-                          names: "uploaded name",
-                          gender: "Father"
-                        }
-                      ]}
+                      data={this.state.schedules}
                       delete={bus => {
                         this.setState({ remove: bus }, () => {
                           IDeleteModal.show();

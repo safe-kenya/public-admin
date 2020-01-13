@@ -259,10 +259,10 @@ var Data = (function () {
 
       schedules = response.schedules.map(schedule => {
         if (schedule.bus)
-          schedule.bus_make = schedule.bus.make
+          schedule.bus_make = schedule.bus?.make
 
         if (schedule.route)
-          schedule.route_name = schedule.route.name
+          schedule.route_name = schedule.route?.name
 
         return schedule
       });

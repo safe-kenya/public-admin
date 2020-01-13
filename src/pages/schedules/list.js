@@ -63,7 +63,7 @@ class BasicTable extends React.Component {
               drivers={drivers}
               save={schedule => Data.schedules.create(schedule)}
             />
-            <UploadModal save={schedule => Data.schedules.create(schedule)} />
+            <UploadModal save={schedules => schedules.forEach(schedule => Data.schedules.create(schedule))} />
             <DeleteModal
               remove={remove}
               save={schedule => Data.schedules.delete(schedule)}
