@@ -1,5 +1,6 @@
 import React from "react";
 import DeleteModal from "./deleteUploadRow";
+import readXlsx from "read-excel-file"
 
 // import "jquery-validation";
 // import $ from "jquery";
@@ -18,14 +19,7 @@ const modalNumber = Math.random()
 class Modal extends React.Component {
   state = {
     loading: false,
-    names: "Alice A mwali",
-    route: {
-      name: "mwali route"
-    },
-    gender: "Male",
-    driver: {
-      name: "Madam Essue"
-    }
+    drivers:[]
   };
 
   show() {
@@ -55,7 +49,7 @@ class Modal extends React.Component {
         event.preventDefault();
         try {
           _this.setState({ loading: true });
-          await _this.props.save(_this.state);
+          await _this.props.save(_this.state.drivers);
           _this.hide();
           _this.setState({ loading: false });
         } catch (err) {
@@ -64,6 +58,32 @@ class Modal extends React.Component {
         }
       }
     });
+  }
+
+  onChange = e => {
+    readXlsx(e.target.files[0]).then(rows => {
+      const drivers = rows.map(([
+        username,
+        phone,
+        email,
+        licence_number,
+        license_expiry,
+        home,
+        experience,
+        password
+      ]) => ({
+        username,
+        phone: `${phone}`,
+        email,
+        licence_number: `${licence_number}`,
+        license_expiry: `${license_expiry}`,
+        home,
+        experience: `${experience}`,
+        password
+      }))
+
+      this.setState({ drivers })
+    })
   }
   render() {
     return (
@@ -112,7 +132,7 @@ class Modal extends React.Component {
                         Please upload an Excell sheet with the following
                         collumns in the following order
                         {/* <br/> */}
-                        <code>driver_names, driver_phone, etc</code>
+                        <code>driver_names, driver_phone, driver_email etc</code>
                       </div>
                     </div>
                     <div className="form-group row">
@@ -124,6 +144,7 @@ class Modal extends React.Component {
                           name="excell-file"
                           type="file"
                           required
+                          onChange={this.onChange}
                         />
                       </div>
                     </div>
@@ -132,11 +153,11 @@ class Modal extends React.Component {
                       headers={[
                         {
                           label: "Drivers Names",
-                          key: "names"
+                          key: "username"
                         },
                         {
-                          label: "Gender",
-                          key: "gender"
+                          label: "Email",
+                          key: "email"
                         },
                         {
                           label: "Phone",
@@ -147,13 +168,7 @@ class Modal extends React.Component {
                         deleteable: true,
                         editable: false
                       }}
-                      data={[
-                        {
-                          id: "testId",
-                          names: "uploaded name",
-                          gender: "Father"
-                        }
-                      ]}
+                      data={this.state.drivers}
                       delete={driver => {
                         this.setState({ remove: driver }, () => {
                           IDeleteModal.show();

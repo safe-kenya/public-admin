@@ -40,7 +40,7 @@ class BasicTable extends React.Component {
         <div className="kt-grid kt-grid--hor kt-grid--root">
           <div className="kt-portlet kt-portlet--mobile">
             <AddModal save={drivers => Data.drivers.create(drivers)} />
-            <UploadModal save={drivers => Data.drivers.create(drivers)} />
+            <UploadModal save={drivers => drivers.forEach(driver => Data.drivers.create(driver))} />
             <DeleteModal
               remove={remove}
               save={driver => Data.drivers.delete(driver)}
