@@ -18,6 +18,7 @@ export default class GoogleMap extends Component {
       this.props.locations.map(({ loc }) => {
         this.createMarker(loc)
       })
+      this.createPolyline(this.googleMap)
     })
   }
 
@@ -27,6 +28,11 @@ export default class GoogleMap extends Component {
       center: this.props.locations[0].loc,
       disableDefaultUI: true,
     })
+
+  createPolyline = map => {
+    const polyline = new window.google.maps.Polyline({ path: this.props.locations })
+    polyline.setMap(map)
+  }
 
   createMarker = ({ lat, lng }) => {
     const marker = new window.google.maps.Marker({
