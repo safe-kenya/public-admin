@@ -248,7 +248,7 @@ var Data = (function () {
       teachers = response.teachers
       subs.teachers({ teachers });
 
-      classes = response.classes.map(Iclass => ({ ...Iclass, student_num : Iclass.students.length || 0, teacher_name: Iclass.teacher.name }));
+      classes = response.classes.map(Iclass => ({ ...Iclass, student_num : Iclass.students.length || 0, teacher_name: Iclass.teacher?.name }));
       subs.classes({ classes });
 
       routes = response.routes;
@@ -579,7 +579,7 @@ var Data = (function () {
           );
 
           data.id = id;
-          data.teacher_name = teachers.find(t => t.id === data.teacher).name
+          data.teacher_name = teachers.find(t => t.id === data.teacher)?.name
           data.student_num = 0
 
           classes = [...classes, data];
