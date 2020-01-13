@@ -149,7 +149,7 @@ class Modal extends React.Component {
                           id="class"
                           name="class"
                           required
-                          value={this.state.edit.class.name}
+                          value={this.state.edit.class_name}
                           onChange={(e) => this.setState({ edit : Object.assign(this.state.edit, {
                             class: this.props.classes.filter(Iclass => Iclass.name == e.target.value)[0],
                             class_name: e.target.value

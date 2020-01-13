@@ -1,6 +1,6 @@
 import React from "react";
 import DeleteModal from "./deleteUploadRow";
-
+import readXlsx from "read-excel-file"
 // import "jquery-validation";
 // import $ from "jquery";
 
@@ -22,6 +22,7 @@ class Modal extends React.Component {
     route: {
       name: "mwali route"
     },
+    students:[],
     gender: "Male",
     parent: {
       name: "Madam Essue"
@@ -55,7 +56,7 @@ class Modal extends React.Component {
         event.preventDefault();
         try {
           _this.setState({ loading: true });
-          await _this.props.save(_this.state);
+          await _this.props.save(_this.state.students);
           _this.hide();
           _this.setState({ loading: false });
         } catch (err) {
@@ -65,6 +66,14 @@ class Modal extends React.Component {
       }
     });
   }
+
+  onChange = e => {
+    readXlsx(e.target.files[0]).then(rows => {
+      const students = rows.map(([registration, names, route, gender ]) => ({ registration, names, route, gender}))
+      this.setState({ students })
+    })
+  }
+
   render() {
     return (
       <div>
@@ -112,7 +121,7 @@ class Modal extends React.Component {
                         Please upload an Excell sheet with the following
                         collumns in the following order
                         {/* <br/> */}
-                        <code>student_names, parent_phone, etc</code>
+                        <code>registration _number, student_names, student_gender, etc</code>
                       </div>
                     </div>
                     <div className="form-group row">
@@ -124,6 +133,7 @@ class Modal extends React.Component {
                           name="excell-file"
                           type="file"
                           required
+                          onChange={this.onChange}
                         />
                       </div>
                     </div>
@@ -143,23 +153,15 @@ class Modal extends React.Component {
                           key: "gender"
                         },
                         {
-                          label: "Parent",
-                          key: "parent"
+                          label: "Registration",
+                          key: "registration"
                         }
                       ]}
                       options={{
                         deleteable: true,
                         editable: false
                       }}
-                      data={[
-                        {
-                          id: "testId",
-                          names: "uploaded name",
-                          route: "uploaded route",
-                          gender: "male",
-                          parent: "uploaded parent"
-                        }
-                      ]}
+                      data={this.state.students}
                       delete={student => {
                         this.setState({ remove: student }, () => {
                           IDeleteModal.show();

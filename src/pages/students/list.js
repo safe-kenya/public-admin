@@ -67,7 +67,7 @@ class BasicTable extends React.Component {
 
               this.setState({ students })
             }} />
-            <UploadModal save={student => Data.students.create(student)} />
+            <UploadModal save={students => students.forEach(student => Data.students.create(student))} />
             <DeleteModal
               remove={remove}
               save={student => Data.students.delete(student)}
