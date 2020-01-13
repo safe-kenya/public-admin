@@ -40,7 +40,7 @@ class BasicTable extends React.Component {
         <div className="kt-grid kt-grid--hor kt-grid--root">
           <div className="kt-portlet kt-portlet--mobile">
             <AddModal save={teacher => Data.teachers.create(teacher)} />
-            <UploadModal save={teacher => Data.teachers.create(teacher)} />
+            <UploadModal save={teachers => teachers.forEach(teacher => Data.teachers.create(teacher))} />
             <DeleteModal
               remove={remove}
               save={teacher => Data.teachers.delete(teacher)}

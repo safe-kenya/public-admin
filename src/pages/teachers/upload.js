@@ -1,5 +1,6 @@
 import React from "react";
 import DeleteModal from "./deleteUploadRow";
+import readXlsx from "read-excel-file"
 
 // import "jquery-validation";
 // import $ from "jquery";
@@ -18,14 +19,7 @@ const modalNumber = Math.random()
 class Modal extends React.Component {
   state = {
     loading: false,
-    names: "Alice A mwali",
-    route: {
-      name: "mwali route"
-    },
-    gender: "Male",
-    parent: {
-      name: "Madam Essue"
-    }
+    teachers:[]
   };
 
   show() {
@@ -55,7 +49,7 @@ class Modal extends React.Component {
         event.preventDefault();
         try {
           _this.setState({ loading: true });
-          await _this.props.save(_this.state);
+          await _this.props.save(_this.state.teachers);
           _this.hide();
           _this.setState({ loading: false });
         } catch (err) {
@@ -65,6 +59,18 @@ class Modal extends React.Component {
       }
     });
   }
+
+  onChange = e => {
+    readXlsx(e.target.files[0]).then(rows => {
+      const teachers = rows.map(([
+        national_id, name, phone, email, gender
+      ]) => ({
+        national_id: `${national_id}`, name, phone:`${phone}`, email, gender
+      }))
+      this.setState({ teachers })
+    })
+  }
+
   render() {
     return (
       <div>
@@ -112,7 +118,7 @@ class Modal extends React.Component {
                         Please upload an Excell sheet with the following
                         collumns in the following order
                         {/* <br/> */}
-                        <code>student_names, parent_phone, etc</code>
+                        <code>national_id, teacher_name, teacher_phone, teacher_email, gender etc</code>
                       </div>
                     </div>
                     <div className="form-group row">
@@ -124,6 +130,7 @@ class Modal extends React.Component {
                           name="excell-file"
                           type="file"
                           required
+                          onChange={this.onChange}
                         />
                       </div>
                     </div>
@@ -131,12 +138,12 @@ class Modal extends React.Component {
                     <Table
                       headers={[
                         {
-                          label: "Parent Names",
-                          key: "names"
+                          label: "Teacher Names",
+                          key: "name"
                         },
                         {
-                          label: "Gender",
-                          key: "gender"
+                          label: "Teacher ID",
+                          key: "national_id"
                         },
                         {
                           label: "Email",
@@ -145,21 +152,19 @@ class Modal extends React.Component {
                         {
                           label: "Phone",
                           key: "phone"
+                        },
+                        {
+                          label: "Gender",
+                          key: "gender"
                         }
                       ]}
                       options={{
                         deleteable: true,
                         editable: false
                       }}
-                      data={[
-                        {
-                          id: "testId",
-                          names: "uploaded name",
-                          gender: "Father"
-                        }
-                      ]}
-                      delete={student => {
-                        this.setState({ remove: student }, () => {
+                      data={this.state.teachers}
+                      delete={teacher => {
+                        this.setState({ remove: teacher }, () => {
                           IDeleteModal.show();
                         });
 
