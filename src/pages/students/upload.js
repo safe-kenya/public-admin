@@ -18,15 +18,7 @@ const modalNumber = Math.random()
 class Modal extends React.Component {
   state = {
     loading: false,
-    names: "Alice A mwali",
-    route: {
-      name: "mwali route"
-    },
     students:[],
-    gender: "Male",
-    parent: {
-      name: "Madam Essue"
-    }
   };
 
   show() {
