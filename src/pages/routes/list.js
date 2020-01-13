@@ -19,10 +19,15 @@ class BasicTable extends React.Component {
   };
   componentDidMount() {
     const routes = Data.routes.list();
-    this.setState({ routes, filteredRoutes: routes });
+    const students = Data.students.list()
+    this.setState({ routes, filteredRoutes: routes, students });
 
     Data.routes.subscribe(({ routes }) => {
       this.setState({ routes, filteredRoutes: routes });
+    });
+
+    Data.students.subscribe(({ students }) => {
+      this.setState({ students });
     });
   }
 
@@ -38,8 +43,8 @@ class BasicTable extends React.Component {
       <div className="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-aside--enabled kt-aside--left kt-aside--fixed kt-aside--offcanvas-default kt-page--loading">
         <div className="kt-grid kt-grid--hor kt-grid--root">
           <div className="kt-portlet kt-portlet--mobile">
-            <AddModal save={routes => Data.routes.create(routes)} />
-            <UploadModal save={routes =>routes.forEach(route => Data.routes.create(route))} />
+            <AddModal students={this.state.students} save={routes => Data.routes.create(routes)} />
+            <UploadModal save={routes => routes.forEach(route => Data.routes.create(route))} />
             <DeleteModal
               remove={remove}
               save={route => Data.routes.delete(route)}

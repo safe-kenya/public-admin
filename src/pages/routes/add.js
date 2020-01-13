@@ -1,5 +1,7 @@
 import React from "react";
 import ErrorMessage from "./components/error-toast";
+import Data from "../../utils/data"
+
 const IErrorMessage = new ErrorMessage();
 
 const $ = window.$;
@@ -12,7 +14,9 @@ class Modal extends React.Component {
   state = {
     loading: false,
     name: "",
-    description: ""
+    description: "",
+    students:[],
+    studentList:[]
   };
 
   show() {
@@ -43,6 +47,7 @@ class Modal extends React.Component {
         try {
           _this.setState({ loading: true });
           _this.state.loading = undefined;
+          _this.state.studentList = undefined
           await _this.props.save(_this.state);
           _this.hide();
           _this.setState({ loading: false, name: "" });
@@ -56,7 +61,23 @@ class Modal extends React.Component {
         }
       }
     });
+
+    const studentList = Data.students.list()
+    this.setState({ studentList })
+
+    Data.students.subscribe(({ students: studentList }) => {
+      this.setState({ studentList })
+    })
   }
+
+  onSelect = (student) => {
+    this.setState((prevState, props) => {
+      const { students } = prevState
+      const filteredSelected = students.includes(student.id) ? students.filter(p => p !== student.id) : [...students, student.id]
+      return { students: filteredSelected }
+    })
+  }
+
   render() {
     return (
       <div>
@@ -125,6 +146,19 @@ class Modal extends React.Component {
                           }
                         />
                       </div>
+                    </div>
+                    <div className="col-md-4 col-lg-4 col-sm-12">
+                      <ul class="list-group list-group-flush">
+                        {this.state.studentList?.map(student => {
+                            return <li
+                              className="list-group-item"
+                              style={{ cursor: 'pointer' }}>
+                                <label class="kt-checkbox">
+                                  <input onChange={() => this.onSelect(student)} type="checkbox" checked={this.state.students.includes(student.id)} /> {student.names}<span></span>
+                                </label>
+                            </li>
+                        })}
+                      </ul>
                     </div>
                   </div>
                 </div>
